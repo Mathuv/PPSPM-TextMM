@@ -17,7 +17,8 @@ def tokenize(text):
     return re.split(r'[ \t\n]+', text) if text else text
 
 def remove_stopwords(tokens):
-    pass
+    stopwords = nltk.corpus.stopwords.words('english')
+    return [word for word in tokens if word not in stopwords] if tokens else tokens
 
 def stem(tokens):
     pass
@@ -61,6 +62,7 @@ header_rec = dbdata[:1]  #Patient table column headers
 dsr_list = []
 hpi_orginal = []
 hpi_list_tokenized = []
+hpi_list_stpwd_rm = []
 
 
 for row in dbdata[1:]:
@@ -70,15 +72,18 @@ for row in dbdata[1:]:
     # extract Histry of Present Illness
     row[10] = extract_hpl(row[10])
     hpi_orginal.append(row[0::10])
-    
-    
-    row[10] = tokenize(row[10])
+
     # create tokenized list
+    row[10] = tokenize(row[10])
     hpi_list_tokenized.append(row[0::10])
+
+    # create sstop word removed list
+    row[10] = remove_stopwords(row[10])
+    hpi_list_stpwd_rm.append(row[0::10])
 
     #create stemmed list
 
-    #content = [w for w in row if w.lower() not in stopwords]
+
 
 # write dischard summery text csv
 raw_filename = '..'+os.sep+'database'+os.sep+'step1'+os.sep+dbfilename+'_RAW.csv'
@@ -95,6 +100,8 @@ hpi_tokenized_filename = '..'+os.sep+'database'+os.sep+'step3'+os.sep+dbfilename
 write_file(hpi_list_tokenized,hpi_tokenized_filename)
 
 #write stop-words removed
+hpi_stpwd_rm_filename = '..'+os.sep+'database'+os.sep+'step4'+os.sep+dbfilename+'_HPI_stpwd_rm.csv'
+write_file(hpi_list_stpwd_rm,hpi_stpwd_rm_filename)
 
 pass
 
