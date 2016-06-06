@@ -2,6 +2,7 @@ import csv
 import nltk
 import re
 import os
+import errno
 from types import *
 from nltk.corpus import stopwords
 
@@ -36,6 +37,14 @@ def write_file2(content, file):
 
 def write_file(content, file):
     csv_rows = []
+
+    if not os.path.exists(os.path.dirname(file)):
+        try:
+            os.makedirs(os.path.dirname(file))
+        except OSError as exc:  # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+
     for line in content:
         if type(line[1]) is ListType:
             line[1] = ' '.join(line[1])
