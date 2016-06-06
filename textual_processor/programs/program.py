@@ -22,18 +22,6 @@ def remove_stopwords(tokens):
 def stem(tokens):
     pass
 
-def write_file2(content, file):
-    f = open(file,'w')
-    f.write('')
-    f.close()
-    f = open(file,'a')
-    for line in content:
-        if type(line[1]) is ListType:
-            string = [line[0], ' '.join(line[1])]
-        else:
-            string = line
-        f.write(','.join(string)+'\n')
-   
 
 def write_file(content, file):
     csv_rows = []
