@@ -6,8 +6,14 @@ from types import *
 from nltk.corpus import stopwords
 
 
+# extract History of Present Illness
+def extract_hpl(text):
+    match = re.search(r'History of Present Illness:\s((\S+\s)+)',text,re.IGNORECASE)
+    return match.group(1) if match  else match
+    
+# tokenize text into list of words
 def tokenize(text):
-    return re.split(r'[ \t\n]+', text)
+    return re.split(r'[ \t\n]+', text) if text else text
 
 def remove_stopwords(tokens):
     pass
@@ -26,7 +32,7 @@ def write_file2(content, file):
         else:
             string = line
         f.write(','.join(string)+'\n')
-    f.close()
+   
 
 def write_file(content, file):
     csv_rows = []
@@ -41,6 +47,7 @@ def write_file(content, file):
     with open(file, "wb") as f:
         writer = csv.writer(f)
         writer.writerows(csv_rows)
+    f.close()
 
 
 
@@ -54,14 +61,20 @@ content =[]
 
 header_rec = dbdata[:1]  #Patient table column headers
 
-hpi_list = []
+dsr_list = []
 hpi_orginal = []
 hpi_list_tokenized = []
-pass
+
 
 for row in dbdata[1:]:
     #unprocessed data
+    dsr_list.append(row[0::10])
+    
+    # extract Histry of Present Illness
+    row[10] = extract_hpl(row[10])
     hpi_orginal.append(row[0::10])
+    
+    
     row[10] = tokenize(row[10])
     # create tokenized list
     hpi_list_tokenized.append(row[0::10])
@@ -70,13 +83,19 @@ for row in dbdata[1:]:
 
     #content = [w for w in row if w.lower() not in stopwords]
 
-#write csv
-raw_filename = '..'+os.sep+'database'+os.sep+'step1'+os.sep+dbfilename+'_raw.csv'
-write_file(hpi_orginal,raw_filename)
+# write dischard summery text csv
+raw_filename = '..'+os.sep+'database'+os.sep+'step1'+os.sep+dbfilename+'_RAW.csv'
+write_file(dsr_list,raw_filename)
 
-#write tokenized file
-tokenized_filename = '..'+os.sep+'database'+os.sep+'step2'+os.sep+dbfilename+'_tokenized.csv'
-write_file(hpi_list_tokenized,tokenized_filename)
+
+# write 'History of Present Illness' text csv
+hpi_filename = '..'+os.sep+'database'+os.sep+'step2'+os.sep+dbfilename+'_HPI.csv'
+write_file(hpi_orginal,hpi_filename)
+
+
+# write tokenized  'History of Present Illness' text file
+hpi_tokenized_filename = '..'+os.sep+'database'+os.sep+'step3'+os.sep+dbfilename+'_HPI_tokenized.csv'
+write_file(hpi_list_tokenized,hpi_tokenized_filename)
 
 #write stop-words removed
 
