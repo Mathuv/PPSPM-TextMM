@@ -7,7 +7,7 @@ from types import *
 from nltk.corpus import stopwords
 
 
-# extract History of Present Illness
+# extract History of Present Illness - include step numbers here
 def extract_hpi(text):
     match = re.search(r'History of Present Illness:\s+((\S+\s)+)',text,re.IGNORECASE)
     return match.group(1) if match  else match
@@ -48,7 +48,7 @@ def write_file(content, file):
     f.close()
 
 
-
+# dbfilename can be passed as command line argument - dbfilename = sys.argv[0]
 dbfilename = 'NOTEEVENTS_DATA_TABLE_PARTIAL_20REC'
 dbfile = open('..'+os.sep+'database'+os.sep+dbfilename+'.csv')
 dbreader = csv.reader(dbfile)
@@ -67,7 +67,7 @@ hpi_list_stpwd_rm = []
 
 for row in dbdata[1:]:
     #unprocessed data
-    dsr_list.append(row[0::10])
+    dsr_list.append(row[0::10])    #why 10? is the number of rows 10 in this dataset? - looks like hard-coded
     
     # extract Histry of Present Illness
     row[10] = extract_hpi(row[10])
