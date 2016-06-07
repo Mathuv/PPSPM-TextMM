@@ -9,7 +9,7 @@ from nltk.corpus import stopwords
 
 # extract History of Present Illness
 def extract_hpl(text):
-    match = re.search(r'History of Present Illness:\s((\S+\s)+)',text,re.IGNORECASE)
+    match = re.search(r'History of Present Illness:\s+((\S+\s)+)',text,re.IGNORECASE)
     return match.group(1) if match  else match
     
 # tokenize text into list of words
