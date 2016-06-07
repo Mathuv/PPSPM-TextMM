@@ -8,7 +8,7 @@ from nltk.corpus import stopwords
 
 
 # extract History of Present Illness
-def extract_hpl(text):
+def extract_hpi(text):
     match = re.search(r'History of Present Illness:\s+((\S+\s)+)',text,re.IGNORECASE)
     return match.group(1) if match  else match
     
@@ -70,7 +70,7 @@ for row in dbdata[1:]:
     dsr_list.append(row[0::10])
     
     # extract Histry of Present Illness
-    row[10] = extract_hpl(row[10])
+    row[10] = extract_hpi(row[10])
     hpi_orginal.append(row[0::10])
 
     # create tokenized list
