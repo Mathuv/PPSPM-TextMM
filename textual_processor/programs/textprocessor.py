@@ -22,11 +22,11 @@ def remove_stopwords(tokens):
     stopwords = nltk.corpus.stopwords.words('english')
     return [word for word in tokens if word not in stopwords] if tokens else tokens
 
-# stemming - step 5
+# stemming - step 5 - the output of this step doesn't make sense, right? seems like it removes all the numerical values like age. if the word is not alpha we want to keep the word as it is (without stemming).
 def stem(tokens):
     porter = nltk.PorterStemmer()
     lancaster = nltk.LancasterStemmer()
-    return [porter.stem(word) for word in tokens if str(word).isalpha()] if tokens else tokens
+    return [porter.stem(word) for word in tokens if str(word).isalpha()] if tokens else tokens # please correct this.
 
 def pos_tagging(tokens):
     return [nltk.pos_tag(word) for word in tokens] if tokens else tokens
