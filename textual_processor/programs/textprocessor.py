@@ -26,7 +26,7 @@ def remove_stopwords(tokens):
 def stem(tokens):
     porter = nltk.PorterStemmer()
     lancaster = nltk.LancasterStemmer()
-    return [porter.stem(word) for word in tokens if str(word).isalpha()] if tokens else tokens # please correct this.
+    return [porter.stem(word) if str(word).isalpha() else word for word in tokens ] if tokens else tokens # please correct this.
 
 def pos_tagging(tokens):
     return [nltk.pos_tag(word) for word in tokens] if tokens else tokens
