@@ -1,9 +1,12 @@
+from __future__ import division, unicode_literals
 import csv
 import nltk
 import re
 import os
 import errno
 import sys
+import string
+import math
 from types import *
 from nltk.corpus import stopwords
 
@@ -12,26 +15,43 @@ from nltk.corpus import stopwords
 def extract_hpi(text):
     match = re.search(r'History of Present Illness:\s+((\S+\s)+)',text,re.IGNORECASE)
     return match.group(1) if match  else match
-    
+
 # tokenize text into list of words - step 3
 def tokenize(text):
-    return re.split(r'[ \t\n]+', text) if text else text
+    #return re.split(r'[ \t\n]+', text) if text else text
+    return nltk.word_tokenize(text) if text else text
 
 # remove stop words - step 4
 def remove_stopwords(tokens):
     stopwords = nltk.corpus.stopwords.words('english')
     return [word for word in tokens if word not in stopwords] if tokens else tokens
 
-# stemming - step 5 - the output of this step doesn't make sense, right? seems like it removes all the numerical values like age. if the word is not alpha we want to keep the word as it is (without stemming).
+# stemming - step 5 - the output of  this step doesn't make sense, right? seems like it removes all the numerical values like age. if the word is not alpha we want to keep the word as it is (without stemming).
 def stem(tokens):
     porter = nltk.PorterStemmer()
     lancaster = nltk.LancasterStemmer()
     return [porter.stem(word) if str(word).isalpha() else word for word in tokens ] if tokens else tokens # please correct this.
 
+# tagging
 def pos_tagging(tokens):
     return [nltk.pos_tag(word) for word in tokens] if tokens else tokens
 
 
+# Calculate TF - Step 6
+def tf(word, tokens):
+    return tokens.count(word) / len(tokens)
+
+# Num of text containing a word - Step 6
+def n_containing(word, textlist):
+    return sum(1 for blob in textlist if word in textlist)
+
+# Calculate IDF - Step 6
+def idf(word, textlist):
+    return math.log(len(textlist) / (1 + n_containing(word, textlist)))
+
+# Calculate TF-IDF - Step 6
+def tfidf(word, tokens, textlist):
+    return tf(word, tokens) * idf(word, textlist)
 
 
 def write_file(content, file):
@@ -46,7 +66,7 @@ def write_file(content, file):
 
     for line in content:
         if type(line[1]) is ListType:
-            line[1] = ' '.join(line[1])
+            line[1] = ' '.join(map(str,line[1]))
             csv_rows.append(line)
         else:
             csv_rows.append(line)
@@ -56,7 +76,6 @@ def write_file(content, file):
         writer = csv.writer(f)
         writer.writerows(csv_rows)
     f.close()
-
 
 
 def main(dbfile, id_column_header, text_column_header, text_section_header):
@@ -89,6 +108,7 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
     hpi_list_stpwd_rm = []
     hpi_list_stemmed = []
     hpi_list_pos_tagged = []
+    hpi_list_tfidf = []
 
 
     for row in dbdata[1:]:
@@ -98,6 +118,12 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
         # extract Histry of Present Illness - step 2
         row[text_column_no] = extract_hpi(row[text_column_no])
         hpi_orginal.append(row[id_column_no::text_column_no])
+
+        # convert to lower case
+        row[text_column_no] = row[text_column_no].lower()
+
+        # punctuation removal
+        row[text_column_no] = str(row[text_column_no]).translate(None, string.punctuation)
 
         # create tokenized list - step 3
         row[text_column_no] = tokenize(row[text_column_no])
@@ -115,33 +141,44 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
         row[text_column_no] = stem(row[text_column_no])
         hpi_list_stemmed.append(row[id_column_no::text_column_no])
 
+    # TF-IDF calculation - Step 6
+    for rec in hpi_list_stemmed:
+        scores = {token: tfidf(token,rec[1],[l[1] for l in hpi_list_stemmed]) for token in rec[1]}
+        sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+        hpi_list_tfidf.append([rec[0],sorted_words])
 
 
-    # write discharge summery text csv - step1
+
+    # write discharge summery text csv - step 1
     raw_filename = dbpath+os.sep+'step1'+os.sep+dbfilename+'_RAW.csv'
     write_file(dsr_list,raw_filename)
 
 
-    # write 'History of Present Illness' text csv - step2
+    # write 'History of Present Illness' text csv - step 2
     hpi_filename = dbpath+os.sep+'step2'+os.sep+dbfilename+'_HPI.csv'
     write_file(hpi_orginal,hpi_filename)
 
 
-    # write tokenized  'History of Present Illness' text file - step3
+    # write tokenized  'History of Present Illness' text file - step 3
     hpi_tokenized_filename = dbpath+os.sep+'step3'+os.sep+dbfilename+'_HPI_tokenized.csv'
     write_file(hpi_list_tokenized,hpi_tokenized_filename)
 
-    #write stop-words removed - step4
+    #write stop-words removed - step 4
     hpi_stpwd_rm_filename = dbpath+os.sep+'step4'+os.sep+dbfilename+'_HPI_stpwd_rm.csv'
     write_file(hpi_list_stpwd_rm,hpi_stpwd_rm_filename)
 
-    # write stemmed list - step5
+    # write stemmed list - step 5
     hpi_stemmed_filename = dbpath + os.sep + 'step5' + os.sep + dbfilename + '_HPI_stemmed.csv'
     write_file(hpi_list_stemmed, hpi_stemmed_filename)
 
     # write pos tagged - step
-    # hpi_pos_tagged_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_HPI_stemmed.csv'
+    # hpi_pos_tagged_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_HPI_tagged.csv'
     # write_file(hpi_list_pos_tagged, hpi_pos_tagged_filename)
+
+    # write if-idf output - Step 6
+    hpi_tfidf_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_HPI_tfidf.csv'
+    write_file(hpi_list_tfidf, hpi_tfidf_filename)
+
 
 
 if __name__ == "__main__":
