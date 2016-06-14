@@ -78,7 +78,7 @@ def write_file(content, file):
     f.close()
 
 
-def main(dbfile, id_column_header, text_column_header, text_section_header):
+def main(dbfile, id_column_header, text_column_header, text_section_header, m):
     #dbfile = sys.argv[1]
     #dbfile = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
     dbpath = os.path.dirname(dbfile)
@@ -110,6 +110,7 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
     hpi_list_pos_tagged = []
     hpi_list_tfidf = []
     hpi_list_stpwd_rm_tfidf = []
+    hpi_list_m_tokens = []
 
 
     for row in dbdata[1:]:
@@ -147,12 +148,15 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
         scores = {token: tfidf(token,rec[1],[l[1] for l in hpi_list_stemmed]) for token in rec[1]}
         sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         hpi_list_tfidf.append([rec[0],sorted_words])
+        # top m tokens with highest tf_idf score
+        hpi_list_m_tokens.append([rec[0],sorted_words[:int(m)]])
         
     # TF-IDF calculation before stemming - Step 6b
     for rec in hpi_list_stpwd_rm:
         scores = {token: tfidf(token, rec[1], [l[1] for l in hpi_list_stpwd_rm]) for token in rec[1]}
         sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         hpi_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
+
 
 
     # write discharge summery text csv - step 1
@@ -190,11 +194,14 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
     write_file(hpi_list_stpwd_rm_tfidf, hpi_stpwd_rm_tfidf_filename)
     
     # DV: as a next step (Step 7) select the top m words for each record and write in a csv file, so that we can compare the selected words before hash-mapping them
+    # write top m tokens with high if-idf score - Step 7
+    hpi_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_HPI_m_tfidf.csv'
+    write_file(hpi_list_m_tokens, hpi_m_tfidf_filename)
 
 
 
 if __name__ == "__main__":
-    main(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
+    main(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])
 
 
 
