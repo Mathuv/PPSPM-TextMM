@@ -26,7 +26,7 @@ def remove_stopwords(tokens):
     stopwords = nltk.corpus.stopwords.words('english')
     return [word for word in tokens if word not in stopwords] if tokens else tokens
 
-# stemming - step 5 - the output of  this step doesn't make sense, right? seems like it removes all the numerical values like age. if the word is not alpha we want to keep the word as it is (without stemming).
+# stemming - step 5 
 def stem(tokens):
     porter = nltk.PorterStemmer()
     lancaster = nltk.LancasterStemmer()
@@ -37,19 +37,19 @@ def pos_tagging(tokens):
     return [nltk.pos_tag(word) for word in tokens] if tokens else tokens
 
 
-# Calculate TF - Step 6
+# Calculate TF - Step 6.1
 def tf(word, tokens):
-    return tokens.count(word) / len(tokens)
+    return float(tokens.count(word)) / len(tokens)  #DV: use float to return float values - as in Python 2.7 if both the values are not floating point values, it will result in integer - e.g. 2/5 = 0 instead of 0.4
 
-# Num of text containing a word - Step 6
+# Num of records containing a word - Step 6.2
 def n_containing(word, textlist):
     return sum(1 for blob in textlist if word in textlist)
 
-# Calculate IDF - Step 6
+# Calculate IDF - Step 6.3
 def idf(word, textlist):
     return math.log(len(textlist) / (1 + n_containing(word, textlist)))
 
-# Calculate TF-IDF - Step 6
+# Calculate TF-IDF - Step 6.4
 def tfidf(word, tokens, textlist):
     return tf(word, tokens) * idf(word, textlist)
 
@@ -119,17 +119,17 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
         row[text_column_no] = extract_hpi(row[text_column_no])
         hpi_orginal.append(row[id_column_no::text_column_no])
 
-        # convert to lower case
+        # cleaning data - convert to lower case
         row[text_column_no] = row[text_column_no].lower()
 
-        # punctuation removal
+        # cleaning data - punctuation removal
         row[text_column_no] = str(row[text_column_no]).translate(None, string.punctuation)
 
         # create tokenized list - step 3
         row[text_column_no] = tokenize(row[text_column_no])
         hpi_list_tokenized.append(row[id_column_no::text_column_no])
 
-        # create sstop word removed list - step 4
+        # create stop word removed list - step 4
         row[text_column_no] = remove_stopwords(row[text_column_no])
         hpi_list_stpwd_rm.append(row[id_column_no::text_column_no])
 
@@ -146,7 +146,9 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
         scores = {token: tfidf(token,rec[1],[l[1] for l in hpi_list_stemmed]) for token in rec[1]}
         sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         hpi_list_tfidf.append([rec[0],sorted_words])
-
+        
+    # DV: can you also calculate TF_IDF before stemming (i.e. on the hpi_list_stpwd_rm) to see how the scores look like?
+    # May be save the output as Step 6b
 
 
     # write discharge summery text csv - step 1
@@ -178,6 +180,8 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
     # write if-idf output - Step 6
     hpi_tfidf_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_HPI_tfidf.csv'
     write_file(hpi_list_tfidf, hpi_tfidf_filename)
+    
+    # DV: as a next step (Step 7) select the top m words for each record and write in a csv file, so that we can compare the selected words before hash-mapping them
 
 
 
