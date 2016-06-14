@@ -39,7 +39,7 @@ def pos_tagging(tokens):
 
 # Calculate TF - Step 6.1
 def tf(word, tokens):
-    return float(tokens.count(word)) / len(tokens)  #DV: use float to return float values - as in Python 2.7 if both the values are not floating point values, it will result in integer - e.g. 2/5 = 0 instead of 0.4
+    return tokens.count(word) / len(tokens)
 
 # Num of records containing a word - Step 6.2
 def n_containing(word, textlist):
@@ -109,6 +109,7 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
     hpi_list_stemmed = []
     hpi_list_pos_tagged = []
     hpi_list_tfidf = []
+    hpi_list_stpwd_rm_tfidf = []
 
 
     for row in dbdata[1:]:
@@ -147,8 +148,11 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
         sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         hpi_list_tfidf.append([rec[0],sorted_words])
         
-    # DV: can you also calculate TF_IDF before stemming (i.e. on the hpi_list_stpwd_rm) to see how the scores look like?
-    # May be save the output as Step 6b
+    # TF-IDF calculation before stemming - Step 6b
+    for rec in hpi_list_stpwd_rm:
+        scores = {token: tfidf(token, rec[1], [l[1] for l in hpi_list_stpwd_rm]) for token in rec[1]}
+        sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+        hpi_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
 
 
     # write discharge summery text csv - step 1
@@ -180,6 +184,10 @@ def main(dbfile, id_column_header, text_column_header, text_section_header):
     # write if-idf output - Step 6
     hpi_tfidf_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_HPI_tfidf.csv'
     write_file(hpi_list_tfidf, hpi_tfidf_filename)
+
+    # write if-idf output - Step 6b
+    hpi_stpwd_rm_tfidf_filename = dbpath + os.sep + 'step6b' + os.sep + dbfilename + '_HPI_stpwd_rm_tfidf.csv'
+    write_file(hpi_list_stpwd_rm_tfidf, hpi_stpwd_rm_tfidf_filename)
     
     # DV: as a next step (Step 7) select the top m words for each record and write in a csv file, so that we can compare the selected words before hash-mapping them
 
