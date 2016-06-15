@@ -158,35 +158,35 @@ def main(dbfile, id_column_no, text_column_no, text_section_identifier, m):
     write_file(dsr_list,raw_filename)
 
     # write 'History of Present Illness' text csv - step 2
-    text_filename = dbpath+os.sep+'step2'+os.sep+dbfilename+'_HPI.csv'
+    text_filename = dbpath+os.sep+'step2'+os.sep+dbfilename+'_TEXT.csv'
     write_file(text_orginal,text_filename)
 
     # write tokenized  'History of Present Illness' text file - step 3
-    text_tokenized_filename = dbpath+os.sep+'step3'+os.sep+dbfilename+'_HPI_tokenized.csv'
+    text_tokenized_filename = dbpath+os.sep+'step3'+os.sep+dbfilename+'_TEXT_tokenized.csv'
     write_file(text_list_tokenized,text_tokenized_filename)
 
     # write stop-words removed - step 4
-    text_stpwd_rm_filename = dbpath+os.sep+'step4'+os.sep+dbfilename+'_HPI_stpwd_rm.csv'
+    text_stpwd_rm_filename = dbpath+os.sep+'step4'+os.sep+dbfilename+'_TEXT_stpwd_rm.csv'
     write_file(text_list_stpwd_rm,text_stpwd_rm_filename)
 
     # write stemmed list - step 5
-    text_stemmed_filename = dbpath + os.sep + 'step5' + os.sep + dbfilename + '_HPI_stemmed.csv'
+    text_stemmed_filename = dbpath + os.sep + 'step5' + os.sep + dbfilename + '_TEXT_stemmed.csv'
     write_file(text_list_stemmed, text_stemmed_filename)
 
     # write pos tagged - step
-    # text_pos_tagged_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_HPI_tagged.csv'
+    # text_pos_tagged_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tagged.csv'
     # write_file(text_list_pos_tagged, text_pos_tagged_filename)
 
     # write if-idf output - Step 6
-    text_tfidf_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_HPI_tfidf.csv'
+    text_tfidf_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tfidf.csv'
     write_file(text_list_tfidf, text_tfidf_filename)
 
     # write if-idf output - Step 6b
-    text_stpwd_rm_tfidf_filename = dbpath + os.sep + 'step6b' + os.sep + dbfilename + '_HPI_stpwd_rm_tfidf.csv'
+    text_stpwd_rm_tfidf_filename = dbpath + os.sep + 'step6b' + os.sep + dbfilename + '_TEXT_stpwd_rm_tfidf.csv'
     write_file(text_list_stpwd_rm_tfidf, text_stpwd_rm_tfidf_filename)
     
     # write top m tokens with high if-idf score - Step 7
-    text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_HPI_m_tfidf.csv'
+    text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_TEXT_m_tfidf.csv'
     write_file(text_list_m_tokens, text_m_tfidf_filename)
 
 if __name__ == "__main__":
