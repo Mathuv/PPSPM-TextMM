@@ -46,7 +46,6 @@ def pos_tagging(tokens):
 def tf(word, tokens):
     return tokens.count(word) / len(tokens)
 
-
 # Num of records containing a word - Step 6.2
 def n_containing(word, textlist):
     return sum(1 for blob in textlist if word in textlist)
@@ -108,6 +107,7 @@ def main(dbfile, id_column_no, text_column_no, text_section_identifier, m):
     text_list_tfidf = []
     text_list_stpwd_rm_tfidf = []
     text_list_m_tokens = []
+    text_list_m_tokens_tf = []
 
     for row in dbdata[1:]:
         # unprocessed data
@@ -153,6 +153,12 @@ def main(dbfile, id_column_no, text_column_no, text_section_identifier, m):
         sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         text_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
 
+
+    for rec1, rec2 in zip(text_list_m_tokens,text_list_stemmed):
+        tflist = [(word[0],rec2[1].count(word[0])) for word in rec1[1]]
+        text_list_m_tokens_tf.append([rec1[0],tflist])
+
+
     # write discharge summery text csv - step 1
     raw_filename = dbpath+os.sep+'step1'+os.sep+dbfilename+'_RAW.csv'
     write_file(dsr_list,raw_filename)
@@ -188,6 +194,11 @@ def main(dbfile, id_column_no, text_column_no, text_section_identifier, m):
     # write top m tokens with high if-idf score - Step 7
     text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_TEXT_m_tfidf.csv'
     write_file(text_list_m_tokens, text_m_tfidf_filename)
+
+    # write top m tokens of each record with their TF
+    text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
+    write_file(text_list_m_tokens_tf, text_m_tf_filename)
+
 
 if __name__ == "__main__":
     main(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])
