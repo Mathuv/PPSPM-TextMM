@@ -1,8 +1,10 @@
 from __future__ import division, unicode_literals
 import hashlib
 
+
 class TBF(object):
-    """Texttual Bloom Filter"""
+
+    """Textual Bloom Filter"""
 
     def __init__(self,l, k):
         self.l = l # length of bloom filter
@@ -13,7 +15,7 @@ class TBF(object):
         self.h1 = hashlib.sha1
         self.h2 = hashlib.md5
 
-    # add list of tokens (textual data) and corrosponding token frequencies
+    # add list of tokens (textual data) and corresponding token frequencies
     def add_list(self, val_list, freq_list):
 
         for val in val_list:
@@ -29,7 +31,7 @@ class TBF(object):
 
         return self.cbf
 
-    # Add a single token to the couting bloom filter
+    # Add a single token to the counting bloom filter
     def add_item(self, item):
         hex_str1 = self.h1(item).hexdigest()
         int1 = int(hex_str1, 16)
@@ -75,7 +77,7 @@ class TBF(object):
             gi = int(gi % self.l)
             self.cbf[gi] -= 1
 
-    # Calculate (Dice's coefficient) similarity  between a counting bloom filter and a list of tokens (between two textual data)
+    # Calculate (Dice's coefficient) similarity  between a counting bloom filter and a list of tokens.
     def cal_dc_sim_list(self, len_list1, list2):
 
         comm_tokens = 0
@@ -88,7 +90,7 @@ class TBF(object):
         sim = 2 * comm_tokens / int(len_list1) + len(list2)
         return sim
 
-    # Calculate (Jacccard's Index) similarity between a counting bloom filter and a list of tokens
+    # Calculate (Jaccard's Index) similarity between a counting bloom filter and a list of tokens
     def cal_ji_sim_list(self, len_list1, list2):
 
         comm_tokens = 0
@@ -101,8 +103,8 @@ class TBF(object):
         sim = comm_tokens / (int(len_list1) + len(list2) - comm_tokens)
         return sim
 
-    # calculate similarity between two counting bloom filters (between two textual data)
-    def cal_sim_cbf(self, cbf2):
+    # calculate dissimilarity between two counting bloom filters (between two textual data)
+    def cal_dissim_cbf(self, cbf2):
 
         assert len(self.cbf) == len(cbf2), 'bloom filters are not of same length'
         if len(self.cbf) == len(cbf2):
@@ -110,6 +112,7 @@ class TBF(object):
             for i in range(self.k):
                 sum_diff += abs(self.cbf[i] - cbf2[i])
 
+            # calculation of dissimilarity
             dissim = sum_diff / (2 * self.k)
 
         return dissim

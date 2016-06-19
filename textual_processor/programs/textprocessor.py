@@ -9,6 +9,7 @@ import string
 import math
 from types import *
 from nltk.corpus import stopwords
+from TBF import TBF
 
 
 # extract History of Present Illness - step 2
@@ -144,7 +145,7 @@ def main(dbfile, id_column_no, text_column_no, text_section_identifier, m):
         scores = {token: tfidf(token,rec[1],[l[1] for l in text_list_stemmed]) for token in rec[1]}
         sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         text_list_tfidf.append([rec[0],sorted_words])
-        # top m tokens with highest tf_idf score
+        # top m tokens with highest tf_idf score - step 7
         text_list_m_tokens.append([rec[0],sorted_words[:int(m)]])
         
     # TF-IDF calculation before stemming - Step 6b
@@ -153,10 +154,11 @@ def main(dbfile, id_column_no, text_column_no, text_section_identifier, m):
         sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         text_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
 
-
+    # top m tokens from each record with their local term count - step 8
     for rec1, rec2 in zip(text_list_m_tokens,text_list_stemmed):
         tflist = [(word[0],rec2[1].count(word[0])) for word in rec1[1]]
         text_list_m_tokens_tf.append([rec1[0],tflist])
+
 
 
     # write discharge summery text csv - step 1
@@ -195,7 +197,7 @@ def main(dbfile, id_column_no, text_column_no, text_section_identifier, m):
     text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_TEXT_m_tfidf.csv'
     write_file(text_list_m_tokens, text_m_tfidf_filename)
 
-    # write top m tokens of each record with their TF
+    # write top m tokens of each record with their term count - step 8
     text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
     write_file(text_list_m_tokens_tf, text_m_tf_filename)
 
