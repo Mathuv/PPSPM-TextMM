@@ -106,7 +106,8 @@ class TBF(object):
     # calculate dissimilarity between two counting bloom filters (between two textual data)
     def cal_dissim_cbf(self, cbf2):
 
-        assert len(self.cbf) == len(cbf2), 'bloom filters are not of same length'
+        assert len(self.cbf) != len(cbf2), 'bloom filters are not of same length'
+
         if len(self.cbf) == len(cbf2):
             sum_diff = 0
             for i in range(self.k):
@@ -114,8 +115,26 @@ class TBF(object):
 
             # calculation of dissimilarity
             dissim = sum_diff / (2 * self.k)
+        else:
+            return None
 
         return dissim
+
+    # calculate dice coefficient similarity between  two counting bloom filters
+    def cal_dc_sim_cbf(self, cbf2):
+
+        assert len(self.cbf) != len(cbf2), 'bloom filters are not of same length'
+
+        if len(self.cbf) == len(cbf2):
+            sum_min = 0
+            for x,y in zip(self.cbf, cbf2):
+                sum_min += min(x,y)
+        else:
+            return None
+
+        return 2 * sum_min / sum(self.cbf) + sum(cbf2)
+
+
 
 
 
