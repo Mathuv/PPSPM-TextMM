@@ -1,3 +1,4 @@
 import textprocessor
-
-textprocessor.main('../database/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv', 1, 11, 'History of Present Illness:', 10)
+dbfile = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
+queryfile = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
+textprocessor.main(dbfile,queryfile, 1, 11, 'History of Present Illness:', 10)
