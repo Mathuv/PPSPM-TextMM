@@ -12,202 +12,245 @@ from nltk.corpus import stopwords
 from TBF import TBF
 
 
-# extract History of Present Illness - step 2
-def extract_text(text,text_section_identifier):
-    # match = re.search(r'History of Present Illness:\s+((\S+\s)+)',text,re.IGNORECASE)
-    match = re.search(r''+text_section_identifier+'\s+((\S+\s)+)', text, re.IGNORECASE)
-    return match.group(1) if match else match
+class TextProc:
+
+    def __init__(self, m, length):
+        self.m = m
+        self.length = length
+
+        self.db_dict = {}
+        self.query_dict = {}
+
+        self.candidate_dict = {}
+        self.results_dict = {}
+
+        self.mcandidate_dict = {}
+        self.mresults_dict = {}
+
+        self.sim_dict = {}
+        self.rank_dict = {}
+        self.mrank_dict = {}
 
 
-# tokenize text into list of words - step 3
-def tokenize(text):
-    # return re.split(r'[ \t\n]+', text) if text else text
-    return nltk.word_tokenize(text) if text else text
+
+        # extract History of Present Illness - step 2
+    def extract_text(self,text,text_section_identifier):
+        # match = re.search(r'History of Present Illness:\s+((\S+\s)+)',text,re.IGNORECASE)
+        match = re.search(r''+text_section_identifier+'\s+((\S+\s)+)', text, re.IGNORECASE)
+        return match.group(1) if match else match
 
 
-# remove stop words - step 4
-def remove_stopwords(tokens):
-    stopwords = nltk.corpus.stopwords.words('english')
-    return [word for word in tokens if word not in stopwords] if tokens else tokens
+    # tokenize text into list of words - step 3
+    def tokenize(self,text):
+        # return re.split(r'[ \t\n]+', text) if text else text
+        return nltk.word_tokenize(text) if text else text
 
 
-# stemming - step 5 
-def stem(tokens):
-    porter = nltk.PorterStemmer()
-    lancaster = nltk.LancasterStemmer()
-    return [porter.stem(word) if str(word).isalpha() else word for word in tokens ] if tokens else tokens # please correct this.
+    # remove stop words - step 4
+    def remove_stopwords(self,tokens):
+        stopwords = nltk.corpus.stopwords.words('english')
+        return [word for word in tokens if word not in stopwords] if tokens else tokens
 
 
-# tagging
-def pos_tagging(tokens):
-    return [nltk.pos_tag(word) for word in tokens] if tokens else tokens
+    # stemming - step 5
+    def stem(self,tokens):
+        porter = nltk.PorterStemmer()
+        lancaster = nltk.LancasterStemmer()
+        return [porter.stem(word) if str(word).isalpha() else word for word in tokens ] if tokens else tokens # please correct this.
 
 
-# Calculate TF - Step 6.1
-def tf(word, tokens):
-    return tokens.count(word) / len(tokens)
-
-# Num of records containing a word - Step 6.2
-def n_containing(word, textlist):
-    return sum(1 for blob in textlist if word in textlist)
+    # tagging
+    def pos_tagging(self,tokens):
+        return [nltk.pos_tag(word) for word in tokens] if tokens else tokens
 
 
-# Calculate IDF - Step 6.3
-def idf(word, textlist):
-    return math.log(len(textlist) / (1 + n_containing(word, textlist)))
+    # Calculate TF - Step 6.1
+    def tf(self,word, tokens):
+        return tokens.count(word) / len(tokens)
+
+    # Num of records containing a word - Step 6.2
+    def n_containing(self,word, textlist):
+        return sum(1 for blob in textlist if word in textlist)
 
 
-# Calculate TF-IDF - Step 6.4
-def tfidf(word, tokens, textlist):
-    return tf(word, tokens) * idf(word, textlist)
+    # Calculate IDF - Step 6.3
+    def idf(self, word, textlist):
+        return math.log(len(textlist) / (1 + self.n_containing(word, textlist)))
 
 
-def write_file(content, file):
-    csv_rows = []
-
-    if not os.path.exists(os.path.dirname(file)):
-        try:
-            os.makedirs(os.path.dirname(file))
-        except OSError as exc:
-            if exc.errno != errno.EEXIST:
-                raise
-
-    for line in content:
-        if type(line[1]) is ListType:
-            line[1] = ' '.join(map(str,line[1]))
-            csv_rows.append(line)
-        else:
-            csv_rows.append(line)
-
-    # csv_rows = content
-    with open(file, "wb") as f:
-        writer = csv.writer(f)
-        writer.writerows(csv_rows)
-    f.close()
+    # Calculate TF-IDF - Step 6.4
+    def tfidf(self, word, tokens, textlist):
+        return self.tf(word, tokens) * self.idf(word, textlist)
 
 
-def main(dbfile, queryfile, id_column_no, text_column_no, text_section_identifier, m):
-    # Preprocess database file
-    preprocess(dbfile, id_column_no, text_column_no, text_section_identifier, m)
+    def write_file(self, content, file):
+        csv_rows = []
 
-    # Preprocess query file
-    preprocess(queryfile, id_column_no, text_column_no, text_section_identifier, m)
+        if not os.path.exists(os.path.dirname(file)):
+            try:
+                os.makedirs(os.path.dirname(file))
+            except OSError as exc:
+                if exc.errno != errno.EEXIST:
+                    raise
+
+        for line in content:
+            if type(line[1]) is ListType:
+                line[1] = ' '.join(map(str,line[1]))
+                csv_rows.append(line)
+            else:
+                csv_rows.append(line)
+
+        # csv_rows = content
+        with open(file, "wb") as f:
+            writer = csv.writer(f)
+            writer.writerows(csv_rows)
+        f.close()
 
 
-def preprocess(dbfile, id_column_no, text_column_no, text_section_identifier, m):
-    dbpath = os.path.dirname(dbfile)
-    dbfilename_ext = os.path.basename(dbfile)
-    dbfilename = os.path.splitext(dbfilename_ext)[0]
-    dbreader = csv.reader(open(dbfile))
-    dbdata = list(dbreader)
+    def main(self, dbfile, queryfile, id_column_no, text_column_no, text_section_identifier, m):
+        # Preprocess database file
+        self.preprocess(dbfile, id_column_no, text_column_no, text_section_identifier, m)
 
-    header_rec = dbdata[0]  # Patient table column headers
+        # Preprocess query file
+        self.preprocess(queryfile, id_column_no, text_column_no, text_section_identifier, m)
 
-    assert len(header_rec) >= int(id_column_no) > 0, 'id column number is out of range'
-    assert len(header_rec) >= int(text_column_no) > 0, 'text column number is out of range'
 
-    dsr_list = []
-    text_orginal = []
-    text_list_tokenized = []
-    text_list_stpwd_rm = []
-    text_list_stemmed = []
-    text_list_pos_tagged = []
-    text_list_tfidf = []
-    text_list_stpwd_rm_tfidf = []
-    text_list_m_tokens = []
-    text_list_m_tokens_tf = []
+    def preprocess(self, dbfile, id_column_no, text_column_no, text_section_identifier, m):
+        dbpath = os.path.dirname(dbfile)
+        dbfilename_ext = os.path.basename(dbfile)
+        dbfilename = os.path.splitext(dbfilename_ext)[0]
+        dbreader = csv.reader(open(dbfile))
+        dbdata = list(dbreader)
 
-    for row in dbdata[1:]:
-        # unprocessed data
-        dsr_list.append(row[id_column_no - 1::text_column_no - 1])
+        header_rec = dbdata[0]  # Patient table column headers
 
-        # extract Histry of Present Illness - step 2
-        row[text_column_no - 1] = extract_text(row[text_column_no - 1], text_section_identifier)
-        text_orginal.append(row[id_column_no - 1::text_column_no - 1])
+        assert len(header_rec) >= int(id_column_no) > 0, 'id column number is out of range'
+        assert len(header_rec) >= int(text_column_no) > 0, 'text column number is out of range'
 
-        # cleaning data - convert to lower case
-        row[text_column_no - 1] = row[text_column_no - 1].lower()
+        dsr_list = []
+        text_orginal = []
+        text_list_tokenized = []
+        text_list_stpwd_rm = []
+        text_list_stemmed = []
+        text_list_pos_tagged = []
+        text_list_tfidf = []
+        text_list_stpwd_rm_tfidf = []
+        text_list_m_tokens = []
+        text_list_m_tokens_tf = []
 
-        # cleaning data - punctuation removal
-        row[text_column_no - 1] = str(row[text_column_no - 1]).translate(None, string.punctuation)
+        for row in dbdata[1:]:
+            # unprocessed data
+            dsr_list.append(row[id_column_no - 1::text_column_no - 1])
 
-        # create tokenized list - step 3
-        row[text_column_no - 1] = tokenize(row[text_column_no - 1])
-        text_list_tokenized.append(row[id_column_no - 1::text_column_no - 1])
+            # extract Histry of Present Illness - step 2
+            row[text_column_no - 1] = self.extract_text(row[text_column_no - 1], text_section_identifier)
+            text_orginal.append(row[id_column_no - 1::text_column_no - 1])
 
-        # create stop word removed list - step 4
-        row[text_column_no - 1] = remove_stopwords(row[text_column_no - 1])
-        text_list_stpwd_rm.append(row[id_column_no - 1::text_column_no - 1])
+            # cleaning data - convert to lower case
+            row[text_column_no - 1] = row[text_column_no - 1].lower()
 
-        # pos tagging
-        # row[10] = pos_tagging(row[10])
-        # text_list_pos_tagged.append(row[0::10])
+            # cleaning data - punctuation removal
+            row[text_column_no - 1] = str(row[text_column_no - 1]).translate(None, string.punctuation)
 
-        # create stemmed list
-        row[text_column_no - 1] = stem(row[text_column_no - 1])
-        text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
+            # create tokenized list - step 3
+            row[text_column_no - 1] = self.tokenize(row[text_column_no - 1])
+            text_list_tokenized.append(row[id_column_no - 1::text_column_no - 1])
 
-    # TF-IDF calculation - Step 6
-    for rec in text_list_stemmed:
-        scores = {token: tfidf(token, rec[1], [l[1] for l in text_list_stemmed]) for token in rec[1]}
-        sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-        text_list_tfidf.append([rec[0], sorted_words])
-        # top m tokens with highest tf_idf score - step 7
-        text_list_m_tokens.append([rec[0], sorted_words[:int(m)]])
+            # create stop word removed list - step 4
+            row[text_column_no - 1] = self.remove_stopwords(row[text_column_no - 1])
+            text_list_stpwd_rm.append(row[id_column_no - 1::text_column_no - 1])
 
-    # TF-IDF calculation before stemming - Step 6b
-    for rec in text_list_stpwd_rm:
-        scores = {token: tfidf(token, rec[1], [l[1] for l in text_list_stpwd_rm]) for token in rec[1]}
-        sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-        text_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
+            # pos tagging
+            # row[10] = pos_tagging(row[10])
+            # text_list_pos_tagged.append(row[0::10])
 
-    # top m tokens from each record with their local term count - step 8
-    for rec1, rec2 in zip(text_list_m_tokens, text_list_stemmed):
-        tflist = [(word[0], rec2[1].count(word[0])) for word in rec1[1]]
-        text_list_m_tokens_tf.append([rec1[0], tflist])
+            # create stemmed list
+            row[text_column_no - 1] = self.stem(row[text_column_no - 1])
+            text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
 
-    # write discharge summery text csv - step 1
-    raw_filename = dbpath + os.sep + 'step1' + os.sep + dbfilename + '_RAW.csv'
-    write_file(dsr_list, raw_filename)
+        # TF-IDF calculation - Step 6
+        for rec in text_list_stemmed:
+            scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stemmed]) for token in rec[1]}
+            sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+            text_list_tfidf.append([rec[0], sorted_words])
+            # top m tokens with highest tf_idf score - step 7
+            text_list_m_tokens.append([rec[0], sorted_words[:int(m)]])
 
-    # write 'History of Present Illness' text csv - step 2
-    text_filename = dbpath + os.sep + 'step2' + os.sep + dbfilename + '_TEXT.csv'
-    write_file(text_orginal, text_filename)
+        # TF-IDF calculation before stemming - Step 6b
+        for rec in text_list_stpwd_rm:
+            scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stpwd_rm]) for token in rec[1]}
+            sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+            text_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
 
-    # write tokenized  'History of Present Illness' text file - step 3
-    text_tokenized_filename = dbpath + os.sep + 'step3' + os.sep + dbfilename + '_TEXT_tokenized.csv'
-    write_file(text_list_tokenized, text_tokenized_filename)
+        # top m tokens from each record with their local term count - step 8
+        for rec1, rec2 in zip(text_list_m_tokens, text_list_stemmed):
+            tflist = [(word[0], rec2[1].count(word[0])) for word in rec1[1]]
+            text_list_m_tokens_tf.append([rec1[0], tflist])
 
-    # write stop-words removed - step 4
-    text_stpwd_rm_filename = dbpath + os.sep + 'step4' + os.sep + dbfilename + '_TEXT_stpwd_rm.csv'
-    write_file(text_list_stpwd_rm, text_stpwd_rm_filename)
+        # write discharge summery text csv - step 1
+        raw_filename = dbpath + os.sep + 'step1' + os.sep + dbfilename + '_RAW.csv'
+        self.write_file(dsr_list, raw_filename)
 
-    # write stemmed list - step 5
-    text_stemmed_filename = dbpath + os.sep + 'step5' + os.sep + dbfilename + '_TEXT_stemmed.csv'
-    write_file(text_list_stemmed, text_stemmed_filename)
+        # write 'History of Present Illness' text csv - step 2
+        text_filename = dbpath + os.sep + 'step2' + os.sep + dbfilename + '_TEXT.csv'
+        self.write_file(text_orginal, text_filename)
 
-    # write pos tagged - step
-    # text_pos_tagged_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tagged.csv'
-    # write_file(text_list_pos_tagged, text_pos_tagged_filename)
+        # write tokenized  'History of Present Illness' text file - step 3
+        text_tokenized_filename = dbpath + os.sep + 'step3' + os.sep + dbfilename + '_TEXT_tokenized.csv'
+        self.write_file(text_list_tokenized, text_tokenized_filename)
 
-    # write if-idf output - Step 6
-    text_tfidf_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tfidf.csv'
-    write_file(text_list_tfidf, text_tfidf_filename)
+        # write stop-words removed - step 4
+        text_stpwd_rm_filename = dbpath + os.sep + 'step4' + os.sep + dbfilename + '_TEXT_stpwd_rm.csv'
+        self.write_file(text_list_stpwd_rm, text_stpwd_rm_filename)
 
-    # write if-idf output - Step 6b
-    text_stpwd_rm_tfidf_filename = dbpath + os.sep + 'step6b' + os.sep + dbfilename + '_TEXT_stpwd_rm_tfidf.csv'
-    write_file(text_list_stpwd_rm_tfidf, text_stpwd_rm_tfidf_filename)
+        # write stemmed list - step 5
+        text_stemmed_filename = dbpath + os.sep + 'step5' + os.sep + dbfilename + '_TEXT_stemmed.csv'
+        self.write_file(text_list_stemmed, text_stemmed_filename)
 
-    # write top m tokens with high if-idf score - Step 7
-    text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_TEXT_m_tfidf.csv'
-    write_file(text_list_m_tokens, text_m_tfidf_filename)
+        # write pos tagged - step
+        # text_pos_tagged_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tagged.csv'
+        # write_file(text_list_pos_tagged, text_pos_tagged_filename)
 
-    # write top m tokens of each record with their term count - step 8
-    text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
-    write_file(text_list_m_tokens_tf, text_m_tf_filename)
+        # write if-idf output - Step 6
+        text_tfidf_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tfidf.csv'
+        self.write_file(text_list_tfidf, text_tfidf_filename)
+
+        # write if-idf output - Step 6b
+        text_stpwd_rm_tfidf_filename = dbpath + os.sep + 'step6b' + os.sep + dbfilename + '_TEXT_stpwd_rm_tfidf.csv'
+        self.write_file(text_list_stpwd_rm_tfidf, text_stpwd_rm_tfidf_filename)
+
+        # write top m tokens with high if-idf score - Step 7
+        text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_TEXT_m_tfidf.csv'
+        self.write_file(text_list_m_tokens, text_m_tfidf_filename)
+
+        # write top m tokens of each record with their term count - step 8
+        text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
+        self.write_file(text_list_m_tokens_tf, text_m_tf_filename)
+
+
+    def compare_masked(self):
+        pass
+
+    def compare_unmasked(self):
+        pass
 
 if __name__ == "__main__":
-    main(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6])
+    db_file = sys.argv[1]
+    query_file = sys.argv[2]
+    id_column_no = int(sys.argv[3])
+    text_column_no = int(sys.argv[4])
+    text_section_identifier = sys.argv[5]
+    m = int(sys.argv[6])
+
+    length = 1000
+
+    tproc = TextProc(m, length)
+
+    tproc.preprocess(db_file, id_column_no, text_column_no, text_section_identifier, m)
+
+    tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, m)
+
+
 
 
 
