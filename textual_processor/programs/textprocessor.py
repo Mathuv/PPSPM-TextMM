@@ -138,6 +138,8 @@ class TextProc:
         text_list_m_tokens = []
         text_list_m_tokens_tf = []
 
+        rec_dict = {}
+
         for row in dbdata[1:]:
             # unprocessed data
             dsr_list.append(row[id_column_no - 1::text_column_no - 1])
@@ -186,6 +188,9 @@ class TextProc:
         for rec1, rec2 in zip(text_list_m_tokens, text_list_stemmed):
             tflist = [(word[0], rec2[1].count(word[0])) for word in rec1[1]]
             text_list_m_tokens_tf.append([rec1[0], tflist])
+            # dictionary of records to compare
+            tf_idf_list = [(word[0], rec2[1].count(word[0]), word[1]) for word in rec1[1]]
+            rec_dict[rec1[0]] = tf_idf_list
 
         # write discharge summery text csv - step 1
         raw_filename = dbpath + os.sep + 'step1' + os.sep + dbfilename + '_RAW.csv'
@@ -227,9 +232,26 @@ class TextProc:
         text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
         self.write_file(text_list_m_tokens_tf, text_m_tf_filename)
 
+        return rec_dict
 
     def compare_masked(self):
-        pass
+
+        rec_dict = self.rec_dict
+        query_dict = self.query_dict
+        m = self.m
+        length = self.length
+
+        val_list = []
+        freq_list = []
+
+        for (rec_id, clean_rec) in query_dict.iteritems():
+            val_list = [item[0] for item in clean_rec]
+            freq_list = [item[1] for item in clean_rec]
+
+            tbf_q_rec = TBF()
+            tbf_q_rec.add_list(val_list, freq_list)
+
+
 
     def compare_unmasked(self):
         pass
@@ -246,9 +268,15 @@ if __name__ == "__main__":
 
     tproc = TextProc(m, length)
 
-    tproc.preprocess(db_file, id_column_no, text_column_no, text_section_identifier, m)
+    # preprocess the databse records
+    tproc.db_dict =  tproc.preprocess(db_file, id_column_no, text_column_no, text_section_identifier, m)
 
-    tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, m)
+    # preprocess the query records
+    tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, m)
+
+    # read db to compare
+
+    # read query to compare
 
 
 

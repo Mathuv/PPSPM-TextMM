@@ -6,7 +6,7 @@ class TBF(object):
 
     """Textual Bloom Filter"""
 
-    def __init__(self,l, k):
+    def __init__(self,l=1000, k=20):
         self.l = l # length of bloom filter
         self.k = k # number of hash functions
 
