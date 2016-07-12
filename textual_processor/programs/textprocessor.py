@@ -12,8 +12,8 @@ from nltk.corpus import stopwords
 from TBF import TBF
 
 
-# Calculate DC similarity with both tf (term frequency) and idf (inverse document frequency)
-def calc_sim_tf_idf(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
+def mcalc_sim_tf_idf(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
+    """Calculate DC similarity with both tf (term frequency) and idf (inverse document frequency)"""
     sum_min = 0
     div_cbf1 = 0
     div_cbf2 = 0
@@ -26,24 +26,24 @@ def calc_sim_tf_idf(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
     return 2 * sum_min / (div_cbf1 + div_cbf2)
 
 
-# Calculate DC similarity only with tf (term frequency)
-def calc_sim_tf(cbf_tf1, cbf_tf2):
+def mcalc_sim_freq(cbf1, cbf2):
+    """Calculate DC similarity only with tf (term frequency)"""
     sum_min = 0
 
-    for q, d in zip(cbf_tf1, cbf_tf2):
+    for q, d in zip(cbf1, cbf2):
         sum_min += min(q, d)
 
-    return 2 * sum_min / (sum(cbf_tf1) + sum(cbf_tf2))
+    return 2 * sum_min / (sum(cbf1) + sum(cbf2))
 
-# Calculate DC similarity only with idf (inverse document frequebcy)
-def calc_sim_idf(cbf_idf1, cbf_idf2):
-    sum_min =0
+def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_lis2, idf_list2):
+    """Calculates the Dice's Coefficient Similarity between two list of tokens
+        considering their term frequency and inverse document frequency"""
+    return 0
 
-    for q, d in zip(cbf_idf1, cbf_idf2):
-        sum_min += min(q, d)
-
-    return 2 * sum_min / (sum(cbf_idf1) + sum(cbf_idf2))
-
+def calc_sim_freq(term_list1, freq_list1, term_list2, freq_lis2):
+    """Calculates the Dice's Coefficient Similarity between two list of tokens
+        considering their term frequency"""
+    return 0
 
 class TextProc:
 
@@ -67,26 +67,21 @@ class TextProc:
         self.rank_dict = {}
         self.mrank_dict = {}
 
-
-
-        # extract History of Present Illness - step 2
+    # extract History of Present Illness - step 2
     def extract_text(self,text,text_section_identifier):
         # match = re.search(r'History of Present Illness:\s+((\S+\s)+)',text,re.IGNORECASE)
         match = re.search(r''+text_section_identifier+'\s+((\S+\s)+)', text, re.IGNORECASE)
         return match.group(1) if match else match
-
 
     # tokenize text into list of words - step 3
     def tokenize(self,text):
         # return re.split(r'[ \t\n]+', text) if text else text
         return nltk.word_tokenize(text) if text else text
 
-
     # remove stop words - step 4
     def remove_stopwords(self,tokens):
         stopwords = nltk.corpus.stopwords.words('english')
         return [word for word in tokens if word not in stopwords] if tokens else tokens
-
 
     # stemming - step 5
     def stem(self,tokens):
@@ -94,11 +89,9 @@ class TextProc:
         lancaster = nltk.LancasterStemmer()
         return [porter.stem(word) if str(word).isalpha() else word for word in tokens ] if tokens else tokens # please correct this.
 
-
     # tagging
     def pos_tagging(self,tokens):
         return [nltk.pos_tag(word) for word in tokens] if tokens else tokens
-
 
     # Calculate TF - Step 6.1
     def tf(self,word, tokens):
@@ -108,16 +101,13 @@ class TextProc:
     def n_containing(self,word, textlist):
         return sum(1 for blob in textlist if word in textlist)
 
-
     # Calculate IDF - Step 6.3
     def idf(self, word, textlist):
         return math.log(len(textlist) / (1 + self.n_containing(word, textlist)))
 
-
     # Calculate TF-IDF - Step 6.4
     def tfidf(self, word, tokens, textlist):
         return self.tf(word, tokens) * self.idf(word, textlist)
-
 
     def write_file(self, content, file):
         csv_rows = []
@@ -260,18 +250,20 @@ class TextProc:
         text_stpwd_rm_tfidf_filename = dbpath + os.sep + 'step6b' + os.sep + dbfilename + '_TEXT_stpwd_rm_tfidf.csv'
         self.write_file(text_list_stpwd_rm_tfidf, text_stpwd_rm_tfidf_filename)
 
-        # write top m tokens with high if-idf score - Step 7
+        # write top t tokens with high if-idf score - Step 7
         text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_TEXT_m_tfidf.csv'
         self.write_file(text_list_m_tokens, text_m_tfidf_filename)
 
-        # write top m tokens of each record with their term count - step 8
+        # write top t tokens of each record with their term count - step 8
         text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
         self.write_file(text_list_m_tokens_tf, text_m_tf_filename)
 
         return db_dict
 
-    # Compare bloom filter encoded query records with bloom filter encoded database records
-    def compare_masked(self):
+    def compare_masked(self, comp_type='TF'):
+        """Compare bloom filter encoded query records with bloom filter encoded database records
+            @comp_type - similarity calculation type
+        """
 
         db_dict = self.db_dict
         rec_dict = self.db_dict
@@ -280,31 +272,46 @@ class TextProc:
         m = self.m
         length = self.length
 
-        term_list = []
-        tf_list = []
-        idf_list = []
-
         # Create a dictionary of counting bloom filter - represent db
         for (rec_id, clean_rec) in db_dict.iteritems():
-            term_list = [item[0] for item in clean_rec]
-            tf_list = [item[1] for item in clean_rec]
-            idf_list = [item[2] for item in clean_rec]
-
             tbf_db_rec = TBF()
-            self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, tf_list, idf_list)
+            term_list = [item[0] for item in clean_rec]
+
+            if comp_type == 'TF':
+                freq_list = [item[1] for item in clean_rec]
+                self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
+            elif comp_type == 'IDF':
+                freq_list = [item[2] for item in clean_rec]
+                self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
+            elif comp_type == 'TF-IDF':
+                freq_list = [item[1] for item in clean_rec]
+                idf_list = [item[2] for item in clean_rec]
+                self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list, idf_list)
 
         # Create a dictionary of counting bloom filter - represent query
         for (rec_id, clean_rec) in query_dict.iteritems():
-            term_list = [item[0] for item in clean_rec]
-            tf_list = [item[1] for item in clean_rec]
-            idf_list = [item[2] for item in clean_rec]
-
             tbf_q_rec = TBF()
-            self.mquery_dict[rec_id] = tbf_q_rec.add_list(term_list, tf_list, idf_list)
+            term_list = [item[0] for item in clean_rec]
+
+            if comp_type == 'TF':
+                freq_list = [item[1] for item in clean_rec]
+                self.mquery_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
+            elif comp_type == 'IDF':
+                freq_list = [item[2] for item in clean_rec]
+                self.mquery_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
+            elif comp_type == 'TF-IDF':
+                freq_list = [item[1] for item in clean_rec]
+                idf_list = [item[2] for item in clean_rec]
+                self.mquery_dict[rec_id] = tbf_q_rec.add_list_tfidf(term_list, freq_list, idf_list)
+
 
         for q_rec in self.mquery_dict.iteritems():
             for db_rec in self.mdb_dict.iteritems():
-                sim_val = calc_sim_tf_idf(q_rec[1][0], q_rec[1][1],db_rec[1][0], db_rec[1][1])
+
+                if comp_type in ['TF','IDF']:
+                    sim_val = mcalc_sim_freq(q_rec[1][0], db_rec[1][0])
+                elif comp_type == 'TF-IDF':
+                    sim_val = mcalc_sim_tf_idf(q_rec[1][0], q_rec[1][1], db_rec[1][0], db_rec[1][1])
 
                 # Store similarity results in mcandidate_dict
                 if q_rec[0] in mcandidate_dict:
@@ -314,32 +321,83 @@ class TextProc:
                     this_rec_dict = {db_rec[0]: sim_val}
                     mcandidate_dict[q_rec[0]] = this_rec_dict
 
-    # compare unmasked query records with database records
-    def compare_unmasked(self):
-        pass
+    def compare_unmasked(self, comp_type='TF'):
+        """compare unmasked query records with database records
+            @comp_type - similarity calculation type
+        """
+        db_dict = self.db_dict
+        rec_dict = self.db_dict
+        query_dict = self.query_dict
+        candidate_dict = self.candidate_dict
+        m = self.m
+        length = self.length
 
+        for (q_rec_id, q_clean_rec) in query_dict.iteritems():
+            for (db_rec_id, db_clean_rec) in db_dict.iteritems():
+                q_term_list = [item[0] for item in q_clean_rec]
+                db_term_list = [item[0] for item in db_clean_rec]
+
+                if comp_type == 'TF':
+                    q_freq_list = [item[1] for item in q_clean_rec]
+                    db_freq_list = [item[1] for item in db_clean_rec]
+
+                    sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
+
+                elif comp_type == 'IDF':
+                    q_freq_list = [item[2] for item in q_clean_rec]
+                    db_freq_list = [item[2] for item in db_clean_rec]
+
+                    sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
+
+                elif comp_type == 'TF-IDF':
+                    q_freq_list = [item[1] for item in q_clean_rec]
+                    q_idf_list = [item[2] for item in q_clean_rec]
+
+                    db_freq_list = [item[1] for item in db_clean_rec]
+                    db_idf_list = [item[2] for item in db_clean_rec]
+
+                    sim_val = calc_sim_tf_idf(q_term_list, q_freq_list, q_idf_list, db_term_list, db_freq_list, db_idf_list)
+
+                # Store similarity results in candidate_dict
+                if q_rec_id in candidate_dict:
+                    this_rec_dict = candidate_dict[q_rec_id]
+                    this_rec_dict[db_rec_id] = sim_val
+                else:
+                    this_rec_dict = {db_rec_id: sim_val}
+                    candidate_dict[q_rec_id] = this_rec_dict
 
 
 if __name__ == "__main__":
+    # absolute path of db file
     db_file = sys.argv[1]
+    # absolute path of query file
     query_file = sys.argv[2]
+    # column number of record identifier (primary key)
     id_column_no = int(sys.argv[3])
+    # column number of the column that contains the textual data
     text_column_no = int(sys.argv[4])
+    # starting string of section of textual data
     text_section_identifier = sys.argv[5]
-    m = int(sys.argv[6])
+    # number of tokens to select from each record
+    t = int(sys.argv[6])
 
-    length = 1000
+
+    length = 1000 # length of bloom filter
+    m = 10 # number of similar records
 
     tproc = TextProc(m, length)
 
     # preprocess the databse records
-    tproc.db_dict =  tproc.preprocess(db_file, id_column_no, text_column_no, text_section_identifier, m)
+    tproc.db_dict =  tproc.preprocess(db_file, id_column_no, text_column_no, text_section_identifier, t)
 
     # preprocess the query records
-    tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, m)
+    tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, t)
 
     # compare masked
-    tproc.compare_masked()
+    tproc.compare_masked('TF-IDF')
+
+    # compare unmasked
+    tproc.compare_unmasked('TF-IDF')
 
     pass
 
