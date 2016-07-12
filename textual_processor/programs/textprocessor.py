@@ -12,6 +12,39 @@ from nltk.corpus import stopwords
 from TBF import TBF
 
 
+# Calculate DC similarity with both tf (term frequency) and idf (inverse document frequency)
+def calc_sim_tf_idf(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
+    sum_min = 0
+    div_cbf1 = 0
+    div_cbf2 = 0
+
+    for q1, q2, d1, d2  in zip(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
+        sum_min += min(q1, d1) * ((q2 + d2)/2)
+        div_cbf1 += q1 * q2
+        div_cbf2 += d1 * d2
+
+    return 2 * sum_min / (div_cbf1 + div_cbf2)
+
+
+# Calculate DC similarity only with tf (term frequency)
+def calc_sim_tf(cbf_tf1, cbf_tf2):
+    sum_min = 0
+
+    for q, d in zip(cbf_tf1, cbf_tf2):
+        sum_min += min(q, d)
+
+    return 2 * sum_min / (sum(cbf_tf1) + sum(cbf_tf2))
+
+# Calculate DC similarity only with idf (inverse document frequebcy)
+def calc_sim_idf(cbf_idf1, cbf_idf2):
+    sum_min =0
+
+    for q, d in zip(cbf_idf1, cbf_idf2):
+        sum_min += min(q, d)
+
+    return 2 * sum_min / (sum(cbf_idf1) + sum(cbf_idf2))
+
+
 class TextProc:
 
     def __init__(self, m, length):
@@ -20,6 +53,9 @@ class TextProc:
 
         self.db_dict = {}
         self.query_dict = {}
+
+        self.mdb_dict = {}
+        self.mquery_dict = {}
 
         self.candidate_dict = {}
         self.results_dict = {}
@@ -138,7 +174,7 @@ class TextProc:
         text_list_m_tokens = []
         text_list_m_tokens_tf = []
 
-        rec_dict = {}
+        db_dict = {}
 
         for row in dbdata[1:]:
             # unprocessed data
@@ -190,7 +226,7 @@ class TextProc:
             text_list_m_tokens_tf.append([rec1[0], tflist])
             # dictionary of records to compare
             tf_idf_list = [(word[0], rec2[1].count(word[0]), word[1]) for word in rec1[1]]
-            rec_dict[rec1[0]] = tf_idf_list
+            db_dict[rec1[0]] = tf_idf_list
 
         # write discharge summery text csv - step 1
         raw_filename = dbpath + os.sep + 'step1' + os.sep + dbfilename + '_RAW.csv'
@@ -232,29 +268,56 @@ class TextProc:
         text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
         self.write_file(text_list_m_tokens_tf, text_m_tf_filename)
 
-        return rec_dict
+        return db_dict
 
+    # Compare bloom filter encoded query records with bloom filter encoded database records
     def compare_masked(self):
 
-        rec_dict = self.rec_dict
+        db_dict = self.db_dict
         query_dict = self.query_dict
+        mcandidate_dict = self.mcandidate_dict
         m = self.m
         length = self.length
 
-        val_list = []
-        freq_list = []
+        term_list = []
+        tf_list = []
+        idf_list = []
 
+        # Create a dictionary of counting bloom filter - represent db
+        for (rec_id, clean_rec) in db_dict.iteritems():
+            term_list = [item[0] for item in clean_rec]
+            tf_list = [item[1] for item in clean_rec]
+            idf_list = [item[2] for item in clean_rec]
+
+            tbf_db_rec = TBF()
+            self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, tf_list, idf_list)
+
+        # Create a dictionary of counting bloom filter - represent query
         for (rec_id, clean_rec) in query_dict.iteritems():
-            val_list = [item[0] for item in clean_rec]
-            freq_list = [item[1] for item in clean_rec]
+            term_list = [item[0] for item in clean_rec]
+            tf_list = [item[1] for item in clean_rec]
+            idf_list = [item[2] for item in clean_rec]
 
             tbf_q_rec = TBF()
-            tbf_q_rec.add_list(val_list, freq_list)
+            self.mquery_dict[rec_id] = tbf_q_rec.add_list(term_list, tf_list, idf_list)
 
+        for q_rec in self.mquery_dict.iteritems():
+            for db_rec in self.mdb_dict.iteritems():
+                sim_val = calc_sim_tf_idf(q_rec[1][0], q_rec[1][1],db_rec[1][0], db_rec[1][1])
 
+                # Store similarity results in mcandidate_dict
+                if q_rec[0] in mcandidate_dict:
+                    this_rec_dict = mcandidate_dict[q_rec[0] ]
+                    this_rec_dict[db_rec[0]] = sim_val
+                else:
+                    this_rec_dict = {db_rec[0]: sim_val}
+                    mcandidate_dict[q_rec[0]] = this_rec_dict
 
+    # compare unmasked query records with database records
     def compare_unmasked(self):
         pass
+
+
 
 if __name__ == "__main__":
     db_file = sys.argv[1]
@@ -274,9 +337,12 @@ if __name__ == "__main__":
     # preprocess the query records
     tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, m)
 
-    # read db to compare
+    # compare masked
+    tproc.compare_masked()
 
-    # read query to compare
+    pass
+
+
 
 
 
