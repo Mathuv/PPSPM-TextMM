@@ -274,6 +274,7 @@ class TextProc:
     def compare_masked(self):
 
         db_dict = self.db_dict
+        rec_dict = self.db_dict
         query_dict = self.query_dict
         mcandidate_dict = self.mcandidate_dict
         m = self.m
