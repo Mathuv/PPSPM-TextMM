@@ -43,6 +43,17 @@ def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_lis2, id
 def calc_sim_freq(term_list1, freq_list1, term_list2, freq_lis2):
     """Calculates the Dice's Coefficient Similarity between two list of tokens
         considering their term frequency"""
+        #DV: 
+        # sum_min = 0
+        #comm_terms = list(set(term_list1).intersection(set(term_list2)))
+        #if comm_terms != []:
+        #  for tok in comm_terms:
+        #    sum_min += min(freq_list1[term_list1.index(tok)],freq_list2[term_list2.index(tok)])
+        #  sim = 2 * sum_min / (sum(freq_list1) + sum(freq_list2))
+        #else:
+        #  sim = 0.0
+        #return sim
+
     return 0
 
 class TextProc:
