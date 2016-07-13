@@ -23,38 +23,58 @@ def mcalc_sim_tf_idf(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
         div_cbf1 += q1 * q2
         div_cbf2 += d1 * d2
 
-    return 2 * sum_min / (div_cbf1 + div_cbf2)
+    if div_cbf1 + div_cbf2:
+        return 2 * sum_min / (div_cbf1 + div_cbf2)
+    else:
+        return 0.0
 
 
 def mcalc_sim_freq(cbf1, cbf2):
     """Calculate DC similarity only with tf (term frequency)"""
     sum_min = 0
 
-    for q, d in zip(cbf1, cbf2):
-        sum_min += min(q, d)
+    # for q, d in zip(cbf1, cbf2):
+    #     sum_min += min(q, d)
+
+    sum_min = sum([min(i,j) for i,j in zip(cbf1, cbf2)])
 
     return 2 * sum_min / (sum(cbf1) + sum(cbf2))
 
-def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_lis2, idf_list2):
+
+def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_list2, idf_list2):
     """Calculates the Dice's Coefficient Similarity between two list of tokens
         considering their term frequency and inverse document frequency"""
-    return 0
 
-def calc_sim_freq(term_list1, freq_list1, term_list2, freq_lis2):
+    sum_min = 0
+    comm_terms = list(set(term_list1).intersection(set(term_list2)))
+    if comm_terms:
+        for tok in comm_terms:
+            idx = term_list1.index(tok)
+            sum_min += min(freq_list1[idx], freq_list2[idx]) * ((idf_list1[idx] + idf_list2[idx]) / 2)
+
+        div1 = sum([i*j for i,j in zip(freq_list1, idf_list1)])
+        div2 = sum([i*j for i,j in zip(freq_list2, idf_list2)])
+
+        sim = 2 * sum_min / div1 + div2
+    else:
+        sim = 0.0
+    return sim
+
+
+def calc_sim_freq(term_list1, freq_list1, term_list2, freq_list2):
     """Calculates the Dice's Coefficient Similarity between two list of tokens
         considering their term frequency"""
-        #DV: 
-        # sum_min = 0
-        #comm_terms = list(set(term_list1).intersection(set(term_list2)))
-        #if comm_terms != []:
-        #  for tok in comm_terms:
-        #    sum_min += min(freq_list1[term_list1.index(tok)],freq_list2[term_list2.index(tok)])
-        #  sim = 2 * sum_min / (sum(freq_list1) + sum(freq_list2))
-        #else:
-        #  sim = 0.0
-        #return sim
 
-    return 0
+    sum_min = 0
+    comm_terms = list(set(term_list1).intersection(set(term_list2)))
+    if comm_terms:
+        for tok in comm_terms:
+            sum_min += min(freq_list1[term_list1.index(tok)],freq_list2[term_list2.index(tok)])
+        sim = 2 * sum_min / (sum(freq_list1) + sum(freq_list2))
+    else:
+        sim = 0.0
+    return sim
+
 
 class TextProc:
 
@@ -98,7 +118,7 @@ class TextProc:
     def stem(self,tokens):
         porter = nltk.PorterStemmer()
         lancaster = nltk.LancasterStemmer()
-        return [porter.stem(word) if str(word).isalpha() else word for word in tokens ] if tokens else tokens # please correct this.
+        return [porter.stem(word) if str(word).isalpha() else word for word in tokens ] if tokens else tokens
 
     # tagging
     def pos_tagging(self,tokens):
@@ -291,9 +311,6 @@ class TextProc:
             if comp_type == 'TF': # use the same function as add_list_tfidf(term_list, freq_list, None)
                 freq_list = [item[1] for item in clean_rec]
                 self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
-            elif comp_type == 'IDF': #DV: maybe leave IDF for now!
-                freq_list = [item[2] for item in clean_rec]
-                self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
             elif comp_type == 'TF-IDF':
                 freq_list = [item[1] for item in clean_rec]
                 idf_list = [item[2] for item in clean_rec]
@@ -304,11 +321,8 @@ class TextProc:
             tbf_q_rec = TBF()
             term_list = [item[0] for item in clean_rec]
 
-            if comp_type == 'TF': #same as above
+            if comp_type == 'TF':
                 freq_list = [item[1] for item in clean_rec]
-                self.mquery_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
-            elif comp_type == 'IDF':
-                freq_list = [item[2] for item in clean_rec]
                 self.mquery_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
             elif comp_type == 'TF-IDF':
                 freq_list = [item[1] for item in clean_rec]
