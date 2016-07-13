@@ -288,10 +288,10 @@ class TextProc:
             tbf_db_rec = TBF()
             term_list = [item[0] for item in clean_rec]
 
-            if comp_type == 'TF':
+            if comp_type == 'TF': # use the same function as add_list_tfidf(term_list, freq_list, None)
                 freq_list = [item[1] for item in clean_rec]
                 self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
-            elif comp_type == 'IDF':
+            elif comp_type == 'IDF': #DV: maybe leave IDF for now!
                 freq_list = [item[2] for item in clean_rec]
                 self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
             elif comp_type == 'TF-IDF':
@@ -304,7 +304,7 @@ class TextProc:
             tbf_q_rec = TBF()
             term_list = [item[0] for item in clean_rec]
 
-            if comp_type == 'TF':
+            if comp_type == 'TF': #same as above
                 freq_list = [item[1] for item in clean_rec]
                 self.mquery_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
             elif comp_type == 'IDF':
@@ -354,7 +354,7 @@ class TextProc:
 
                     sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
 
-                elif comp_type == 'IDF':
+                elif comp_type == 'IDF': # leave this for now!
                     q_freq_list = [item[2] for item in q_clean_rec]
                     db_freq_list = [item[2] for item in db_clean_rec]
 
@@ -376,6 +376,8 @@ class TextProc:
                 else:
                     this_rec_dict = {db_rec_id: sim_val}
                     candidate_dict[q_rec_id] = this_rec_dict
+                    
+                #DV: I think you can now use the same function used in PPPSPM for accuracy calculation using these candidate_dict and mcandidate_dict as they follow the same structure.
 
 
 if __name__ == "__main__":
