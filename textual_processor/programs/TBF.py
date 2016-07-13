@@ -55,82 +55,6 @@ class TBF(object):
 
         return self.cbf_freq
 
-    def add_item(self, item):
-        """Add a single token to the counting bloom filter"""
-        hex_str1 = self.h1(item).hexdigest()
-        int1 = int(hex_str1, 16)
-        hex_str2 = self.h2(item).hexdigest()
-        int2 = int(hex_str2, 16)
-
-        for i in range(self.k):
-            gi = int1 + i * int2
-            gi = int(gi % self.l)
-            self.cbf_freq[gi] += 1
-
-    def query_item(self, item):
-        """query an item's existence and frequency"""
-
-        hex_str1 = self.h1(item).hexdigest()
-        int1 = int(hex_str1, 16)
-        hex_str2 = self.h2(item).hexdigest()
-        int2 = int(hex_str2, 16)
-
-        freqs = []
-
-        for i in range(self.k):
-            gi = int1 + i * int2
-            gi = int(gi % self.l)
-
-            if self.cbf_freq[gi] >= 1:
-                freqs.append(self.cbf_freq[gi])
-            else:
-                return False, 0
-
-        return True, min(freqs)
-
-    def remove_item(self, item):
-        """remove an item from cbf_freq"""
-        """DV: why this function is required?"""
-
-        hex_str1 = self.h1(item).hexdigest()
-        int1 = int(hex_str1, 16)
-        hex_str2 = self.h2(item).hexdigest()
-        int2 = int(hex_str2, 16)
-
-        for i in range(self.k):
-            gi = int1 + i * int2
-            gi = int(gi % self.l)
-            self.cbf_freq[gi] -= 1
-
-    def cal_dc_sim_list(self, len_list1, list2):
-        """Calculate (Dice's coefficient) similarity  between a counting bloom filter and a list of tokens."""
-
-        comm_tokens = 0
-        for s in list2:
-            status, freq = self.query_item(s)
-            if status == True:
-                comm_tokens += 1
-
-        # Dice's Coefficient
-        sim = 2 * comm_tokens / int(len_list1) + len(list2)
-        return sim
-        
-        #DV: this is correct, but now with TF, and TF_IDF weightings the functions need to be changed, right?
-        #DV: maybe move functions like mcalc_sim_tf_idf from textprocessor.py to here
-
-    def cal_ji_sim_list(self, len_list1, list2):
-        """Calculate (Jaccard's Index) similarity between a counting bloom filter and a list of tokens"""
-
-        comm_tokens = 0
-        for s in list2:
-            status, freq = self.query_item(s)
-            if status == True:
-                comm_tokens += 1
-
-        # Dice's Coefficient
-        sim = comm_tokens / (int(len_list1) + len(list2) - comm_tokens)
-        return sim
-
     def cal_dissim_cbf_tf(self, cbf2):
         """calculate dissimilarity between two counting bloom filters (between two textual data)"""
 
@@ -161,6 +85,33 @@ class TBF(object):
             return None
 
         return 2 * sum_min / sum(self.cbf_freq) + sum(cbf2)
+
+    def mcalc_sim_tf_idf(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
+        """Calculate DC similarity with both tf (term frequency) and idf (inverse document frequency)"""
+        sum_min = 0
+        div_cbf1 = 0
+        div_cbf2 = 0
+
+        for q1, q2, d1, d2 in zip(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
+            sum_min += min(q1, d1) * ((q2 + d2) / 2)
+            div_cbf1 += q1 * q2
+            div_cbf2 += d1 * d2
+
+        if div_cbf1 + div_cbf2:
+            return 2 * sum_min / (div_cbf1 + div_cbf2)
+        else:
+            return 0.0
+
+    def mcalc_sim_freq(cbf1, cbf2):
+        """Calculate DC similarity only with tf (term frequency)"""
+        sum_min = 0
+
+        # for q, d in zip(cbf1, cbf2):
+        #     sum_min += min(q, d)
+
+        sum_min = sum([min(i, j) for i, j in zip(cbf1, cbf2)])
+
+        return 2 * sum_min / (sum(cbf1) + sum(cbf2))
 
 
 
