@@ -15,6 +15,9 @@ class TBF(object):
 
         self.h1 = hashlib.sha1
         self.h2 = hashlib.md5
+        
+    # DV: I think only the function add_list_tfidf is sufficient, not the add_list and add_item functions!
+    # when freq_list and idf_list are set to None, you can generate CBFs as with add_list function
 
     def add_list_tfidf(self, term_list, freq_list, idf_list):
         """add list of tokens (textual data) and corresponding token frequencies
@@ -87,6 +90,7 @@ class TBF(object):
 
     def remove_item(self, item):
         """remove an item from cbf_freq"""
+        """DV: why this function is required?"""
 
         hex_str1 = self.h1(item).hexdigest()
         int1 = int(hex_str1, 16)
@@ -110,6 +114,9 @@ class TBF(object):
         # Dice's Coefficient
         sim = 2 * comm_tokens / int(len_list1) + len(list2)
         return sim
+        
+        #DV: this is correct, but now with TF, and TF_IDF weightings the functions need to be changed, right?
+        #DV: maybe move functions like mcalc_sim_tf_idf from textprocessor.py to here
 
     def cal_ji_sim_list(self, len_list1, list2):
         """Calculate (Jaccard's Index) similarity between a counting bloom filter and a list of tokens"""
