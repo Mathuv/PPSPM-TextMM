@@ -9,7 +9,7 @@ import string
 import math
 from types import *
 from nltk.corpus import stopwords
-from TBF import TBF
+from TBF import *
 
 
 def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_list2, idf_list2):

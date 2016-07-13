@@ -2,6 +2,36 @@ from __future__ import division, unicode_literals
 import hashlib
 
 
+def mcalc_sim_tf_idf(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
+    """Calculate DC similarity with both tf (term frequency) and idf (inverse document frequency)"""
+    sum_min = 0
+    div_cbf1 = 0
+    div_cbf2 = 0
+
+    for q1, q2, d1, d2 in zip(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
+        sum_min += min(q1, d1) * ((q2 + d2) / 2)
+        div_cbf1 += q1 * q2
+        div_cbf2 += d1 * d2
+
+    if div_cbf1 + div_cbf2:
+        return 2 * sum_min / (div_cbf1 + div_cbf2)
+    else:
+        return 0.0
+
+
+def mcalc_sim_freq(cbf1, cbf2):
+    """Calculate DC similarity only with tf (term frequency)"""
+    sum_min = 0
+
+    # for q, d in zip(cbf1, cbf2):
+    #     sum_min += min(q, d)
+
+    sum_min = sum([min(i, j) for i, j in zip(cbf1, cbf2)])
+
+    return 2 * sum_min / (sum(cbf1) + sum(cbf2))
+
+
+
 class TBF(object):
 
     """Textual Bloom Filter"""
@@ -86,32 +116,7 @@ class TBF(object):
 
         return 2 * sum_min / sum(self.cbf_freq) + sum(cbf2)
 
-    def mcalc_sim_tf_idf(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
-        """Calculate DC similarity with both tf (term frequency) and idf (inverse document frequency)"""
-        sum_min = 0
-        div_cbf1 = 0
-        div_cbf2 = 0
 
-        for q1, q2, d1, d2 in zip(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
-            sum_min += min(q1, d1) * ((q2 + d2) / 2)
-            div_cbf1 += q1 * q2
-            div_cbf2 += d1 * d2
-
-        if div_cbf1 + div_cbf2:
-            return 2 * sum_min / (div_cbf1 + div_cbf2)
-        else:
-            return 0.0
-
-    def mcalc_sim_freq(cbf1, cbf2):
-        """Calculate DC similarity only with tf (term frequency)"""
-        sum_min = 0
-
-        # for q, d in zip(cbf1, cbf2):
-        #     sum_min += min(q, d)
-
-        sum_min = sum([min(i, j) for i, j in zip(cbf1, cbf2)])
-
-        return 2 * sum_min / (sum(cbf1) + sum(cbf2))
 
 
 
