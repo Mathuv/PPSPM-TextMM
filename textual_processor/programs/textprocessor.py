@@ -37,12 +37,26 @@ def mcalc_sim_freq(cbf1, cbf2):
 
 def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_lis2, idf_list2):
     """Calculates the Dice's Coefficient Similarity between two list of tokens
-        considering their term frequency and inverse document frequency"""
+        considering their term frequency and inverse document frequency"""    
+        
+        
     return 0
 
 def calc_sim_freq(term_list1, freq_list1, term_list2, freq_lis2):
     """Calculates the Dice's Coefficient Similarity between two list of tokens
         considering their term frequency"""
+        
+        #DV: 
+        # sum_min = 0
+        #comm_terms = list(set(term_list1).intersection(set(term_list2)))
+        #if comm_terms != []:
+        #  for tok in comm_terms:
+        #    sum_min += min(freq_list1[term_list1.index(tok)],freq_list2[term_list2.index(tok)])
+        #  sim = 2 * sum_min / (sum(freq_list1) + sum(freq_list2))
+        #else:
+        #  sim = 0.0
+        #return sim
+        
     return 0
 
 class TextProc:
@@ -280,7 +294,8 @@ class TextProc:
             if comp_type == 'TF':
                 freq_list = [item[1] for item in clean_rec]
                 self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
-            elif comp_type == 'IDF':
+                #DV: May be you can use the same function add_list_tfidf(term_list, freq_list, None)
+            elif comp_type == 'IDF': #Leave IDF only for now
                 freq_list = [item[2] for item in clean_rec]
                 self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
             elif comp_type == 'TF-IDF':
@@ -308,7 +323,7 @@ class TextProc:
         for q_rec in self.mquery_dict.iteritems():
             for db_rec in self.mdb_dict.iteritems():
 
-                if comp_type in ['TF','IDF']:
+                if comp_type in ['TF','IDF']: # leave IDF for now!
                     sim_val = mcalc_sim_freq(q_rec[1][0], db_rec[1][0])
                 elif comp_type == 'TF-IDF':
                     sim_val = mcalc_sim_tf_idf(q_rec[1][0], q_rec[1][1], db_rec[1][0], db_rec[1][1])
@@ -343,7 +358,7 @@ class TextProc:
 
                     sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
 
-                elif comp_type == 'IDF':
+                elif comp_type == 'IDF': # Maybe leave this for now!
                     q_freq_list = [item[2] for item in q_clean_rec]
                     db_freq_list = [item[2] for item in db_clean_rec]
 
