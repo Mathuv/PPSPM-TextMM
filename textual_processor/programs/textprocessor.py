@@ -10,6 +10,8 @@ import math
 from types import *
 from nltk.corpus import stopwords
 from TBF import *
+import operator
+import numpy
 
 
 def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_list2, idf_list2):
@@ -45,6 +47,17 @@ def calc_sim_freq(term_list1, freq_list1, term_list2, freq_list2):
     else:
         sim = 0.0
     return sim
+
+
+def argsortdup(a):
+    """A function to rank a list of values.
+    """
+
+    sorted = numpy.sort(a)
+    ranked = []
+    for item in a:
+        ranked.append(sorted.searchsorted(item) + 1)
+    return numpy.array(ranked)
 
 
 class TextProc:
@@ -365,6 +378,164 @@ class TextProc:
                 #DV: I think you can now use the same function used in PPPSPM for accuracy calculation using these candidate_dict and mcandidate_dict as they follow the same structure.
 
 
+
+    def find_m_similar(self):
+        """Find m most similar records for each query based on the overall similarity.
+        """
+
+        candidate_dict = self.candidate_dict
+        m = self.m
+        results_dict = self.results_dict
+        sim_dict = self.sim_dict
+
+        for query in candidate_dict:  # loop over query records
+            this_query_res = []
+            this_sim_res = []
+            this_query_dict = candidate_dict[query]
+            if this_query_dict != {}:
+                # Sort by similarity and retrieve m records with highest similarity
+                #
+                sorted_this_query_dict = sorted(this_query_dict.items(), key=operator.itemgetter(1))
+                if len(sorted_this_query_dict) >= m:
+                    for x in range(m):
+                        this_query_res.append(sorted_this_query_dict[-(x + 1)][0])
+                        this_sim_res.append(sorted_this_query_dict[-(x + 1)][1])
+                else:
+                    for x in range(len(sorted_this_query_dict)):
+                        this_query_res.append(sorted_this_query_dict[-(x + 1)][0])
+                        this_sim_res.append(sorted_this_query_dict[-(x + 1)][1])
+
+                results_dict[query] = this_query_res
+                sim_dict[query] = this_sim_res
+
+            else:  # No similar records
+                results_dict[query] = this_query_res
+                sim_dict[query] = this_sim_res
+
+                # print 'matches:', results_dict
+                # print 'matches similarities:', sim_dict
+
+
+    def find_m_similar_masked(self):
+        """Find m most similar records for each query based on the overall similarity
+           in a privacy-preserving setting.
+        """
+
+        mcandidate_dict = self.mcandidate_dict
+        m = self.m
+        mresults_dict = self.mresults_dict
+        mrank_dict = self.mrank_dict
+
+        results_dict = self.results_dict
+        sim_dict = self.sim_dict
+        rank_dict = self.rank_dict
+
+        assert results_dict, 'results_dict is empty'
+
+        for query in mcandidate_dict:  # loop over query records
+            this_query_res = []
+            this_sim_res = []
+            this_query_dict = mcandidate_dict[query]
+            if this_query_dict != {}:
+                # Sort by similarity and retrieve m records with highest similarity
+                #
+                sorted_this_query_dict = sorted(this_query_dict.items(), key=operator.itemgetter(1))
+                if len(sorted_this_query_dict) >= m:
+                    for x in range(m):
+                        this_query_res.append(sorted_this_query_dict[-(x + 1)][0])
+                        this_sim_res.append(sorted_this_query_dict[-(x + 1)][1])
+                else:
+                    for x in range(len(sorted_this_query_dict)):
+                        this_query_res.append(sorted_this_query_dict[-(x + 1)][0])
+                        this_sim_res.append(sorted_this_query_dict[-(x + 1)][1])
+
+                # Rank similarities
+                actual_rank_res = []
+                masked_rank_res = []
+                intersect_items = list(set(results_dict[query]).intersection(this_query_res))
+                for inter in intersect_items:
+                    pos = results_dict[query].index(inter)
+                    actual_rank_res.append(sim_dict[query][pos])
+                    pos = this_query_res.index(inter)
+                    masked_rank_res.append(this_sim_res[pos])
+
+                mresults_dict[query] = this_query_res
+                rank_dict[query] = list(argsortdup(actual_rank_res))
+                mrank_dict[query] = list(argsortdup(masked_rank_res))
+
+            else:  # No similar records
+                mresults_dict[query] = this_query_res
+                mrank_dict[query] = []
+                rank_dict[query] = []
+
+                # print 'masked matches:', mresults_dict
+                # print 'actual matches ranking:', rank_dict
+                # print 'masked matches ranking:', mrank_dict
+
+    def calculate_accuracy(self):
+        """Calculate accuracy of privacy-preserving comparison
+           using actual values comparison results as the truth data.
+        """
+
+        results_dict = self.results_dict
+        mresults_dict = self.mresults_dict
+        rank_dict = self.rank_dict
+        mrank_dict = self.mrank_dict
+        accuracy_dict = {}
+
+        for query in mresults_dict:
+            query_res = mresults_dict[query]
+            actual_res = results_dict[query]
+
+            tot_m = len(actual_res)
+            m = len(query_res)
+            tm = 0
+            for res in query_res:
+                if res in actual_res:
+                    tm += 1
+
+            # Calculate precision, recall, and F1 measures
+            if m > 0:
+                prec = tm / float(m)
+            else:
+                prec = 0
+            if tot_m > 0.0:
+                rec = tm / float(tot_m)
+            else:
+                rec = 0.0
+            if (prec + rec) > 0.0:
+                fsco = (2 * prec * rec) / float(prec + rec)
+            else:
+                fsco = 0.0
+
+            # Calculate Spearman's rank correlation
+            query_rank = mrank_dict[query]
+            actual_rank = rank_dict[query]
+            assert len(actual_rank) == len(query_rank)
+            n = len(actual_rank)
+
+            if n == 1:
+                if actual_rank[0] == query_rank[0]:
+                    rank_cor = 1.0
+                else:
+                    rank_cor = 0.0
+            elif n == 0:
+                rank_cor = 0.0
+            else:
+                dist_sqr = 0
+                for x in range(n):
+                    dist = actual_rank[x] - query_rank[x]
+                    dist_sqr += dist ** 2
+                dist_sqr *= 6
+                tot_elem = float(n * (n ** 2 - 1))
+                rank_cor = 1.0 - (dist_sqr / tot_elem)
+
+            accuracy_dict[query] = [prec, rec, fsco, rank_cor]
+
+        print 'accuracy_dict:', accuracy_dict
+        return accuracy_dict
+
+
 if __name__ == "__main__":
     # absolute path of db file
     db_file = sys.argv[1]
@@ -391,19 +562,12 @@ if __name__ == "__main__":
     # preprocess the query records
     tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, t)
 
-    # compare masked
-    tproc.compare_masked('TF-IDF')
-
     # compare unmasked
     tproc.compare_unmasked('TF-IDF')
+    tproc.find_m_similar()
+
+    # compare masked
+    tproc.compare_masked('TF-IDF')
+    tproc.find_m_similar_masked()
 
     pass
-
-
-
-
-
-
-
-
-
