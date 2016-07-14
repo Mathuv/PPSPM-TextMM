@@ -281,7 +281,7 @@ class TextProc:
 
             if comp_type == 'TF': # use the same function as add_list_tfidf(term_list, freq_list, None)
                 freq_list = [item[1] for item in clean_rec]
-                self.mdb_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
+                self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
             elif comp_type == 'TF-IDF':
                 freq_list = [item[1] for item in clean_rec]
                 idf_list = [item[2] for item in clean_rec]
@@ -294,7 +294,7 @@ class TextProc:
 
             if comp_type == 'TF':
                 freq_list = [item[1] for item in clean_rec]
-                self.mquery_dict[rec_id] = tbf_db_rec.add_list(term_list, freq_list)
+                self.mquery_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
             elif comp_type == 'TF-IDF':
                 freq_list = [item[1] for item in clean_rec]
                 idf_list = [item[2] for item in clean_rec]

@@ -45,11 +45,8 @@ class TBF(object):
 
         self.h1 = hashlib.sha1
         self.h2 = hashlib.md5
-        
-    # DV: I think only the function add_list_tfidf is sufficient, not the add_list and add_item functions!
-    # when freq_list and idf_list are set to None, you can generate CBFs as with add_list function
-
-    def add_list_tfidf(self, term_list, freq_list, idf_list):
+  
+    def add_list_tfidf(self, term_list, freq_list, idf_list=None):
         """add list of tokens (textual data) and corresponding token frequencies
         and their idf (inverse document frequencies)"""
 
@@ -65,25 +62,11 @@ class TBF(object):
                 # create counting bloom filter with tf values
                 self.cbf_freq[gi] += freq_list[term_list.index(val)]
                 # create counting bloom filter with idf values
-                self.cbf_idf[gi] += idf_list[term_list.index(val)]
+                if idf_list:
+                    self.cbf_idf[gi] += idf_list[term_list.index(val)]
 
-        return self.cbf_freq, self.cbf_idf
-
-    def add_list(self, term_list, freq_list):
-        """add list of tokens (textual data) and corresponding token frequencies"""
-
-        for val in term_list:
-            hex_str1 = self.h1(val).hexdigest()
-            int1 = int(hex_str1, 16)
-            hex_str2 = self.h2(val).hexdigest()
-            int2 = int(hex_str2, 16)
-
-            for i in range(self.k):
-                gi = int1 + i * int2
-                gi = int(gi % self.l)
-                self.cbf_freq[gi] += freq_list[term_list.index(val)]
-
-        return self.cbf_freq
+        return self.cbf_freq, self.cbf_idf if idf_list else self.cbf_freq
+   
 
     def cal_dissim_cbf_tf(self, cbf2):
         """calculate dissimilarity between two counting bloom filters (between two textual data)"""
