@@ -134,18 +134,26 @@ class TextProc:
                 if exc.errno != errno.EEXIST:
                     raise
 
-        for line in content:
-            if type(line[1]) is ListType:
-                line[1] = ' '.join(map(str,line[1]))
-                csv_rows.append(line)
-            else:
-                csv_rows.append(line)
+        if type(content) is DictType:
+            with open(file, "wb") as f:
+                writer = csv.writer(f)
+                # writer.writerow(content.keys())
+                # writer.writerow(content.values())
+                writer.writerows(content.items())
 
-        # csv_rows = content
-        with open(file, "wb") as f:
-            writer = csv.writer(f)
-            writer.writerows(csv_rows)
-        f.close()
+        else:
+            for line in content:
+                if type(line[1]) is ListType:
+                    line[1] = ' '.join(map(str,line[1]))
+                    csv_rows.append(line)
+                else:
+                    csv_rows.append(line)
+
+            # csv_rows = content
+            with open(file, "wb") as f:
+                writer = csv.writer(f)
+                writer.writerows(csv_rows)
+            f.close()
 
 
     def main(self, dbfile, queryfile, id_column_no, text_column_no, text_section_identifier, m):
@@ -562,12 +570,23 @@ if __name__ == "__main__":
     # preprocess the query records
     tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, t)
 
+    # Log file to write the results
+    dbfilename_ext = os.path.basename(db_file)
+    dbfilename = os.path.splitext(dbfilename_ext)[0]
+    log_file_name = '..' + os.sep + 'results' + os.sep + dbfilename + '_' + str(t) + '_' + str(m)
+    # log_file = open(log_file_name, 'w')
+
     # compare unmasked
     tproc.compare_unmasked('TF-IDF')
     tproc.find_m_similar()
+    tproc.write_file(tproc.results_dict, log_file_name + '_unmasked')
+
 
     # compare masked
     tproc.compare_masked('TF-IDF')
     tproc.find_m_similar_masked()
+    tproc.write_file(tproc.mresults_dict, log_file_name + '_masked')
+
+
 
     pass
