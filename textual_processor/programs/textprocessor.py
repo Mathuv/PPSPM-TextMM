@@ -12,6 +12,7 @@ from nltk.corpus import stopwords
 from TBF import *
 import operator
 import numpy
+import time
 
 
 def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_list2, idf_list2):
@@ -577,16 +578,24 @@ if __name__ == "__main__":
     # log_file = open(log_file_name, 'w')
 
     # compare unmasked
+    start_time = time.time()
     tproc.compare_unmasked('TF-IDF')
     tproc.find_m_similar()
+    matching_phase_time = time.time() - start_time
     tproc.write_file(tproc.results_dict, log_file_name + '_unmasked')
 
 
     # compare masked
+    start_time = time.time()
     tproc.compare_masked('TF-IDF')
     tproc.find_m_similar_masked()
+    masked_matching_phase_time = time.time() -start_time
     tproc.write_file(tproc.mresults_dict, log_file_name + '_masked')
 
 
+    
+    # write effectiveness results (precision, recall, F1, and rank) 
+    # into the log file (one line per query record)
+    accuracy_dict = tproc.calculate_accuracy()
 
     pass
