@@ -558,10 +558,12 @@ if __name__ == "__main__":
     text_section_identifier = sys.argv[5]
     # number of tokens to select from each record
     t = int(sys.argv[6])
+    # number of similar records
+    m = int(sys.argv[7])
 
 
     length = 1000 # length of bloom filter
-    m = 10 # number of similar records
+    # m = 10 # number of similar records
 
     tproc = TextProc(m, length)
 
