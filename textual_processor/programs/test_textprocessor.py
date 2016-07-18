@@ -4,7 +4,7 @@ import sys
 # number of similar eecords
 m_list = ['1','5','10']
 # number of tokens to represent a record
-t_list = ['5', '10', '20']
+t_list = ['5', '10']
 
 dbfile = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 queryfile = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'

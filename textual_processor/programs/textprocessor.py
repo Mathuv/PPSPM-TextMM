@@ -326,7 +326,7 @@ class TextProc:
         for q_rec in self.mquery_dict.iteritems():
             for db_rec in self.mdb_dict.iteritems():
 
-                if comp_type in ['TF','IDF']:
+                if comp_type in ['TF']:
                     sim_val = mcalc_sim_freq(q_rec[1][0], db_rec[1][0])
                 elif comp_type == 'TF-IDF':
                     sim_val = mcalc_sim_tf_idf(q_rec[1][0], q_rec[1][1], db_rec[1][0], db_rec[1][1])
@@ -361,11 +361,6 @@ class TextProc:
 
                     sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
 
-                elif comp_type == 'IDF': # leave this for now!
-                    q_freq_list = [item[2] for item in q_clean_rec]
-                    db_freq_list = [item[2] for item in db_clean_rec]
-
-                    sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
 
                 elif comp_type == 'TF-IDF':
                     q_freq_list = [item[1] for item in q_clean_rec]
@@ -568,23 +563,27 @@ if __name__ == "__main__":
     tproc = TextProc(m, length)
 
     # preprocess the databse records
+    start_time = time.time()
     tproc.db_dict =  tproc.preprocess(db_file, id_column_no, text_column_no, text_section_identifier, t)
+    preprocess_time_db = time.time() - start_time
 
     # preprocess the query records
+    start_time = time.time()
     tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, t)
+    preprocess_time_query = time.time() - start_time
 
     # Log file to write the results
     dbfilename_ext = os.path.basename(db_file)
     dbfilename = os.path.splitext(dbfilename_ext)[0]
-    log_file_name = '..' + os.sep + 'results' + os.sep + dbfilename + '_' + str(t) + '_' + str(m)
-    # log_file = open(log_file_name, 'w')
+    result_file_name = '..' + os.sep + 'results' + os.sep + dbfilename + '_' + str(t) + '_' + str(m)
+    # result_file = open(result_file_name, 'w')
 
     # compare unmasked
     start_time = time.time()
     tproc.compare_unmasked('TF-IDF')
     tproc.find_m_similar()
     matching_phase_time = time.time() - start_time
-    tproc.write_file(tproc.results_dict, log_file_name + '_unmasked')
+    tproc.write_file(tproc.results_dict, result_file_name + '_unmasked')
 
 
     # compare masked
@@ -592,12 +591,31 @@ if __name__ == "__main__":
     tproc.compare_masked('TF-IDF')
     tproc.find_m_similar_masked()
     masked_matching_phase_time = time.time() -start_time
-    tproc.write_file(tproc.mresults_dict, log_file_name + '_masked')
+    tproc.write_file(tproc.mresults_dict, result_file_name + '_masked')
 
 
     
     # write effectiveness results (precision, recall, F1, and rank) 
     # into the log file (one line per query record)
     accuracy_dict = tproc.calculate_accuracy()
+    log_file_name = '..' + os.sep + 'logs' + os.sep + dbfilename + '_' + str(t) + '_' + str(m)
+
+    if not os.path.exists(os.path.dirname(log_file_name)):
+        try:
+            os.makedirs(os.path.dirname(log_file_name))
+        except OSError as exc:
+            if exc.errno != errno.EEXIST:
+                raise
+
+    log_file = open(log_file_name, 'w')
+
+    for query in accuracy_dict:
+        res_list = accuracy_dict[query]
+        log_file.write(query)
+        for res in res_list:
+            log_file.write(',' + str(res))
+        log_file.write(os.linesep)
+
+    log_file.close()
 
     pass
