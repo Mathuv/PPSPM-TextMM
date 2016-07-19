@@ -159,16 +159,7 @@ class TextProc:
                 writer.writerows(csv_rows)
             f.close()
 
-
-    def main(self, dbfile, queryfile, id_column_no, text_column_no, text_section_identifier, m):
-        # Preprocess database file
-        self.preprocess(dbfile, id_column_no, text_column_no, text_section_identifier, m)
-
-        # Preprocess query file
-        self.preprocess(queryfile, id_column_no, text_column_no, text_section_identifier, m)
-
-
-    def preprocess(self, dbfile, id_column_no, text_column_no, text_section_identifier, m):
+    def preprocess(self, dbfile, id_column_no, text_column_no, text_section_identifier, t):
         dbpath = os.path.dirname(dbfile)
         dbfilename_ext = os.path.basename(dbfile)
         dbfilename = os.path.splitext(dbfilename_ext)[0]
@@ -228,8 +219,8 @@ class TextProc:
             scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stemmed]) for token in rec[1]}
             sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
             text_list_tfidf.append([rec[0], sorted_words])
-            # top m tokens with highest tf_idf score - step 7
-            text_list_m_tokens.append([rec[0], sorted_words[:int(m)]])
+            # top t tokens with highest tf_idf score - step 7
+            text_list_m_tokens.append([rec[0], sorted_words[:int(t)]])
 
         # TF-IDF calculation before stemming - Step 6b
         for rec in text_list_stpwd_rm:
@@ -237,7 +228,7 @@ class TextProc:
             sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
             text_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
 
-        # top m tokens from each record with their local term count - step 8
+        # top t tokens from each record with their local term count - step 8
         for rec1, rec2 in zip(text_list_m_tokens, text_list_stemmed):
             tflist = [(word[0], rec2[1].count(word[0])) for word in rec1[1]]
             text_list_m_tokens_tf.append([rec1[0], tflist])
