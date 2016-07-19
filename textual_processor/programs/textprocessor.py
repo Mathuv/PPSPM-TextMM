@@ -14,6 +14,9 @@ import operator
 import numpy
 import time
 
+# Febrl modules
+import auxiliary
+
 
 def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_list2, idf_list2):
     """Calculates the Dice's Coefficient Similarity between two list of tokens
@@ -608,6 +611,19 @@ if __name__ == "__main__":
                 raise
 
     log_file = open(log_file_name, 'w')
+
+    # Calculate total runtime for PP-SPM
+    tot_time = preprocess_time_db + preprocess_time_query + matching_phase_time + masked_matching_phase_time
+    str_tot_time = '%.4f' % (tot_time)
+
+    # Calculate total memory usage for PP-SPM
+    memo_usage = auxiliary.get_memory_usage()
+    memo_usage_val = auxiliary.get_memory_usage_val()
+    memo_usage_val = memo_usage_val if memo_usage_val else 0.0
+    str_mem_usage = '%.4f' % (memo_usage_val)
+
+    # write efficiency results into the log file
+    log_file.write(str_tot_time + ',' + str_mem_usage + os.linesep)
 
     for query in accuracy_dict:
         res_list = accuracy_dict[query]
