@@ -179,8 +179,8 @@ class TextProc:
         text_list_pos_tagged = []
         text_list_tfidf = []
         text_list_stpwd_rm_tfidf = []
-        text_list_m_tokens = []
-        text_list_m_tokens_tf = []
+        text_list_t_tokens = []
+        text_list_t_tokens_tf = []
 
         db_dict = {}
 
@@ -220,7 +220,7 @@ class TextProc:
             sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
             text_list_tfidf.append([rec[0], sorted_words])
             # top t tokens with highest tf_idf score - step 7
-            text_list_m_tokens.append([rec[0], sorted_words[:int(t)]])
+            text_list_t_tokens.append([rec[0], sorted_words[:int(t)]])
 
         # TF-IDF calculation before stemming - Step 6b
         for rec in text_list_stpwd_rm:
@@ -229,9 +229,9 @@ class TextProc:
             text_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
 
         # top t tokens from each record with their local term count - step 8
-        for rec1, rec2 in zip(text_list_m_tokens, text_list_stemmed):
+        for rec1, rec2 in zip(text_list_t_tokens, text_list_stemmed):
             tflist = [(word[0], rec2[1].count(word[0])) for word in rec1[1]]
-            text_list_m_tokens_tf.append([rec1[0], tflist])
+            text_list_t_tokens_tf.append([rec1[0], tflist])
             # dictionary of records to compare
             tf_idf_list = [(word[0], rec2[1].count(word[0]), word[1]) for word in rec1[1]]
             db_dict[rec1[0]] = tf_idf_list
@@ -270,11 +270,11 @@ class TextProc:
 
         # write top t tokens with high if-idf score - Step 7
         text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_TEXT_m_tfidf.csv'
-        self.write_file(text_list_m_tokens, text_m_tfidf_filename)
+        self.write_file(text_list_t_tokens, text_m_tfidf_filename)
 
         # write top t tokens of each record with their term count - step 8
         text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
-        self.write_file(text_list_m_tokens_tf, text_m_tf_filename)
+        self.write_file(text_list_t_tokens_tf, text_m_tf_filename)
 
         return db_dict
 
