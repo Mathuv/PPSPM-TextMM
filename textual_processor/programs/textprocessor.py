@@ -171,8 +171,8 @@ class TextProc:
         assert len(header_rec) >= int(id_column_no) > 0, 'id column number is out of range'
         assert len(header_rec) >= int(text_column_no) > 0, 'text column number is out of range'
 
-        dsr_list = []
-        text_orginal = []
+        raw_text_list = []
+        text_list_extract = []
         text_list_tokenized = []
         text_list_stpwd_rm = []
         text_list_stemmed = []
@@ -185,12 +185,13 @@ class TextProc:
         db_dict = {}
 
         for row in dbdata[1:]:
-            # unprocessed data
-            dsr_list.append(row[id_column_no - 1::text_column_no - 1])
 
-            # extract Histry of Present Illness - step 2
+            # unprocessed data
+            raw_text_list.append(row[id_column_no - 1::text_column_no - 1])
+
+            # extract part of the raw text - step 2
             row[text_column_no - 1] = self.extract_text(row[text_column_no - 1], text_section_identifier)
-            text_orginal.append(row[id_column_no - 1::text_column_no - 1])
+            text_list_extract.append(row[id_column_no - 1::text_column_no - 1])
 
             # cleaning data - convert to lower case
             row[text_column_no - 1] = row[text_column_no - 1].lower()
@@ -236,13 +237,13 @@ class TextProc:
             tf_idf_list = [(word[0], rec2[1].count(word[0]), word[1]) for word in rec1[1]]
             db_dict[rec1[0]] = tf_idf_list
 
-        # write discharge summery text csv - step 1
+        # write raw text- step 1
         raw_filename = dbpath + os.sep + 'step1' + os.sep + dbfilename + '_RAW.csv'
-        self.write_file(dsr_list, raw_filename)
+        self.write_file(raw_text_list, raw_filename)
 
-        # write 'History of Present Illness' text csv - step 2
+        # write extracted part of the raw text csv - step 2
         text_filename = dbpath + os.sep + 'step2' + os.sep + dbfilename + '_TEXT.csv'
-        self.write_file(text_orginal, text_filename)
+        self.write_file(text_list_extract, text_filename)
 
         # write tokenized  'History of Present Illness' text file - step 3
         text_tokenized_filename = dbpath + os.sep + 'step3' + os.sep + dbfilename + '_TEXT_tokenized.csv'
