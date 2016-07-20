@@ -193,27 +193,30 @@ class TextProc:
             row[text_column_no - 1] = self.extract_text(row[text_column_no - 1], text_section_identifier)
             text_list_extract.append(row[id_column_no - 1::text_column_no - 1])
 
-            # cleaning data - convert to lower case
-            row[text_column_no - 1] = row[text_column_no - 1].lower()
+            if row[text_column_no - 1]:
+                # cleaning data - convert to lower case
+                row[text_column_no - 1] = row[text_column_no - 1].lower()
 
-            # cleaning data - punctuation removal
-            row[text_column_no - 1] = str(row[text_column_no - 1]).translate(None, string.punctuation)
+                # cleaning data - punctuation removal
+                row[text_column_no - 1] = str(row[text_column_no - 1]).translate(None, string.punctuation)
 
-            # create tokenized list - step 3
-            row[text_column_no - 1] = self.tokenize(row[text_column_no - 1])
-            text_list_tokenized.append(row[id_column_no - 1::text_column_no - 1])
+                # create tokenized list - step 3
+                row[text_column_no - 1] = self.tokenize(row[text_column_no - 1])
+                text_list_tokenized.append(row[id_column_no - 1::text_column_no - 1])
 
-            # create stop word removed list - step 4
-            row[text_column_no - 1] = self.remove_stopwords(row[text_column_no - 1])
-            text_list_stpwd_rm.append(row[id_column_no - 1::text_column_no - 1])
+                # create stop word removed list - step 4
+                row[text_column_no - 1] = self.remove_stopwords(row[text_column_no - 1])
+                text_list_stpwd_rm.append(row[id_column_no - 1::text_column_no - 1])
 
-            # pos tagging
-            # row[10] = pos_tagging(row[10])
-            # text_list_pos_tagged.append(row[0::10])
+                # pos tagging
+                # row[10] = pos_tagging(row[10])
+                # text_list_pos_tagged.append(row[0::10])
 
-            # create stemmed list
-            row[text_column_no - 1] = self.stem(row[text_column_no - 1])
-            text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
+                # create stemmed list
+                row[text_column_no - 1] = self.stem(row[text_column_no - 1])
+                text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
+            else:
+                continue
 
         # TF-IDF calculation - Step 6
         for rec in text_list_stemmed:
@@ -364,7 +367,10 @@ class TextProc:
                     db_freq_list = [item[1] for item in db_clean_rec]
                     db_idf_list = [item[2] for item in db_clean_rec]
 
-                    sim_val = calc_sim_tf_idf(q_term_list, q_freq_list, q_idf_list, db_term_list, db_freq_list, db_idf_list)
+                    if len(q_term_list) == len(db_term_list):
+                        sim_val = calc_sim_tf_idf(q_term_list, q_freq_list, q_idf_list, db_term_list, db_freq_list, db_idf_list)
+                    else:
+                        print 'Query and Database token lists are not equal in length: query %s, db %s' % (len(q_term_list), len(db_term_list))
 
                 # Store similarity results in candidate_dict
                 if q_rec_id in candidate_dict:
