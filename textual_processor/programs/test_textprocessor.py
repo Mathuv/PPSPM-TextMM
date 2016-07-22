@@ -4,7 +4,8 @@ import sys
 # number of similar eecords
 m_list = ['1','5','10']
 # number of tokens to represent a record
-t_list = ['5', '10']
+t_list = ['5', '10'] # DV: experiment more to plot the results - 5, 10, 20, 30, 50
+weight_list = ['TF', 'TF-IDF'] #DV: need to experiment with different weights
 
 dbfile = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_200REC.csv'
 queryfile = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
