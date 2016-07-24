@@ -370,7 +370,7 @@ class TextProc:
                     if len(q_term_list) == len(db_term_list):
                         sim_val = calc_sim_tf_idf(q_term_list, q_freq_list, q_idf_list, db_term_list, db_freq_list, db_idf_list)
                     else:
-                        print 'Query and Database token lists are not equal in length: query %s, db %s' % (len(q_term_list), len(db_term_list))
+                        print 'Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list))
 
                 # Store similarity results in candidate_dict
                 if q_rec_id in candidate_dict:
