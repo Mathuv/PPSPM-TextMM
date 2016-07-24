@@ -581,7 +581,7 @@ if __name__ == "__main__":
 
     # compare unmasked
     start_time = time.time()
-    tproc.compare_unmasked('TF-IDF')
+    tproc.compare_unmasked('TF-IDF') #DV: pass the weighting method (TF, TF-IDF, IDF) also as a parameter so that we can do experiments for different weighting methods
     tproc.find_m_similar()
     matching_phase_time = time.time() - start_time
     tproc.write_file(tproc.results_dict, result_file_name + '_unmasked')
@@ -589,7 +589,7 @@ if __name__ == "__main__":
 
     # compare masked
     start_time = time.time()
-    tproc.compare_masked('TF-IDF')
+    tproc.compare_masked('TF-IDF') #DV: pass the weighting method (TF, TF-IDF, IDF) also as a parameter so that we can do experiments for different weighting methods
     tproc.find_m_similar_masked()
     masked_matching_phase_time = time.time() -start_time
     tproc.write_file(tproc.mresults_dict, result_file_name + '_masked')
