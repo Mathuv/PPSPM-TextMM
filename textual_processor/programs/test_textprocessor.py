@@ -13,7 +13,7 @@ m_list = ['1','5','10']
 t_list = ['5', '10', '20', '30', '50'] # DV: experiment more to plot the results - 5, 10, 20, 30, 50
 weight_list = ['TF', 'TF-IDF']
 
-dbfile = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
+dbfile = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_1000REC.csv'
 queryfile = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
 # Regex filter to filter a section of the texttual data
@@ -26,22 +26,22 @@ regex_filter = r'History of Present Illness:\s+((\S+([\t ]{1,2}|\n?))+)'
 start_time_temp = time.time()
 
 # for t in t_list:
-#     for m in m_list:
-#         for w in weight_list:
-#             cmd_line_list = ['python', 'textprocessor.py', dbfile, queryfile, '1', '11', regex_filter, t, m, w]
+#      for m in m_list:
+#          for w in weight_list:
+#              cmd_line_list = ['python', 'textprocessor.py', dbfile, queryfile, '1', '11', regex_filter, t, m, w]
 #
-#             party_proc = subprocess.Popen(cmd_line_list)
+#              party_proc = subprocess.Popen(cmd_line_list)
 #
 #
-#             print '  Waiting for processes to complete...'
-#             print
+#              print '  Waiting for processes to complete...'
+#              print
 #
-#             ret_code = party_proc.wait()
-#             print 'finished.'
+#              ret_code = party_proc.wait()
+#              print 'finished.'
 #
-#             if (ret_code != 0):
-#               print 'returned code:', ret_code
-#               sys.exit()  # Stop experiment
+#              if (ret_code != 0):
+#                print 'returned code:', ret_code
+#                sys.exit()  # Stop experiment
 
 
 time_taken1 = time.time() - start_time_temp
@@ -52,6 +52,8 @@ from textprocessor import TextProc;
 m_list2 = [1,5,10]
 t_list2 = [5,10,20,30,50]
 regex_filter = r'History of Present Illness:\s+((\S+([\t ]{1,2}|\n?))+)'
+
+start_time_total = time.time()
 
 tproc = TextProc(t_list2,m_list2, weight_list,1000)
 
@@ -66,8 +68,6 @@ preprocess_time_query = time.time() - start_time
 # Log file to write the results
 dbfilename_ext = os.path.basename(dbfile)
 dbfilename = os.path.splitext(dbfilename_ext)[0]
-
-start_time_temp = time.time()
 
 for t in t_list2:
     for m in m_list2:
@@ -129,7 +129,7 @@ for t in t_list2:
             log_file.close()
 
 
-time_taken2 = time.time() - start_time_temp
+time_taken2 = time.time() - start_time_total
 print '\ntime_taken1: %4f' % (time_taken1)
 print '\ntime_taken2: %4f' % (time_taken2)
 

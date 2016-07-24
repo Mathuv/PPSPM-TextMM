@@ -370,36 +370,31 @@ class TextProc:
                 q_term_list = [item[0] for item in q_clean_rec]
                 db_term_list = [item[0] for item in db_clean_rec]
 
-                if comp_type == 'TF':
-                    q_freq_list = [item[1] for item in q_clean_rec]
-                    db_freq_list = [item[1] for item in db_clean_rec]
+                if len(q_term_list) == len(db_term_list):
+                    if comp_type == 'TF':
+                        q_freq_list = [item[1] for item in q_clean_rec]
+                        db_freq_list = [item[1] for item in db_clean_rec]
 
-                    if len(q_term_list) == len(db_term_list):
                         sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
-                    else:
-                        print 'Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list))
 
+                    elif comp_type == 'TF-IDF':
+                        q_freq_list = [item[1] for item in q_clean_rec]
+                        q_idf_list = [item[2] for item in q_clean_rec]
 
+                        db_freq_list = [item[1] for item in db_clean_rec]
+                        db_idf_list = [item[2] for item in db_clean_rec]
 
-                elif comp_type == 'TF-IDF':
-                    q_freq_list = [item[1] for item in q_clean_rec]
-                    q_idf_list = [item[2] for item in q_clean_rec]
-
-                    db_freq_list = [item[1] for item in db_clean_rec]
-                    db_idf_list = [item[2] for item in db_clean_rec]
-
-                    if len(q_term_list) == len(db_term_list):
                         sim_val = calc_sim_tf_idf(q_term_list, q_freq_list, q_idf_list, db_term_list, db_freq_list, db_idf_list)
-                    else:
-                        print 'Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list))
 
-                # Store similarity results in candidate_dict
-                if q_rec_id in candidate_dict:
-                    this_rec_dict = candidate_dict[q_rec_id]
-                    this_rec_dict[db_rec_id] = sim_val
+                    # Store similarity results in candidate_dict
+                    if q_rec_id in candidate_dict:
+                        this_rec_dict = candidate_dict[q_rec_id]
+                        this_rec_dict[db_rec_id] = sim_val
+                    else:
+                        this_rec_dict = {db_rec_id: sim_val}
+                        candidate_dict[q_rec_id] = this_rec_dict
                 else:
-                    this_rec_dict = {db_rec_id: sim_val}
-                    candidate_dict[q_rec_id] = this_rec_dict
+                    print 'Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list))
 
 
     def find_m_similar(self, m):
