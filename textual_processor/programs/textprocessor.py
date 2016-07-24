@@ -66,12 +66,17 @@ def argsortdup(a):
 
 class TextProc:
 
-    def __init__(self, m, length):
+    def __init__(self, t, m, weight, length):
+        self.t = t
         self.m = m
+        self.weight = weight
         self.length = length
 
         self.db_dict = {}
         self.query_dict = {}
+
+        self.db_dict_t = {}
+        self.query_dict_t = {}
 
         self.mdb_dict = {}
         self.mquery_dict = {}
@@ -158,7 +163,7 @@ class TextProc:
                 writer.writerows(csv_rows)
             f.close()
 
-    def preprocess(self, dbfile, id_column_no, text_column_no, text_section_identifier, t):
+    def preprocess(self, dbfile, id_column_no, text_column_no, regex_filter, t, isDB):
         dbpath = os.path.dirname(dbfile)
         dbfilename_ext = os.path.basename(dbfile)
         dbfilename = os.path.splitext(dbfilename_ext)[0]
@@ -181,7 +186,11 @@ class TextProc:
         text_list_t_tokens = []
         text_list_t_tokens_tf = []
 
-        db_dict = {}
+        # db_dict = {}
+        if isDB:
+            db_dict = self.db_dict
+        else:
+            db_dict = self.query_dict
 
         for row in dbdata[1:]:
 
@@ -189,7 +198,7 @@ class TextProc:
             raw_text_list.append(row[id_column_no - 1::text_column_no - 1])
 
             # extract part of the raw text - step 2
-            row[text_column_no - 1] = self.extract_text(row[text_column_no - 1], text_section_identifier)
+            row[text_column_no - 1] = self.extract_text(row[text_column_no - 1], regex_filter)
             text_list_extract.append(row[id_column_no - 1::text_column_no - 1])
 
             if row[text_column_no - 1]:
@@ -279,19 +288,27 @@ class TextProc:
         text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
         self.write_file(text_list_t_tokens_tf, text_m_tf_filename)
 
-        return db_dict
+    def select_t_tokens(self,t):
+        for (rec_id, clean_rec) in self.db_dict.iteritems():
+            self.db_dict_t[rec_id] = clean_rec[:t]
+        for (rec_id, clean_rec) in self.query_dict.iteritems():
+            self.query_dict_t[rec_id] = clean_rec[:t]
 
     def compare_masked(self, comp_type='TF'):
         """Compare bloom filter encoded query records with bloom filter encoded database records
             @comp_type - similarity calculation type
         """
 
-        db_dict = self.db_dict
-        rec_dict = self.db_dict
-        query_dict = self.query_dict
+        # db_dict = self.db_dict
+        db_dict = self.db_dict_t
+        query_dict = self.query_dict_t
+        self.mcandidate_dict = {}
         mcandidate_dict = self.mcandidate_dict
         m = self.m
         length = self.length
+
+        self.mdb_dict = {}
+        self.mquery_dict = {}
 
         # Create a dictionary of counting bloom filter - represent db
         for (rec_id, clean_rec) in db_dict.iteritems():
@@ -340,9 +357,10 @@ class TextProc:
         """compare unmasked query records with database records
             @comp_type - similarity calculation type
         """
-        db_dict = self.db_dict
-        rec_dict = self.db_dict
-        query_dict = self.query_dict
+        # db_dict = self.db_dict
+        db_dict = self.db_dict_t
+        query_dict = self.query_dict_t
+        self.candidate_dict = {}
         candidate_dict = self.candidate_dict
         m = self.m
         length = self.length
@@ -356,7 +374,11 @@ class TextProc:
                     q_freq_list = [item[1] for item in q_clean_rec]
                     db_freq_list = [item[1] for item in db_clean_rec]
 
-                    sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
+                    if len(q_term_list) == len(db_term_list):
+                        sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
+                    else:
+                        print 'Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list))
+
 
 
                 elif comp_type == 'TF-IDF':
@@ -380,13 +402,14 @@ class TextProc:
                     candidate_dict[q_rec_id] = this_rec_dict
 
 
-    def find_m_similar(self):
+    def find_m_similar(self, m):
         """Find m most similar records for each query based on the overall similarity.
         """
 
         candidate_dict = self.candidate_dict
-        m = self.m
+        # m = self.m
         results_dict = self.results_dict
+        self.sim_dict = {}
         sim_dict = self.sim_dict
 
         for query in candidate_dict:  # loop over query records
@@ -417,18 +440,20 @@ class TextProc:
                 # print 'matches similarities:', sim_dict
 
 
-    def find_m_similar_masked(self):
+    def find_m_similar_masked(self, m):
         """Find m most similar records for each query based on the overall similarity
            in a privacy-preserving setting.
         """
 
         mcandidate_dict = self.mcandidate_dict
-        m = self.m
+        # m = self.m
         mresults_dict = self.mresults_dict
+        self.mrank_dict = {}
         mrank_dict = self.mrank_dict
 
         results_dict = self.results_dict
         sim_dict = self.sim_dict
+        self.rank_dict = {}
         rank_dict = self.rank_dict
 
         assert results_dict, 'results_dict is empty'
@@ -559,16 +584,16 @@ if __name__ == "__main__":
     length = 1000 # length of bloom filter
     # m = 10 # number of similar records
 
-    tproc = TextProc(m, length)
+    tproc = TextProc(t, m, weight, length)
 
     # preprocess the databse records
     start_time = time.time()
-    tproc.db_dict =  tproc.preprocess(db_file, id_column_no, text_column_no, regex_filter, t)
+    tproc.preprocess(db_file, id_column_no, text_column_no, regex_filter, t, True)
     preprocess_time_db = time.time() - start_time
 
     # preprocess the query records
     start_time = time.time()
-    tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, regex_filter, t)
+    tproc.preprocess(query_file, id_column_no, text_column_no, regex_filter, t, False)
     preprocess_time_query = time.time() - start_time
 
     # Log file to write the results
@@ -577,10 +602,12 @@ if __name__ == "__main__":
     result_file_name = '..' + os.sep + 'results' + os.sep + dbfilename + '_' + str(t) + '_' + str(m) + '_' + weight
     # result_file = open(result_file_name, 'w')
 
+    tproc.select_t_tokens(t)
+
     # compare unmasked
     start_time = time.time()
     tproc.compare_unmasked(weight)
-    tproc.find_m_similar()
+    tproc.find_m_similar(m)
     matching_phase_time = time.time() - start_time
     tproc.write_file(tproc.results_dict, result_file_name + '_unmasked')
 
@@ -588,7 +615,7 @@ if __name__ == "__main__":
     # compare masked
     start_time = time.time()
     tproc.compare_masked(weight)
-    tproc.find_m_similar_masked()
+    tproc.find_m_similar_masked(m)
     masked_matching_phase_time = time.time() -start_time
     tproc.write_file(tproc.mresults_dict, result_file_name + '_masked')
 
