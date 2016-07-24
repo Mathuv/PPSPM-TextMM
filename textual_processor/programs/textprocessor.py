@@ -87,9 +87,8 @@ class TextProc:
         self.mrank_dict = {}
 
     # extract History of Present Illness - step 2
-    def extract_text(self,text,text_section_identifier):
-        # match = re.search(r'History of Present Illness:\s+((\S+\s)+)',text,re.IGNORECASE)
-        match = re.search(r''+text_section_identifier+'\s+((\S+\s)+)', text, re.IGNORECASE)
+    def extract_text(self, text, regex_filter):
+        match = re.search(r'' + regex_filter, text, re.IGNORECASE)
         return match.group(1) if match else match
 
     # tokenize text into list of words - step 3
@@ -379,9 +378,6 @@ class TextProc:
                 else:
                     this_rec_dict = {db_rec_id: sim_val}
                     candidate_dict[q_rec_id] = this_rec_dict
-                    
-                #DV: I think you can now use the same function used in PPPSPM for accuracy calculation using these candidate_dict and mcandidate_dict as they follow the same structure.
-
 
 
     def find_m_similar(self):
@@ -550,12 +546,14 @@ if __name__ == "__main__":
     id_column_no = int(sys.argv[3])
     # column number of the column that contains the textual data
     text_column_no = int(sys.argv[4])
-    # starting string of section of textual data
-    text_section_identifier = sys.argv[5]
+    # regular expression filter for textual data
+    regex_filter = sys.argv[5]
     # number of tokens to select from each record
     t = int(sys.argv[6])
     # number of similar records
     m = int(sys.argv[7])
+    # weight type of tokens in similarity calculation
+    weight = sys.argv[8]
 
 
     length = 1000 # length of bloom filter
@@ -565,23 +563,23 @@ if __name__ == "__main__":
 
     # preprocess the databse records
     start_time = time.time()
-    tproc.db_dict =  tproc.preprocess(db_file, id_column_no, text_column_no, text_section_identifier, t)
+    tproc.db_dict =  tproc.preprocess(db_file, id_column_no, text_column_no, regex_filter, t)
     preprocess_time_db = time.time() - start_time
 
     # preprocess the query records
     start_time = time.time()
-    tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, text_section_identifier, t)
+    tproc.query_dict =  tproc.preprocess(query_file, id_column_no, text_column_no, regex_filter, t)
     preprocess_time_query = time.time() - start_time
 
     # Log file to write the results
     dbfilename_ext = os.path.basename(db_file)
     dbfilename = os.path.splitext(dbfilename_ext)[0]
-    result_file_name = '..' + os.sep + 'results' + os.sep + dbfilename + '_' + str(t) + '_' + str(m)
+    result_file_name = '..' + os.sep + 'results' + os.sep + dbfilename + '_' + str(t) + '_' + str(m) + '_' + weight
     # result_file = open(result_file_name, 'w')
 
     # compare unmasked
     start_time = time.time()
-    tproc.compare_unmasked('TF-IDF') #DV: pass the weighting method (TF, TF-IDF, IDF) also as a parameter so that we can do experiments for different weighting methods
+    tproc.compare_unmasked(weight)
     tproc.find_m_similar()
     matching_phase_time = time.time() - start_time
     tproc.write_file(tproc.results_dict, result_file_name + '_unmasked')
@@ -589,7 +587,7 @@ if __name__ == "__main__":
 
     # compare masked
     start_time = time.time()
-    tproc.compare_masked('TF-IDF') #DV: pass the weighting method (TF, TF-IDF, IDF) also as a parameter so that we can do experiments for different weighting methods
+    tproc.compare_masked(weight)
     tproc.find_m_similar_masked()
     masked_matching_phase_time = time.time() -start_time
     tproc.write_file(tproc.mresults_dict, result_file_name + '_masked')
@@ -599,7 +597,7 @@ if __name__ == "__main__":
     # write effectiveness results (precision, recall, F1, and rank) 
     # into the log file (one line per query record)
     accuracy_dict = tproc.calculate_accuracy()
-    log_file_name = '..' + os.sep + 'logs' + os.sep + dbfilename + '_' + str(t) + '_' + str(m)
+    log_file_name = '..' + os.sep + 'logs' + os.sep + dbfilename + '_' + str(t) + '_' + str(m) + '_' + weight
 
     if not os.path.exists(os.path.dirname(log_file_name)):
         try:
