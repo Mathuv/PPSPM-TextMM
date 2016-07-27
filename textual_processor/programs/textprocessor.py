@@ -175,12 +175,13 @@ class TextProc:
         dbfilename_ext = os.path.basename(dbfile)
         dbfilename = os.path.splitext(dbfilename_ext)[0]
         dbreader = csv.reader(open(dbfile))
-        dbdata = list(dbreader)
+        # dbdata = list(dbreader)
+        count = 0
 
-        header_rec = dbdata[0]  # Patient table column headers
+        # header_rec = dbdata[0]  # Patient table column headers
 
-        assert len(header_rec) >= int(id_column_no) > 0, 'id column number is out of range'
-        assert len(header_rec) >= int(text_column_no) > 0, 'text column number is out of range'
+        # assert len(header_rec) >= int(id_column_no) > 0, 'id column number is out of range'
+        # assert len(header_rec) >= int(text_column_no) > 0, 'text column number is out of range'
 
         raw_text_list = []
         text_list_extract = []
@@ -199,44 +200,54 @@ class TextProc:
         else:
             db_dict = self.query_dict
 
-        for row in dbdata[1:]:
+        # for row in dbdata[1:]:
+        for row in dbreader:
+            count += 1
 
-            # unprocessed data
-            raw_text_list.append(row[id_column_no - 1::text_column_no - 1])
-
-            # extract part of the raw text - step 2
-            row[text_column_no - 1] = self.extract_text(row[text_column_no - 1], regex_filter)
-            text_list_extract.append(row[id_column_no - 1::text_column_no - 1])
-
-            if row[text_column_no - 1]:
-                # cleaning data - convert to lower case
-                row[text_column_no - 1] = row[text_column_no - 1].lower()
-
-                # cleaning data - punctuation removal
-                row[text_column_no - 1] = str(row[text_column_no - 1]).translate(None, string.punctuation)
-
-                # create tokenized list - step 3
-                row[text_column_no - 1] = self.tokenize(row[text_column_no - 1])
-                text_list_tokenized.append(row[id_column_no - 1::text_column_no - 1])
-
-                # create stop word removed list - step 4
-                row[text_column_no - 1] = self.remove_stopwords(row[text_column_no - 1])
-                text_list_stpwd_rm.append(row[id_column_no - 1::text_column_no - 1])
-
-                # pos tagging
-                # row[10] = pos_tagging(row[10])
-                # text_list_pos_tagged.append(row[0::10])
-
-                # create stemmed list
-                row[text_column_no - 1] = self.stem(row[text_column_no - 1])
-                text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
-
-                #crate idf_corpus
-                if isDB:
-                    self.idf_corpus.append(row[text_column_no - 1])
+            # csv header fields
+            if count == 1:
+                header_rec = row  # Patient table column headers
+                assert len(header_rec) >= int(id_column_no) > 0, 'id column number is out of range'
+                assert len(header_rec) >= int(text_column_no) > 0, 'text column number is out of range'
 
             else:
-                continue
+
+                # unprocessed data
+                raw_text_list.append(row[id_column_no - 1::text_column_no - 1])
+
+                # extract part of the raw text - step 2
+                row[text_column_no - 1] = self.extract_text(row[text_column_no - 1], regex_filter)
+                text_list_extract.append(row[id_column_no - 1::text_column_no - 1])
+
+                if row[text_column_no - 1]:
+                    # cleaning data - convert to lower case
+                    row[text_column_no - 1] = row[text_column_no - 1].lower()
+
+                    # cleaning data - punctuation removal
+                    row[text_column_no - 1] = str(row[text_column_no - 1]).translate(None, string.punctuation)
+
+                    # create tokenized list - step 3
+                    row[text_column_no - 1] = self.tokenize(row[text_column_no - 1])
+                    text_list_tokenized.append(row[id_column_no - 1::text_column_no - 1])
+
+                    # create stop word removed list - step 4
+                    row[text_column_no - 1] = self.remove_stopwords(row[text_column_no - 1])
+                    text_list_stpwd_rm.append(row[id_column_no - 1::text_column_no - 1])
+
+                    # pos tagging
+                    # row[10] = pos_tagging(row[10])
+                    # text_list_pos_tagged.append(row[0::10])
+
+                    # create stemmed list
+                    row[text_column_no - 1] = self.stem(row[text_column_no - 1])
+                    text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
+
+                    #crate idf_corpus
+                    if isDB:
+                        self.idf_corpus.append(row[text_column_no - 1])
+
+                else:
+                    continue
 
         # TF-IDF calculation - Step 6
         for rec in text_list_stemmed:
@@ -302,35 +313,16 @@ class TextProc:
         text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
         self.write_file(text_list_t_tokens_tf, text_m_tf_filename)
 
-        # write preprocessed file
-        ppd_file_name = text_m_tf_filename = dbpath + os.sep + 'preprocessed' + os.sep + dbfilename + '.json'
-        self.write_preprocessed(ppd_file_name, isDB)
-
-
-
-    def write_preprocessed(self, file, isDB):
-
-        if not os.path.exists(os.path.dirname(file)):
-            try:
-                os.makedirs(os.path.dirname(file))
-            except OSError as exc:
-                if exc.errno != errno.EEXIST:
-                    raise
-
-        with open(file, 'w') as f:
-            if isDB:
-                f.write(json.dumps(self.db_dict))
-            else:
-                f.write(json.dumps(self.query_dict))
-
-
+    # reads the preprocessed data
     def read_preprocessed(self, file, isDB):
 
         with open(file, 'r') as f:
-            if isDB:
-                self.db_dict = json.loads(f.read())
-            else:
-                self.query_dict = json.loads(f.read())
+            filereader = csv.reader(f)
+            for line in filereader:
+                if isDB:
+                    self.db_dict[line[0]] = eval(line[1])
+                else:
+                    self.query_dict[line[0]] = eval(line[1])
 
 
     def select_t_tokens(self,t):
