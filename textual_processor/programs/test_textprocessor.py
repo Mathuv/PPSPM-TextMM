@@ -3,9 +3,13 @@ import sys
 import time
 import os
 import errno
+import logging
 
 # Febrl modules
 import auxiliary
+
+# Log everything, and send it to stderr.
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # number of similar eecords
 m_list = ['1','5','10']
@@ -13,7 +17,7 @@ m_list = ['1','5','10']
 t_list = ['5', '10', '20', '30', '50'] # DV: experiment more to plot the results - 5, 10, 20, 30, 50
 weight_list = ['TF', 'TF-IDF']
 
-dbfile = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_1000REC.csv'
+dbfile = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_200REC.csv'
 queryfile = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
 # Regex filter to filter a section of the texttual data
