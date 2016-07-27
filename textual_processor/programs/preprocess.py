@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 t_list = [5, 10, 20, 30, 50]
 
-db_file = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_200REC.csv'
+db_file = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_1000REC.csv'
 query_file = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
 # Regex filter to filter a section of the texttual data
@@ -37,7 +37,8 @@ start_time_query = time.time()
 query_path = os.path.dirname(query_file)
 query_filename_ext = os.path.basename(query_file)
 query_filename = os.path.splitext(query_filename_ext)[0]
-query_preprocesed = query_path + os.sep + 'preprocessed' + os.sep + query_filename_ext
+# query_preprocesed = query_path + os.sep + 'preprocessed' + os.sep + query_filename_ext
+query_preprocesed = query_path + os.sep + 'preprocessed' + os.sep + query_filename + '_' + db_filename + '.csv'
 
 # preproess query dataset
 tproc.preprocess(query_file, 1, 11, regex_filter, max(t_list), isDB=False)
