@@ -1,5 +1,5 @@
-"ROW_ID","SUBJECT_ID","HADM_ID","CHARTDATE","CHARTTIME","STORETIME","CATEGORY","DESCRIPTION","CGID","ISERROR","TEXT"
-1,23224,174680,2147-12-05,,,"Discharge summary","Report",,"","Admission Date:  [**2823-9-29**]              Discharge Date:   [**2823-10-17**]
+ROW_ID,SUBJECT_ID,HADM_ID,CHARTDATE,CHARTTIME,STORETIME,CATEGORY,DESCRIPTION,CGID,ISERROR,TEXT
+1,23224,174680,2147-12-05,,,Discharge summary,Report,,,"Admission Date:  [**2823-9-29**]              Discharge Date:   [**2823-10-17**]
 
 Date of Birth:  [**2768-10-11**]             Sex:   F
 
@@ -393,7 +393,7 @@ You have an MRI scheduled on [**2823-11-3**] [**Telephone/Fax (1) 11**].
 
 
 "
-2,23224,117806,2154-05-03,,,"Discharge summary","Report",,"","Admission Date:  [**2830-3-12**]              Discharge Date:   [**2830-3-15**]
+2,23224,117806,2154-05-03,,,Discharge summary,Report,,,"Admission Date:  [**2830-3-12**]              Discharge Date:   [**2830-3-15**]
 
 Date of Birth:  [**2768-10-11**]             Sex:   F
 
@@ -716,7 +716,7 @@ Campus: EAST     Best Parking: [**Hospital Ward Name 23**] Garage
 
 
 "
-3,19051,184534,2172-04-23,,,"Discharge summary","Report",,"","Admission Date:  [**2714-3-12**]              Discharge Date:   [**2714-4-9**]
+3,19051,184534,2172-04-23,,,Discharge summary,Report,,,"Admission Date:  [**2714-3-12**]              Discharge Date:   [**2714-4-9**]
 
 Date of Birth:  [**2651-12-1**]             Sex:   F
 
@@ -1183,7 +1183,7 @@ Please follow-up with your PCP in the next 1-2 weeks
 
 
 "
-4,14605,195146,2198-11-27,,,"Discharge summary","Report",,"","Admission Date:  [**2678-10-4**]              Discharge Date:   [**2678-10-8**]
+4,14605,195146,2198-11-27,,,Discharge summary,Report,,,"Admission Date:  [**2678-10-4**]              Discharge Date:   [**2678-10-8**]
 
 Date of Birth:  [**2614-11-19**]             Sex:   M
 
@@ -1432,7 +1432,7 @@ with your PCP regarding [**Name Initial (PRE) **] cardiologist or you can call [
                              [**First Name8 (NamePattern2) **] [**Last Name (NamePattern1) **] MD [**Doctor First Name 63**]
 
 Completed by:[**2678-10-9**]"
-5,9446,154895,2190-05-22,,,"Discharge summary","Report",,"","Admission Date:  [**2936-5-6**]     Discharge Date:  [**2936-5-12**]
+5,9446,154895,2190-05-22,,,Discharge summary,Report,,,"Admission Date:  [**2936-5-6**]     Discharge Date:  [**2936-5-12**]
 
 Date of Birth:   [**2885-4-11**]     Sex:  F
 
@@ -1566,7 +1566,7 @@ D:  [**2936-6-27**]  08:16
 T:  [**2936-6-27**]  11:56
 JOB#:  [**Job Number 77**]
 "
-6,78149,133857,2175-03-24,,,"Discharge summary","Report",,"","Admission Date:  [**2632-3-4**]              Discharge Date:   [**2632-3-16**]
+6,78149,133857,2175-03-24,,,Discharge summary,Report,,,"Admission Date:  [**2632-3-4**]              Discharge Date:   [**2632-3-16**]
 
 Date of Birth:  [**2562-10-28**]             Sex:   M
 
@@ -1795,7 +1795,7 @@ Dr.[**First Name (STitle) **], to be seen in ___4____weeks.
 
 
 Completed by:[**2632-3-16**]"
-7,22615,138547,2199-02-12,,,"Discharge summary","Report",,"","Admission Date:  [**3005-12-31**]              Discharge Date:   [**3006-1-21**]
+7,22615,138547,2199-02-12,,,Discharge summary,Report,,,"Admission Date:  [**3005-12-31**]              Discharge Date:   [**3006-1-21**]
 
 
 Service: MEDICINE
@@ -2199,7 +2199,7 @@ Your care will be transferred to the rehabilitation center.
 
 
 Completed by:[**3006-1-21**]"
-8,31502,125483,2174-06-09,,,"Discharge summary","Report",,"","Admission Date:  [**3259-7-13**]              Discharge Date:   [**3259-7-24**]
+8,31502,125483,2174-06-09,,,Discharge summary,Report,,,"Admission Date:  [**3259-7-13**]              Discharge Date:   [**3259-7-24**]
 
 Date of Birth:  [**3179-1-2**]             Sex:   F
 
@@ -2575,7 +2575,7 @@ emergency.
 
 
 Completed by:[**3259-7-29**]"
-9,14291,139852,2188-11-08,,,"Discharge summary","Report",,"","Admission Date:  [**2833-12-17**]     Discharge Date:  [**2833-12-24**]
+9,14291,139852,2188-11-08,,,Discharge summary,Report,,,"Admission Date:  [**2833-12-17**]     Discharge Date:  [**2833-12-24**]
 
 
 Service:  Medicine [**Hospital1 138**]
@@ -2794,7 +2794,7 @@ D:  [**2834-1-28**]  16:12
 T:  [**2834-1-30**]  06:37
 JOB#:  [**Job Number 145**]
 "
-10,18961,199586,2196-08-23,,,"Discharge summary","Report",,"","Admission Date:  [**3381-8-11**]              Discharge Date:   [**3381-8-14**]
+10,18961,199586,2196-08-23,,,Discharge summary,Report,,,"Admission Date:  [**3381-8-11**]              Discharge Date:   [**3381-8-14**]
 
 Date of Birth:  [**3306-4-10**]             Sex:   M
 
@@ -2980,7 +2980,7 @@ Pt deceased
 
 
 Completed by:[**3381-8-14**]"
-11,60614,116703,2175-09-28,,,"Discharge summary","Report",,"","Admission Date:  [**2851-8-9**]              Discharge Date:   [**2851-8-10**]
+11,60614,116703,2175-09-28,,,Discharge summary,Report,,,"Admission Date:  [**2851-8-9**]              Discharge Date:   [**2851-8-10**]
 
 Date of Birth:  [**2777-9-23**]             Sex:   M
 
@@ -3124,7 +3124,7 @@ Date/Time:[**2851-8-23**] 1:00
 
 
 Completed by:[**2851-8-10**]"
-12,60614,116703,2175-10-04,,,"Discharge summary","Report",,"","Admission Date:  [**2851-8-11**]              Discharge Date:   [**2851-8-16**]
+12,60614,116703,2175-10-04,,,Discharge summary,Report,,,"Admission Date:  [**2851-8-11**]              Discharge Date:   [**2851-8-16**]
 
 Date of Birth:  [**2777-9-23**]             Sex:   M
 
@@ -3356,7 +3356,7 @@ person during off hours**
                              [**Name6 (MD) **] [**Name8 (MD) **] MD [**MD Number(2) 171**]
 
 Completed by:[**2851-8-16**]"
-13,15472,169182,2175-07-29,,,"Discharge summary","Report",,"","Admission Date:  [**2534-7-6**]     Discharge Date:  [**2534-7-24**]
+13,15472,169182,2175-07-29,,,Discharge summary,Report,,,"Admission Date:  [**2534-7-6**]     Discharge Date:  [**2534-7-24**]
 
 Date of Birth:   [**2473-2-2**]     Sex:  M
 
@@ -3535,7 +3535,7 @@ D:  [**2534-10-6**]  11:01
 T:  [**2534-10-7**]  12:51
 JOB#:  [**Job Number 181**]
 "
-14,15472,118185,2175-09-28,,,"Discharge summary","Report",,"","Admission Date:  [**2534-9-13**]     Discharge Date:  [**2534-9-23**]
+14,15472,118185,2175-09-28,,,Discharge summary,Report,,,"Admission Date:  [**2534-9-13**]     Discharge Date:  [**2534-9-23**]
 
 Date of Birth:   [**2473-2-2**]     Sex:  M
 
@@ -3743,7 +3743,7 @@ D:  [**2534-9-23**]  02:28
 T:  [**2534-9-25**]  10:33
 JOB#:  [**Job Number 193**]
 "
-15,15472,166833,2176-08-04,,,"Discharge summary","Report",,"","Admission Date:  [**2535-7-26**]     Discharge Date:  [**2535-7-31**]
+15,15472,166833,2176-08-04,,,Discharge summary,Report,,,"Admission Date:  [**2535-7-26**]     Discharge Date:  [**2535-7-31**]
 
 Date of Birth:   [**2473-2-2**]     Sex:  M
 
@@ -3961,7 +3961,7 @@ D:  [**2535-7-31**]  15:11
 T:  [**2535-8-8**]  06:15
 JOB#:  [**Job Number 212**]
 "
-16,15472,153439,2176-08-21,,,"Discharge summary","Report",,"","Admission Date:  [**2535-8-13**]       Discharge Date:  [**2535-8-17**]
+16,15472,153439,2176-08-21,,,Discharge summary,Report,,,"Admission Date:  [**2535-8-13**]       Discharge Date:  [**2535-8-17**]
 
 Date of Birth:   [**2473-2-2**]       Sex:  M
 
@@ -4219,7 +4219,7 @@ D:  [**2535-8-16**]  19:24
 T:  [**2535-8-16**]  19:38
 JOB#:  [**Job Number 216**]
 "
-17,15472,109655,2177-12-05,,,"Discharge summary","Report",,"","Admission Date:  [**2536-11-20**]       Discharge Date:  [**2536-11-30**]
+17,15472,109655,2177-12-05,,,Discharge summary,Report,,,"Admission Date:  [**2536-11-20**]       Discharge Date:  [**2536-11-30**]
 
 Date of Birth:   [**2473-2-2**]       Sex:  M
 
@@ -4590,7 +4590,7 @@ D:  [**2536-11-29**]  20:17
 T:  [**2536-11-29**]  21:42
 JOB#:  [**Job Number 255**]
 "
-18,15472,170963,2178-01-23,,,"Discharge summary","Report",,"","Admission Date:  [**2537-1-13**]     Discharge Date:  [**2537-1-18**]
+18,15472,170963,2178-01-23,,,Discharge summary,Report,,,"Admission Date:  [**2537-1-13**]     Discharge Date:  [**2537-1-18**]
 
 Date of Birth:   [**2473-2-2**]     Sex:  M
 
@@ -4884,7 +4884,7 @@ D:  [**2537-1-18**]  16:52
 T:  [**2537-1-20**]  13:25
 JOB#:  [**Job Number 261**]
 "
-19,15472,115683,2178-06-03,,,"Discharge summary","Report",,"","Admission Date:  [**2537-5-23**]              Discharge Date:   [**2537-5-29**]
+19,15472,115683,2178-06-03,,,Discharge summary,Report,,,"Admission Date:  [**2537-5-23**]              Discharge Date:   [**2537-5-29**]
 
 Date of Birth:  [**2473-2-2**]             Sex:   M
 
@@ -5069,7 +5069,7 @@ Provider: [**First Name8 (NamePattern2) 274**] [**Last Name (NamePattern1) 275**
 
 
 "
-20,15472,148372,2178-12-02,,,"Discharge summary","Report",,"","Admission Date:  [**2537-11-10**]              Discharge Date:   [**2537-11-27**]
+20,15472,148372,2178-12-02,,,Discharge summary,Report,,,"Admission Date:  [**2537-11-10**]              Discharge Date:   [**2537-11-27**]
 
 Date of Birth:  [**2473-2-2**]             Sex:   M
 
@@ -5257,7 +5257,7 @@ for further evaluation of your atrial fibrillation, bradycardia.
                              [**Name6 (MD) **] [**Name8 (MD) **] MD [**MD Number(2) 282**]
 
 "
-21,15472,188190,2178-12-09,,,"Discharge summary","Report",,"","Admission Date:  [**2537-11-30**]              Discharge Date:   [**2537-12-16**]
+21,15472,188190,2178-12-09,,,Discharge summary,Report,,,"Admission Date:  [**2537-11-30**]              Discharge Date:   [**2537-12-16**]
 
 Date of Birth:  [**2473-2-2**]             Sex:   M
 
@@ -5517,7 +5517,7 @@ to rehab
                              [**First Name11 (Name Pattern1) **] [**Last Name (NamePattern4) 284**] MD, [**MD Number(3) 285**]
 
 Completed by:[**2537-12-4**]"
-22,15472,104146,2179-02-08,,,"Discharge summary","Report",,"","Admission Date:  [**2538-1-27**]              Discharge Date:   [**2538-2-3**]
+22,15472,104146,2179-02-08,,,Discharge summary,Report,,,"Admission Date:  [**2538-1-27**]              Discharge Date:   [**2538-2-3**]
 
 Date of Birth:  [**2473-2-2**]             Sex:   M
 
@@ -5765,7 +5765,7 @@ Follow-up with your PCP, [**Last Name (NamePattern4) **]. [**Last Name (STitle) 
                              [**Initials (NamePattern4) **] [**Last Name (NamePattern4) **] [**Name8 (MD) **] MD [**MD Number(1) 288**]
 
 "
-23,15472,143651,2179-03-26,,,"Discharge summary","Report",,"","Admission Date:  [**2538-3-16**]              Discharge Date:   [**2538-3-21**]
+23,15472,143651,2179-03-26,,,Discharge summary,Report,,,"Admission Date:  [**2538-3-16**]              Discharge Date:   [**2538-3-21**]
 
 Date of Birth:  [**2473-2-2**]             Sex:   M
 
@@ -6081,7 +6081,7 @@ Follow up with your PCP [**Last Name (NamePattern4) **] [**11-24**] weeks
 
 
 "
-24,15472,184486,2179-04-15,,,"Discharge summary","Report",,"","Admission Date:  [**2538-4-7**]              Discharge Date:   [**2538-4-10**]
+24,15472,184486,2179-04-15,,,Discharge summary,Report,,,"Admission Date:  [**2538-4-7**]              Discharge Date:   [**2538-4-10**]
 
 Date of Birth:  [**2473-2-2**]             Sex:   M
 
@@ -6557,7 +6557,7 @@ Patient should continue zosyn for a total of 14 days(started on
 
 
 Completed by:[**2538-4-10**]"
-25,57578,158315,2119-05-18,,,"Discharge summary","Report",,"","Admission Date:  [**2914-4-27**]              Discharge Date:   [**2914-5-3**]
+25,57578,158315,2119-05-18,,,Discharge summary,Report,,,"Admission Date:  [**2914-4-27**]              Discharge Date:   [**2914-5-3**]
 
 Date of Birth:  [**2874-2-22**]             Sex:   M
 
@@ -6769,7 +6769,7 @@ Provider: [**Name10 (NameIs) 302**] [**Name Initial (MD) 303**] [**Name8 (MD) 30
 
 
 Completed by:[**2914-5-3**]"
-26,2961,130443,2109-04-03,,,"Discharge summary","Report",,"","Admission Date:  [**2837-12-24**]       Discharge Date:  [**2838-1-13**]
+26,2961,130443,2109-04-03,,,Discharge summary,Report,,,"Admission Date:  [**2837-12-24**]       Discharge Date:  [**2838-1-13**]
 
 
 Service:  [**Hospital1 138**]
@@ -7086,7 +7086,7 @@ D:  [**2838-1-12**]  17:12
 T:  [**2838-1-12**]  17:25
 JOB#:  [**Job Number 312**]
 "
-27,23194,107478,2157-04-18,,,"Discharge summary","Report",,"","Admission Date:  [**3495-5-4**]              Discharge Date:   [**3495-5-13**]
+27,23194,107478,2157-04-18,,,Discharge summary,Report,,,"Admission Date:  [**3495-5-4**]              Discharge Date:   [**3495-5-13**]
 
 Date of Birth:  [**3444-1-29**]             Sex:   M
 
@@ -7207,7 +7207,7 @@ Please call your PCP and see him within 2 weeks
 
 
 Completed by:[**3495-5-13**]"
-28,23194,164553,2157-05-14,,,"Discharge summary","Report",,"","Admission Date:  [**3495-6-5**]              Discharge Date:   [**3495-6-8**]
+28,23194,164553,2157-05-14,,,Discharge summary,Report,,,"Admission Date:  [**3495-6-5**]              Discharge Date:   [**3495-6-8**]
 
 Date of Birth:  [**3444-1-29**]             Sex:   M
 
@@ -7391,7 +7391,7 @@ nodule. It will need to be removed. Dr. [**First Name8 (NamePattern2) 329**] [**
 
 
 "
-29,23194,190448,2157-06-01,,,"Discharge summary","Report",,"","Admission Date:  [**3495-6-25**]              Discharge Date:   [**3495-6-26**]
+29,23194,190448,2157-06-01,,,Discharge summary,Report,,,"Admission Date:  [**3495-6-25**]              Discharge Date:   [**3495-6-26**]
 
 Date of Birth:  [**3444-1-29**]             Sex:   M
 
@@ -7542,7 +7542,7 @@ fair
 
 
 "
-30,25995,152664,2128-05-07,,,"Discharge summary","Report",,"","Admission Date:  [**2757-2-20**]       Discharge Date:  [**2757-2-22**]
+30,25995,152664,2128-05-07,,,Discharge summary,Report,,,"Admission Date:  [**2757-2-20**]       Discharge Date:  [**2757-2-22**]
 
 Date of Birth:   [**2696-7-29**]       Sex:  M
 
@@ -7624,7 +7624,7 @@ D:  [**2757-2-22**]  12:50
 T:  [**2757-2-22**]  14:26
 JOB#:  [**Job Number 340**]
 "
-31,25995,152664,2128-05-07,,,"Discharge summary","Report",,"","Admission Date:  [**2757-2-20**]       Discharge Date:  [**2757-2-22**]
+31,25995,152664,2128-05-07,,,Discharge summary,Report,,,"Admission Date:  [**2757-2-20**]       Discharge Date:  [**2757-2-22**]
 
 Date of Birth:   [**2696-7-29**]       Sex:  M
 
@@ -7706,7 +7706,7 @@ D:  [**2757-2-22**]  12:50
 T:  [**2757-2-22**]  14:26
 JOB#:  [**Job Number 340**]
 "
-32,25995,123177,2128-05-18,,,"Discharge summary","Report",,"","Admission Date:  [**2757-2-27**]       Discharge Date:  [**2757-3-5**]
+32,25995,123177,2128-05-18,,,Discharge summary,Report,,,"Admission Date:  [**2757-2-27**]       Discharge Date:  [**2757-3-5**]
 
 Date of Birth:   [**2696-7-29**]       Sex:  M
 
@@ -7797,7 +7797,7 @@ D:  [**2757-3-5**]  10:57
 T:  [**2757-3-5**]  11:16
 JOB#:  [**Job Number 342**]
 "
-33,44872,166389,2196-10-18,,,"Discharge summary","Report",,"","Admission Date:  [**3054-11-3**]              Discharge Date:   [**3054-11-7**]
+33,44872,166389,2196-10-18,,,Discharge summary,Report,,,"Admission Date:  [**3054-11-3**]              Discharge Date:   [**3054-11-7**]
 
 
 Service: MEDICINE
@@ -8048,7 +8048,7 @@ With Dr. [**Last Name (STitle) **] ([**Telephone/Fax (1) 350**]) at 1180 Beacon.
 
 
 "
-34,7429,127159,2126-08-20,,,"Discharge summary","Report",,"","Admission Date: [**3419-10-4**]        Discharge Date: [**3419-10-26**]
+34,7429,127159,2126-08-20,,,Discharge summary,Report,,,"Admission Date: [**3419-10-4**]        Discharge Date: [**3419-10-26**]
 
 Date of Birth:  [**3341-8-12**]        Sex:  F
 
@@ -8175,7 +8175,7 @@ T:  [**3419-10-26**] 11:48:24
 Job#:  [**Job Number 365**]
 
 cc:[**Hospital1 366**]"
-35,7429,110364,2126-09-19,,,"Discharge summary","Report",,"","Admission Date:  [**3419-10-29**]              Discharge Date:   [**3419-11-25**]
+35,7429,110364,2126-09-19,,,Discharge summary,Report,,,"Admission Date:  [**3419-10-29**]              Discharge Date:   [**3419-11-25**]
 
 Date of Birth:  [**3341-8-12**]             Sex:   F
 
@@ -8414,7 +8414,7 @@ TRAUMA OUTREACH W/LMOB 2G [**Hospital1 18**] ([**Telephone/Fax (1) 373**]
 
 
 Completed by:[**3419-11-25**]"
-36,5458,130840,2137-03-16,,,"Discharge summary","Report",,"","Admission Date:  [**2960-2-14**]              Discharge Date:   [**2960-2-23**]
+36,5458,130840,2137-03-16,,,Discharge summary,Report,,,"Admission Date:  [**2960-2-14**]              Discharge Date:   [**2960-2-23**]
 
 Date of Birth:  [**2883-9-17**]             Sex:   M
 
@@ -8756,7 +8756,7 @@ Date/Time:[**2960-3-18**] 11:00
 
 
 "
-37,32779,133757,2167-10-27,,,"Discharge summary","Report",,"","Admission Date:  [**3344-11-10**]              Discharge Date:   [**3344-11-17**]
+37,32779,133757,2167-10-27,,,Discharge summary,Report,,,"Admission Date:  [**3344-11-10**]              Discharge Date:   [**3344-11-17**]
 
 Date of Birth:  [**3275-8-22**]             Sex:   F
 
@@ -9095,7 +9095,7 @@ expired
 
 
 "
-38,142,131357,2143-04-05,,,"Discharge summary","Report",,"","Admission Date:  [**2963-4-4**]     Discharge Date:  [**2963-4-8**]
+38,142,131357,2143-04-05,,,Discharge summary,Report,,,"Admission Date:  [**2963-4-4**]     Discharge Date:  [**2963-4-8**]
 
 Date of Birth:   [**2915-3-3**]     Sex:  F
 
@@ -9279,7 +9279,7 @@ D:  [**2963-4-8**]  09:55
 T:  [**2963-4-8**]  10:23
 JOB#:  [**Job Number 411**]
 "
-39,31502,125748,2174-07-04,,,"Discharge summary","Report",,"","Admission Date:  [**3259-8-3**]              Discharge Date:   [**3259-8-18**]
+39,31502,125748,2174-07-04,,,Discharge summary,Report,,,"Admission Date:  [**3259-8-3**]              Discharge Date:   [**3259-8-18**]
 
 Date of Birth:  [**3179-1-2**]             Sex:   F
 
@@ -9858,7 +9858,7 @@ basement of the building.
 
 
 "
-40,31502,130186,2174-07-20,,,"Discharge summary","Report",,"","Admission Date:  [**3259-8-31**]              Discharge Date:   [**3259-9-3**]
+40,31502,130186,2174-07-20,,,Discharge summary,Report,,,"Admission Date:  [**3259-8-31**]              Discharge Date:   [**3259-9-3**]
 
 Date of Birth:  [**3179-1-2**]             Sex:   F
 
@@ -10154,7 +10154,7 @@ Date/Time:[**3259-9-8**] 10:00
 
 
 "
-41,31502,125192,2174-08-05,,,"Discharge summary","Report",,"","Admission Date:  [**3259-9-5**]              Discharge Date:   [**3259-9-19**]
+41,31502,125192,2174-08-05,,,Discharge summary,Report,,,"Admission Date:  [**3259-9-5**]              Discharge Date:   [**3259-9-19**]
 
 Date of Birth:  [**3179-1-2**]             Sex:   F
 
@@ -10498,7 +10498,7 @@ Date/Time:[**3259-11-12**] 11:15
 
 
 Completed by:[**3259-9-19**]"
-42,31502,195364,2174-08-12,,,"Discharge summary","Report",,"","Admission Date:  [**3259-9-20**]              Discharge Date:   [**3259-9-26**]
+42,31502,195364,2174-08-12,,,Discharge summary,Report,,,"Admission Date:  [**3259-9-20**]              Discharge Date:   [**3259-9-26**]
 
 Date of Birth:  [**3179-1-2**]             Sex:   F
 
@@ -10840,7 +10840,7 @@ Provider: [**Name10 (NameIs) **] Phone:[**Telephone/Fax (1) 62**] Date/Time:[**3
 
 
 Completed by:[**3259-9-26**]"
-43,13733,141710,2141-08-24,,,"Discharge summary","Report",,"","Admission Date:  [**2600-7-30**]              Discharge Date:   [**2600-8-7**]
+43,13733,141710,2141-08-24,,,Discharge summary,Report,,,"Admission Date:  [**2600-7-30**]              Discharge Date:   [**2600-8-7**]
 
 Date of Birth:  [**2529-10-4**]             Sex:   F
 
@@ -11063,7 +11063,7 @@ Provider: [**First Name8 (NamePattern2) 248**] [**Name11 (NameIs) **], MD Phone:
 
 
 Completed by:[**2600-8-7**]"
-44,13733,196357,2143-04-26,,,"Discharge summary","Report",,"","Admission Date:  [**2602-4-3**]              Discharge Date:   [**2602-4-9**]
+44,13733,196357,2143-04-26,,,Discharge summary,Report,,,"Admission Date:  [**2602-4-3**]              Discharge Date:   [**2602-4-9**]
 
 Date of Birth:  [**2529-10-4**]             Sex:   F
 
@@ -11243,7 +11243,7 @@ expired
                              [**First Name8 (NamePattern2) **] [**Name8 (MD) **] MD [**Doctor First Name 488**]
 
 "
-45,68109,162197,2189-09-09,,,"Discharge summary","Report",,"","Admission Date:  [**2616-12-2**]              Discharge Date:   [**2616-12-4**]
+45,68109,162197,2189-09-09,,,Discharge summary,Report,,,"Admission Date:  [**2616-12-2**]              Discharge Date:   [**2616-12-4**]
 
 Date of Birth:  [**2556-6-21**]             Sex:   F
 
@@ -11526,7 +11526,7 @@ Appointment: [**12-5**] @ 11:15am
 
 
 Completed by:[**2616-12-4**]"
-46,26672,180661,2112-06-14,,,"Discharge summary","Report",,"","Admission Date:  [**3096-6-15**]       Discharge Date:  [**3096-6-23**]
+46,26672,180661,2112-06-14,,,Discharge summary,Report,,,"Admission Date:  [**3096-6-15**]       Discharge Date:  [**3096-6-23**]
 
 
 Service:  GENERAL SURGERY
@@ -11625,7 +11625,7 @@ D:  [**3096-6-23**]  10:25
 T:  [**3096-6-23**]  10:37
 JOB#:  [**Job Number 517**]
 "
-47,26672,179067,2112-07-11,,,"Discharge summary","Report",,"","Admission Date:  [**3096-7-11**]       Discharge Date:  [**3096-7-20**]
+47,26672,179067,2112-07-11,,,Discharge summary,Report,,,"Admission Date:  [**3096-7-11**]       Discharge Date:  [**3096-7-20**]
 
 
 Service:  GREEN GENERAL SURGERY
@@ -11727,7 +11727,7 @@ D:  [**3096-7-20**]  10:36
 T:  [**3096-7-20**]  10:55
 JOB#:  [**Job Number 523**]
 "
-48,26672,110162,2119-04-15,,,"Discharge summary","Report",,"","Admission Date:  [**3103-4-16**]              Discharge Date:   [**3103-4-25**]
+48,26672,110162,2119-04-15,,,Discharge summary,Report,,,"Admission Date:  [**3103-4-16**]              Discharge Date:   [**3103-4-25**]
 
 
 Service: MEDICINE
@@ -12144,7 +12144,7 @@ Tuesday at 9:30 AM
 
 
 "
-49,3445,196939,2141-07-10,,,"Discharge summary","Report",,"","Admission Date: [**3500-7-3**]        Discharge Date: [**3500-7-9**]
+49,3445,196939,2141-07-10,,,Discharge summary,Report,,,"Admission Date: [**3500-7-3**]        Discharge Date: [**3500-7-9**]
 
 
 Service:  GU
@@ -12234,7 +12234,7 @@ D:  [**3500-8-16**] 12:37:49
 T:  [**3500-8-16**] 14:44:38
 Job#:  [**Job Number 555**]
 "
-50,31038,174978,2102-06-16,,,"Discharge summary","Report",,"","Admission Date:  [**2992-5-28**]              Discharge Date:   [**2992-6-1**]
+50,31038,174978,2102-06-16,,,Discharge summary,Report,,,"Admission Date:  [**2992-5-28**]              Discharge Date:   [**2992-6-1**]
 
 Date of Birth:  [**2934-7-2**]             Sex:   M
 
@@ -12547,7 +12547,7 @@ PCP appt with Dr. [**Last Name (STitle) 565**]: Monday [**6-4**] at 2:40pm
 
 
 "
-51,57276,171108,2118-07-11,,,"Discharge summary","Report",,"","Admission Date:  [**3458-8-1**]              Discharge Date:   [**3458-8-2**]
+51,57276,171108,2118-07-11,,,Discharge summary,Report,,,"Admission Date:  [**3458-8-1**]              Discharge Date:   [**3458-8-2**]
 
 Date of Birth:  [**3374-2-17**]             Sex:   M
 
@@ -12759,7 +12759,7 @@ Expired
 
 
 "
-52,92326,119205,2101-08-29,,,"Discharge summary","Report",,"","Admission Date:  [**3189-6-12**]              Discharge Date:   [**3189-6-26**]
+52,92326,119205,2101-08-29,,,Discharge summary,Report,,,"Admission Date:  [**3189-6-12**]              Discharge Date:   [**3189-6-26**]
 
 
 Service: SURGERY
@@ -13004,7 +13004,7 @@ Date/Time:[**3189-7-11**] 12:30
                              [**First Name8 (NamePattern2) **] [**Name8 (MD) **] MD [**MD Number(2) 595**]
 
 Completed by:[**3189-6-26**]"
-53,92326,182163,2101-11-10,,,"Discharge summary","Report",,"","Admission Date:  [**3189-8-29**]              Discharge Date:   [**3189-9-7**]
+53,92326,182163,2101-11-10,,,Discharge summary,Report,,,"Admission Date:  [**3189-8-29**]              Discharge Date:   [**3189-9-7**]
 
 
 Service: MEDICINE
@@ -13346,7 +13346,7 @@ Patient expired
 
 
 "
-54,70150,156140,2191-05-14,,,"Discharge summary","Report",,"","Admission Date:  [**3400-3-31**]              Discharge Date:   [**3400-4-5**]
+54,70150,156140,2191-05-14,,,Discharge summary,Report,,,"Admission Date:  [**3400-3-31**]              Discharge Date:   [**3400-4-5**]
 
 Date of Birth:  [**3317-5-1**]             Sex:   M
 
@@ -13754,7 +13754,7 @@ Campus: EAST     Best Parking: [**Hospital Ward Name 23**] Garage
 
 
 "
-55,54190,188571,2158-03-06,,,"Discharge summary","Report",,"","Admission Date:  [**3064-12-20**]              Discharge Date:   [**3065-1-9**]
+55,54190,188571,2158-03-06,,,Discharge summary,Report,,,"Admission Date:  [**3064-12-20**]              Discharge Date:   [**3065-1-9**]
 
 
 Service: NEUROLOGY
@@ -14181,7 +14181,7 @@ Please follow-up with your PCP [**Name Initial (PRE) 174**] 1-2 weeks of dischar
                              [**Name6 (MD) **] [**Name8 (MD) **] MD, [**MD Number(3) 626**]
 
 Completed by:[**3065-1-9**]"
-56,80320,191831,2189-08-11,,,"Discharge summary","Report",,"","Admission Date:  [**3325-7-18**]              Discharge Date:   [**3325-7-24**]
+56,80320,191831,2189-08-11,,,Discharge summary,Report,,,"Admission Date:  [**3325-7-18**]              Discharge Date:   [**3325-7-24**]
 
 Date of Birth:  [**3278-2-3**]             Sex:   F
 
@@ -14482,7 +14482,7 @@ for your PCP [**Name Initial (PRE) 642**].
 
 
 Completed by:[**3325-7-31**]"
-57,1286,110814,2125-02-22,,,"Discharge summary","Report",,"","Admission Date:  [**2504-1-22**]       Discharge Date:  [**2504-1-31**]
+57,1286,110814,2125-02-22,,,Discharge summary,Report,,,"Admission Date:  [**2504-1-22**]       Discharge Date:  [**2504-1-31**]
 
 Date of Birth:   [**2441-4-9**]       Sex:  M
 
@@ -14662,7 +14662,7 @@ D:  [**2504-1-29**]  20:09
 T:  [**2504-1-29**]  20:12
 JOB#:  [**Job Number 655**]
 "
-58,1286,154417,2132-04-12,,,"Discharge summary","Report",,"","Admission Date:  [**2511-3-19**]              Discharge Date:   [**2511-3-21**]
+58,1286,154417,2132-04-12,,,Discharge summary,Report,,,"Admission Date:  [**2511-3-19**]              Discharge Date:   [**2511-3-21**]
 
 Date of Birth:  [**2441-4-9**]             Sex:   M
 
@@ -14944,7 +14944,7 @@ after your discharge. You can contact the GI clinic at ([**Telephone/Fax (1) 661
 
 
 "
-59,5771,127184,2173-07-15,,,"Discharge summary","Report",,"","Admission Date:  [**3268-6-27**]              Discharge Date:   [**3268-7-12**]
+59,5771,127184,2173-07-15,,,Discharge summary,Report,,,"Admission Date:  [**3268-6-27**]              Discharge Date:   [**3268-7-12**]
 
 Date of Birth:  [**3190-6-18**]             Sex:   M
 
@@ -15185,7 +15185,7 @@ Date/Time:[**3268-12-19**] 3:00
 
 
 Completed by:[**3268-7-12**]"
-60,5771,128201,2173-07-28,,,"Discharge summary","Report",,"","Admission Date:  [**3268-7-21**]              Discharge Date:   [**3268-7-25**]
+60,5771,128201,2173-07-28,,,Discharge summary,Report,,,"Admission Date:  [**3268-7-21**]              Discharge Date:   [**3268-7-25**]
 
 Date of Birth:  [**3190-6-18**]             Sex:   M
 
@@ -15566,7 +15566,7 @@ up a follow-up colonoscopy on [**3268-8-8**].
                              [**Name6 (MD) **] [**Name8 (MD) **] MD [**MD Number(1) 677**]
 
 "
-61,5771,185291,2173-09-10,,,"Discharge summary","Report",,"","Admission Date:  [**3268-8-24**]              Discharge Date:   [**3268-9-7**]
+61,5771,185291,2173-09-10,,,Discharge summary,Report,,,"Admission Date:  [**3268-8-24**]              Discharge Date:   [**3268-9-7**]
 
 Date of Birth:  [**3190-6-18**]             Sex:   M
 
@@ -16009,7 +16009,7 @@ an appointment.
                              [**Name6 (MD) **] [**Name8 (MD) **] MD [**MD Number(1) 677**]
 
 Completed by:[**3268-9-28**]"
-62,32666,117557,2160-04-17,,,"Discharge summary","Report",,"","Admission Date:  [**3426-4-27**]              Discharge Date:   [**3426-5-4**]
+62,32666,117557,2160-04-17,,,Discharge summary,Report,,,"Admission Date:  [**3426-4-27**]              Discharge Date:   [**3426-5-4**]
 
 
 Service: MEDICINE
@@ -16372,7 +16372,7 @@ on [**5-19**] at 2pm. Please call ([**Telephone/Fax (1) 687**] to reschedule.
 
 
 "
-63,80030,100442,2119-07-18,,,"Discharge summary","Report",,"","Admission Date:  [**3220-5-20**]              Discharge Date:   [**3220-6-30**]
+63,80030,100442,2119-07-18,,,Discharge summary,Report,,,"Admission Date:  [**3220-5-20**]              Discharge Date:   [**3220-6-30**]
 
 Date of Birth:  [**3164-6-28**]             Sex:   F
 
@@ -16762,7 +16762,7 @@ Date/Time:[**3220-7-8**] 3:00
                              [**First Name11 (Name Pattern1) **] [**Last Name (NamePattern4) 700**] MD, [**MD Number(3) 702**]
 
 Completed by:[**3220-6-30**]"
-64,92724,191381,2108-05-17,,,"Discharge summary","Report",,"","Admission Date:  [**3244-6-29**]              Discharge Date:   [**3244-7-7**]
+64,92724,191381,2108-05-17,,,Discharge summary,Report,,,"Admission Date:  [**3244-6-29**]              Discharge Date:   [**3244-7-7**]
 
 Date of Birth:  [**3159-12-9**]             Sex:   M
 
@@ -17191,7 +17191,7 @@ Campus: EAST     Best Parking: [**Hospital Ward Name 23**] Garage
 
 
 "
-65,3319,159001,2157-03-27,,,"Discharge summary","Report",,"","Admission Date:  [**3114-3-16**]     Discharge Date:  [**3114-3-22**]
+65,3319,159001,2157-03-27,,,Discharge summary,Report,,,"Admission Date:  [**3114-3-16**]     Discharge Date:  [**3114-3-22**]
 
 Date of Birth:   [**3050-2-17**]     Sex:  F
 
@@ -17340,7 +17340,7 @@ JOB#:  [**Job Number 734**]
 
 
 "
-66,3319,159001,2157-04-01,,,"Discharge summary","Report",,"","Admission Date:  [**3114-3-15**]       Discharge Date:  [**3114-3-25**]
+66,3319,159001,2157-04-01,,,Discharge summary,Report,,,"Admission Date:  [**3114-3-15**]       Discharge Date:  [**3114-3-25**]
 
 Date of Birth:   [**3050-2-17**]       Sex:  F
 
@@ -17449,7 +17449,7 @@ D:  [**3114-3-24**]  17:53
 T:  [**3114-3-24**]  18:40
 JOB#:  [**Job Number 737**]
 "
-67,82208,144407,2199-03-25,,,"Discharge summary","Report",,"","Admission Date:  [**3298-6-2**]              Discharge Date:   [**3298-6-9**]
+67,82208,144407,2199-03-25,,,Discharge summary,Report,,,"Admission Date:  [**3298-6-2**]              Discharge Date:   [**3298-6-9**]
 
 Date of Birth:  [**3238-10-30**]             Sex:   F
 
@@ -17905,7 +17905,7 @@ you can make an appointment with kidney doctors [**First Name (Titles) **] [**Ho
 
 
 Completed by:[**3298-6-10**]"
-68,82208,139033,2200-04-28,,,"Discharge summary","Report",,"","Admission Date:  [**3299-7-10**]              Discharge Date:   [**3299-7-13**]
+68,82208,139033,2200-04-28,,,Discharge summary,Report,,,"Admission Date:  [**3299-7-10**]              Discharge Date:   [**3299-7-13**]
 
 Date of Birth:  [**3238-10-30**]             Sex:   F
 
@@ -18081,7 +18081,7 @@ your cardiologist for follow-up.
 
 
 Completed by:[**3299-7-14**]"
-69,82208,188268,2200-10-27,,,"Discharge summary","Report",,"","Admission Date:  [**3300-1-5**]              Discharge Date:   [**3300-1-11**]
+69,82208,188268,2200-10-27,,,Discharge summary,Report,,,"Admission Date:  [**3300-1-5**]              Discharge Date:   [**3300-1-11**]
 
 Date of Birth:  [**3238-10-30**]             Sex:   F
 
@@ -18456,7 +18456,7 @@ None
 
 
 Completed by:[**3300-1-12**]"
-70,2489,100195,2143-08-27,,,"Discharge summary","Report",,"","Admission Date: [**3058-7-30**]        Discharge Date: [**3058-8-3**]
+70,2489,100195,2143-08-27,,,Discharge summary,Report,,,"Admission Date: [**3058-7-30**]        Discharge Date: [**3058-8-3**]
 
 Date of Birth:  [**2992-6-19**]        Sex:  M
 
@@ -18651,7 +18651,7 @@ D:  [**3058-9-27**] 18:50:31
 T:  [**3058-9-28**] 08:03:37
 Job#:  [**Job Number 835**]
 "
-71,14291,127864,2188-08-23,,,"Discharge summary","Report",,"","Admission Date:  [**2833-9-29**]       Discharge Date:  [**2833-10-8**]
+71,14291,127864,2188-08-23,,,Discharge summary,Report,,,"Admission Date:  [**2833-9-29**]       Discharge Date:  [**2833-10-8**]
 
 
 Service:  General Surgery - Blue Team
@@ -18747,7 +18747,7 @@ D:  [**2833-10-8**]  09:54
 T:  [**2833-10-8**]  11:26
 JOB#:  [**Job Number 840**]
 "
-72,24622,164770,2164-07-13,,,"Discharge summary","Report",,"","Admission Date:  [**2735-6-7**]              Discharge Date:   [**2735-7-5**]
+72,24622,164770,2164-07-13,,,Discharge summary,Report,,,"Admission Date:  [**2735-6-7**]              Discharge Date:   [**2735-7-5**]
 
 Date of Birth:  [**2686-11-9**]             Sex:   M
 
@@ -19219,7 +19219,7 @@ Building, [**Location (un) 854**].
 
 
 "
-73,24622,129419,2164-12-04,,,"Discharge summary","Report",,"","Admission Date:  [**2735-11-15**]              Discharge Date:   [**2735-11-26**]
+73,24622,129419,2164-12-04,,,Discharge summary,Report,,,"Admission Date:  [**2735-11-15**]              Discharge Date:   [**2735-11-26**]
 
 Date of Birth:  [**2686-11-9**]             Sex:   M
 
@@ -19639,7 +19639,7 @@ the Neurology Clinic on [**2736-3-3**] at 9:30am. The office number is
                              [**Name6 (MD) **] [**Name8 (MD) **] MD [**MD Number(1) 677**]
 
 "
-74,24622,121467,2166-12-21,,,"Discharge summary","Report",,"","Admission Date:  [**2737-11-30**]              Discharge Date:   [**2737-12-12**]
+74,24622,121467,2166-12-21,,,Discharge summary,Report,,,"Admission Date:  [**2737-11-30**]              Discharge Date:   [**2737-12-12**]
 
 Date of Birth:  [**2686-11-9**]             Sex:   M
 
@@ -19971,7 +19971,7 @@ Campus: EAST    Best Parking: [**Hospital Ward Name 23**] Garage
                              [**Name6 (MD) **] [**Name8 (MD) **] MD [**MD Number(1) 677**]
 
 Completed by:[**2737-12-13**]"
-75,27563,155786,2192-05-29,,,"Discharge summary","Report",,"","Admission Date:  [**2624-6-23**]              Discharge Date:   [**2624-7-6**]
+75,27563,155786,2192-05-29,,,Discharge summary,Report,,,"Admission Date:  [**2624-6-23**]              Discharge Date:   [**2624-7-6**]
 
 
 Service: MEDICINE
@@ -20275,7 +20275,7 @@ Please follow up with your primary care physician [**Last Name (NamePattern4) **
 
 
 "
-76,27563,193743,2192-06-10,,,"Discharge summary","Report",,"","Admission Date:  [**2624-7-11**]              Discharge Date:   [**2624-7-18**]
+76,27563,193743,2192-06-10,,,Discharge summary,Report,,,"Admission Date:  [**2624-7-11**]              Discharge Date:   [**2624-7-18**]
 
 
 Service: MEDICINE
@@ -20567,7 +20567,7 @@ Please maintain your appointment in Cardiology with Dr. [**Name (NI) 897**]
                              [**Name6 (MD) 248**] [**Name8 (MD) **] MD [**MD Number(1) 898**]
 
 "
-77,29530,115144,2102-04-17,,,"Discharge summary","Report",,"","Admission Date:  [**2996-3-10**]              Discharge Date:   [**2996-3-14**]
+77,29530,115144,2102-04-17,,,Discharge summary,Report,,,"Admission Date:  [**2996-3-10**]              Discharge Date:   [**2996-3-14**]
 
 Date of Birth:  [**2919-12-19**]             Sex:   F
 
@@ -20874,7 +20874,7 @@ Date/Time:[**2996-8-15**] 11:15
 
 
 Completed by:[**2996-3-14**]"
-78,29530,150159,2102-09-30,,,"Discharge summary","Report",,"","Admission Date:  [**2996-8-24**]              Discharge Date:   [**2996-8-27**]
+78,29530,150159,2102-09-30,,,Discharge summary,Report,,,"Admission Date:  [**2996-8-24**]              Discharge Date:   [**2996-8-27**]
 
 Date of Birth:  [**2919-12-19**]             Sex:   F
 
@@ -21001,7 +21001,7 @@ none
 
 
 Completed by:[**2996-11-5**]"
-79,82520,132612,2179-05-31,,,"Discharge summary","Report",,"","Admission Date:  [**3308-7-2**]              Discharge Date:   [**3308-7-9**]
+79,82520,132612,2179-05-31,,,Discharge summary,Report,,,"Admission Date:  [**3308-7-2**]              Discharge Date:   [**3308-7-9**]
 
 Date of Birth:  [**3245-8-26**]             Sex:   F
 
@@ -21271,7 +21271,7 @@ With Dr. [**Last Name (STitle) 359**] in 10 days
 
 
 "
-80,3506,140045,2195-05-28,,,"Discharge summary","Report",,"","Admission Date:  [**3428-12-11**]       Discharge Date:  [**3429-4-2**]
+80,3506,140045,2195-05-28,,,Discharge summary,Report,,,"Admission Date:  [**3428-12-11**]       Discharge Date:  [**3429-4-2**]
 
 Date of Birth:   [**3354-3-18**]       Sex:  F
 
@@ -21482,7 +21482,7 @@ D:  [**3429-4-2**]  08:19
 T:  [**3429-4-2**]  08:30
 JOB#:  [**Job Number 948**]
 "
-81,3506,140045,2195-05-28,,,"Discharge summary","Report",,"","Admission Date:  [**3428-12-11**]       Discharge Date:  [**3429-4-2**]
+81,3506,140045,2195-05-28,,,Discharge summary,Report,,,"Admission Date:  [**3428-12-11**]       Discharge Date:  [**3429-4-2**]
 
 Date of Birth:   [**3354-3-18**]       Sex:  F
 
@@ -21605,7 +21605,7 @@ D:  [**3429-4-2**]  08:37
 T:  [**3429-4-2**]  08:47
 JOB#:  [**Job Number 951**]
 "
-82,3506,112218,2195-06-19,,,"Discharge summary","Report",,"","Admission Date:  [**3429-4-11**]       Discharge Date:  [**3429-4-24**]
+82,3506,112218,2195-06-19,,,Discharge summary,Report,,,"Admission Date:  [**3429-4-11**]       Discharge Date:  [**3429-4-24**]
 
 Date of Birth:   [**3354-3-18**]       Sex:  F
 
@@ -21677,7 +21677,7 @@ D:  [**3429-4-24**]  12:13
 T:  [**3429-4-24**]  12:33
 JOB#:  [**Job Number 953**]
 "
-83,3506,112218,2195-06-22,,,"Discharge summary","Report",,"","Admission Date:  [**3429-4-11**]       Discharge Date:  [**3429-4-27**]
+83,3506,112218,2195-06-22,,,Discharge summary,Report,,,"Admission Date:  [**3429-4-11**]       Discharge Date:  [**3429-4-27**]
 
 Date of Birth:   [**3354-3-18**]       Sex:  F
 
@@ -21838,7 +21838,7 @@ D:  [**3429-4-24**]  12:04
 T:  [**3429-4-24**]  12:09
 JOB#:  [**Job Number 954**]
 "
-84,3506,170410,2195-07-07,,,"Discharge summary","Report",,"","Admission Date:  [**3429-5-4**]       [**Year (4 digits) 955**] Date:  [**3429-5-7**]
+84,3506,170410,2195-07-07,,,Discharge summary,Report,,,"Admission Date:  [**3429-5-4**]       [**Year (4 digits) 955**] Date:  [**3429-5-7**]
 
 Date of Birth:   [**3354-3-18**]       Sex:  F
 
@@ -22012,7 +22012,7 @@ D:  [**3429-5-6**]  12:17
 T:  [**3429-5-6**]  11:52
 JOB#:  [**Job Number 957**]
 "
-85,3506,124868,2195-08-15,,,"Discharge summary","Report",,"","Admission Date:  [**3429-6-17**]     [**Year (4 digits) 955**] Date:  [**3429-6-20**]
+85,3506,124868,2195-08-15,,,Discharge summary,Report,,,"Admission Date:  [**3429-6-17**]     [**Year (4 digits) 955**] Date:  [**3429-6-20**]
 
 Date of Birth:   [**3354-3-18**]     Sex:  F
 
@@ -22105,7 +22105,7 @@ D:  [**3429-6-20**]  11:51
 T:  [**3429-6-23**]  20:47
 JOB#:  [**Job Number 961**]
 "
-86,27939,197384,2177-08-26,,,"Discharge summary","Report",,"","Admission Date:  [**3279-8-30**]              Discharge Date:   [**3279-9-5**]
+86,27939,197384,2177-08-26,,,Discharge summary,Report,,,"Admission Date:  [**3279-8-30**]              Discharge Date:   [**3279-9-5**]
 
 Date of Birth:  [**3223-11-1**]             Sex:   F
 
@@ -22422,7 +22422,7 @@ Infectious disease clinic, call [**Telephone/Fax (1) 452**].
 
 
 "
-87,91365,128364,2151-05-31,,,"Discharge summary","Report",,"","Admission Date:  [**2973-5-18**]              Discharge Date:   [**2973-5-24**]
+87,91365,128364,2151-05-31,,,Discharge summary,Report,,,"Admission Date:  [**2973-5-18**]              Discharge Date:   [**2973-5-24**]
 
 
 Service: MEDICINE
@@ -22891,7 +22891,7 @@ Appointment: Monday [**2973-5-31**] 1:00pm
 
 
 "
-88,9045,178512,2185-11-02,,,"Discharge summary","Report",,"","Admission Date:  [**3310-11-25**]       Discharge Date:  [**3310-12-3**]
+88,9045,178512,2185-11-02,,,Discharge summary,Report,,,"Admission Date:  [**3310-11-25**]       Discharge Date:  [**3310-12-3**]
 
 Date of Birth:   [**3245-3-24**]       Sex:  M
 
@@ -23011,7 +23011,7 @@ D:  [**3310-12-3**]  14:20
 T:  [**3310-12-3**]  14:37
 JOB#:  [**Job Number 984**]
 "
-89,31537,131447,2186-02-21,,,"Discharge summary","Report",,"","Admission Date:  [**3072-1-6**]              Discharge Date:   [**3072-1-23**]
+89,31537,131447,2186-02-21,,,Discharge summary,Report,,,"Admission Date:  [**3072-1-6**]              Discharge Date:   [**3072-1-23**]
 
 Date of Birth:  [**3012-8-18**]             Sex:   F
 
@@ -23372,7 +23372,7 @@ Date/Time:[**3072-4-19**] 1:00
                              [**First Name5 (NamePattern1) **] [**Last Name (NamePattern1) **] MD, [**MD Number(3) 1027**]
 
 Completed by:[**3072-1-23**]"
-90,12550,149918,2124-05-03,,,"Discharge summary","Report",,"","Admission Date:  [**3402-4-26**]       Discharge Date:  [**3402-5-5**]
+90,12550,149918,2124-05-03,,,Discharge summary,Report,,,"Admission Date:  [**3402-4-26**]       Discharge Date:  [**3402-5-5**]
 
 
 Service:  Cardiothoracic Surgery
@@ -23545,7 +23545,7 @@ D:  [**3402-5-4**]  16:42
 T:  [**3402-5-4**]  16:52
 JOB#:  [**Job Number 1040**]
 "
-91,24687,149107,2143-03-29,,,"Discharge summary","Report",,"","Admission Date:  [**3398-5-13**]              Discharge Date:   [**3398-6-1**]
+91,24687,149107,2143-03-29,,,Discharge summary,Report,,,"Admission Date:  [**3398-5-13**]              Discharge Date:   [**3398-6-1**]
 
 Date of Birth:  [**3352-10-8**]             Sex:   M
 
@@ -23898,7 +23898,7 @@ Please follow-up with Dr. [**Last Name (STitle) 1043**] in Infectious Disease Cl
 
 
 "
-92,24687,124418,2144-02-07,,,"Discharge summary","Report",,"","Admission Date:  [**3399-4-9**]              Discharge Date:   [**3399-4-12**]
+92,24687,124418,2144-02-07,,,Discharge summary,Report,,,"Admission Date:  [**3399-4-9**]              Discharge Date:   [**3399-4-12**]
 
 Date of Birth:  [**3352-10-8**]             Sex:   M
 
@@ -24088,7 +24088,7 @@ Pt to call PCP [**Last Name (NamePattern4) **]: sputum result
 
 
 Completed by:[**3399-4-12**]"
-93,3506,170410,2195-07-07,,,"Discharge summary","Report",,"","Admission Date:  [**3429-5-4**]       Discharge Date: [**3429-5-11**]
+93,3506,170410,2195-07-07,,,Discharge summary,Report,,,"Admission Date:  [**3429-5-4**]       Discharge Date: [**3429-5-11**]
 
 Date of Birth:   [**3354-3-18**]       Sex:  F
 
@@ -24134,7 +24134,7 @@ D:  [**3429-5-11**]  08:46
 T:  [**3429-5-11**]  09:07
 JOB#:  [**Job Number 1072**]
 "
-94,24687,145249,2145-12-16,,,"Discharge summary","Report",,"","Admission Date:  [**3401-2-12**]              Discharge Date:   [**3401-2-19**]
+94,24687,145249,2145-12-16,,,Discharge summary,Report,,,"Admission Date:  [**3401-2-12**]              Discharge Date:   [**3401-2-19**]
 
 Date of Birth:  [**3352-10-8**]             Sex:   M
 
@@ -24591,7 +24591,7 @@ Date/Time:[**3401-3-3**] 11:10
                              [**Initials (NamePattern4) **] [**Last Name (NamePattern4) **] [**Name8 (MD) **] MD [**MD Number(1) 288**]
 
 "
-95,24687,175749,2146-01-28,,,"Discharge summary","Report",,"","Admission Date:  [**3401-3-20**]              Discharge Date:   [**3401-4-3**]
+95,24687,175749,2146-01-28,,,Discharge summary,Report,,,"Admission Date:  [**3401-3-20**]              Discharge Date:   [**3401-4-3**]
 
 Date of Birth:  [**3352-10-8**]             Sex:   M
 
@@ -25013,7 +25013,7 @@ Date/Time:[**3401-5-6**] 9:30
 
 
 "
-96,25164,175940,2132-04-09,,,"Discharge summary","Report",,"","Admission Date:  [**2907-4-15**]              Discharge Date:   [**2907-4-27**]
+96,25164,175940,2132-04-09,,,Discharge summary,Report,,,"Admission Date:  [**2907-4-15**]              Discharge Date:   [**2907-4-27**]
 
 Date of Birth:  [**2829-3-10**]             Sex:   M
 
@@ -25252,7 +25252,7 @@ Provider: [**Name10 (NameIs) 248**] [**Last Name (NamePattern4) 1099**], M.D. Wh
 
 
 "
-97,55116,186183,2179-02-02,,,"Discharge summary","Report",,"","Admission Date:  [**2654-3-3**]              Discharge Date:   [**2654-3-7**]
+97,55116,186183,2179-02-02,,,Discharge summary,Report,,,"Admission Date:  [**2654-3-3**]              Discharge Date:   [**2654-3-7**]
 
 Date of Birth:  [**2568-3-21**]             Sex:   F
 
@@ -25481,7 +25481,7 @@ None; patient expired.
 
 
 "
-98,68937,109505,2114-05-23,,,"Discharge summary","Report",,"","Admission Date:  [**3358-5-19**]              Discharge Date:   [**3358-5-31**]
+98,68937,109505,2114-05-23,,,Discharge summary,Report,,,"Admission Date:  [**3358-5-19**]              Discharge Date:   [**3358-5-31**]
 
 Date of Birth:  [**3298-2-7**]             Sex:   F
 
@@ -26075,7 +26075,7 @@ Campus: OFF CAMPUS     Best Parking: On Street Parking
 
 
 Completed by:[**3358-5-31**]"
-99,7008,147300,2131-10-22,,,"Discharge summary","Report",,"","Admission Date:  [**2977-12-9**]     Discharge Date:  [**2977-12-15**]
+99,7008,147300,2131-10-22,,,Discharge summary,Report,,,"Admission Date:  [**2977-12-9**]     Discharge Date:  [**2977-12-15**]
 
 Date of Birth:   [**2903-3-2**]     Sex:  M
 
@@ -26213,7 +26213,7 @@ D:  [**2977-12-16**]  00:07
 T:  [**2977-12-16**]  12:12
 JOB#:  [**Job Number 1120**]
 "
-100,78097,120799,2195-12-02,,,"Discharge summary","Report",,"","Admission Date:  [**2864-10-27**]              Discharge Date:   [**2864-11-5**]
+100,78097,120799,2195-12-02,,,Discharge summary,Report,,,"Admission Date:  [**2864-10-27**]              Discharge Date:   [**2864-11-5**]
 
 Date of Birth:  [**2796-6-20**]             Sex:   M
 
@@ -26545,7 +26545,7 @@ Date/Time:[**2864-11-10**] 12:30
 
 
 "
-101,24950,124783,2108-02-22,,,"Discharge summary","Report",,"","Admission Date:  [**3320-2-16**]              Discharge Date:   [**3320-2-21**]
+101,24950,124783,2108-02-22,,,Discharge summary,Report,,,"Admission Date:  [**3320-2-16**]              Discharge Date:   [**3320-2-21**]
 
 
 Service: MEDICINE
@@ -26717,7 +26717,7 @@ none
 
 
 "
-102,29391,191328,2163-07-15,,,"Discharge summary","Report",,"","Admission Date:  [**3446-6-30**]              Discharge Date:   [**3446-7-10**]
+102,29391,191328,2163-07-15,,,Discharge summary,Report,,,"Admission Date:  [**3446-6-30**]              Discharge Date:   [**3446-7-10**]
 
 Date of Birth:  [**3380-6-6**]             Sex:   F
 
@@ -27128,7 +27128,7 @@ has seen you here and you can follow up with him. His number is
 
 
 "
-103,58313,124991,2191-04-27,,,"Discharge summary","Report",,"","Admission Date:  [**2936-4-29**]              Discharge Date:   [**2936-5-2**]
+103,58313,124991,2191-04-27,,,Discharge summary,Report,,,"Admission Date:  [**2936-4-29**]              Discharge Date:   [**2936-5-2**]
 
 
 Service: MEDICINE
@@ -27563,7 +27563,7 @@ consider increasing lasix dose.
 
 
 "
-104,14346,197634,2139-10-31,,,"Discharge summary","Report",,"","Admission Date:  [**2843-9-25**]     Discharge Date:  [**2843-10-3**]
+104,14346,197634,2139-10-31,,,Discharge summary,Report,,,"Admission Date:  [**2843-9-25**]     Discharge Date:  [**2843-10-3**]
 
 Date of Birth:   [**2766-12-17**]     Sex:  M
 
@@ -27694,7 +27694,7 @@ D:  [**2843-11-3**]  12:30
 T:  [**2843-11-3**]  16:19
 JOB#:  [**Job Number 1165**]
 "
-105,20649,177831,2154-12-15,,,"Discharge summary","Report",,"","Admission Date:  [**3436-3-5**]     Death Date:  [**3436-3-6**]
+105,20649,177831,2154-12-15,,,Discharge summary,Report,,,"Admission Date:  [**3436-3-5**]     Death Date:  [**3436-3-6**]
 
 
 Service:  MEDICINE/[**Doctor Last Name 1166**]
@@ -27750,7 +27750,7 @@ JOB#:  [**Job Number 1169**]
 
 
 "
-106,43453,177978,2136-12-23,,,"Discharge summary","Report",,"","Admission Date:  [**3451-12-31**]              Discharge Date:   [**3452-1-4**]
+106,43453,177978,2136-12-23,,,Discharge summary,Report,,,"Admission Date:  [**3451-12-31**]              Discharge Date:   [**3452-1-4**]
 
 Date of Birth:  [**3373-12-28**]             Sex:   F
 
@@ -28019,7 +28019,7 @@ You should follow up with your primary care doctor in [**1-5**] weeks.
                              [**Name6 (MD) **] [**Name8 (MD) **] MD [**Doctor Last Name 1174**]
 
 "
-107,19992,115315,2184-10-16,,,"Discharge summary","Report",,"","Admission Date:  [**2979-11-7**]              Discharge Date:   [**2979-11-13**]
+107,19992,115315,2184-10-16,,,Discharge summary,Report,,,"Admission Date:  [**2979-11-7**]              Discharge Date:   [**2979-11-13**]
 
 Date of Birth:  [**2929-4-27**]             Sex:   M
 
@@ -28222,7 +28222,7 @@ Signed out against medical advice.  Usual PCP is [**Last Name (NamePattern4) **]
 
 
 "
-108,24622,192777,2158-09-18,,,"Discharge summary","Report",,"","Admission Date:  [**2729-9-5**]       Discharge Date:
+108,24622,192777,2158-09-18,,,Discharge summary,Report,,,"Admission Date:  [**2729-9-5**]       Discharge Date:
 
 Date of Birth:   [**2686-11-9**]       Sex:  M
 
@@ -28370,7 +28370,7 @@ D:  [**2729-9-6**]  19:50
 T:  [**2729-9-6**]  20:20
 JOB#:  [**Job Number 1184**]
 "
-109,24622,192777,2158-09-21,,,"Discharge summary","Report",,"","Admission Date:  [**2729-9-5**]       Discharge Date:  [**2729-9-12**]
+109,24622,192777,2158-09-21,,,Discharge summary,Report,,,"Admission Date:  [**2729-9-5**]       Discharge Date:  [**2729-9-12**]
 
 Date of Birth:   [**2686-11-9**]       Sex:  M
 
@@ -28426,7 +28426,7 @@ D:  [**2729-9-12**]  10:23
 T:  [**2729-9-12**]  10:46
 JOB#:  [**Job Number 1185**]
 "
-186,1136,186931,2194-05-14,,,"Discharge summary","Report",,"","Admission Date:  [**2755-5-26**]              Discharge Date:   [**2755-6-1**]
+186,1136,186931,2194-05-14,,,Discharge summary,Report,,,"Admission Date:  [**2755-5-26**]              Discharge Date:   [**2755-6-1**]
 
 
 Service: MEDICINE
@@ -28776,7 +28776,7 @@ Phone [**Telephone/Fax (1) 247**]
 
 
 Completed by:[**2755-6-12**]"
-187,1136,136706,2194-08-16,,,"Discharge summary","Report",,"","Admission Date:  [**2755-9-2**]              Discharge Date:   [**2755-9-3**]
+187,1136,136706,2194-08-16,,,Discharge summary,Report,,,"Admission Date:  [**2755-9-2**]              Discharge Date:   [**2755-9-3**]
 
 
 Service: MEDICINE
@@ -28995,7 +28995,7 @@ Provider: [**First Name11 (Name Pattern1) **] [**Last Name (NamePattern4) 1856**
                              [**First Name11 (Name Pattern1) **] [**Last Name (NamePattern4) 1859**] MD, [**MD Number(3) 1860**]
 
 "
-165,17513,119766,2141-01-12,,,"Discharge summary","Report",,"","Admission Date:  [**3129-11-27**]       Discharge Date:  [**3129-12-5**]
+165,17513,119766,2141-01-12,,,Discharge summary,Report,,,"Admission Date:  [**3129-11-27**]       Discharge Date:  [**3129-12-5**]
 
 Date of Birth:   [**3069-3-16**]       Sex:  M
 
@@ -29037,7 +29037,7 @@ D:  [**3129-12-4**]  10:20
 T:  [**3129-12-4**]  10:15
 JOB#:  [**Job Number 1720**]
 "
-166,9801,146305,2181-09-15,,,"Discharge summary","Report",,"","Admission Date:  [**3138-11-2**]       Discharge Date:  [**3138-11-11**]
+166,9801,146305,2181-09-15,,,Discharge summary,Report,,,"Admission Date:  [**3138-11-2**]       Discharge Date:  [**3138-11-11**]
 
 
 Service:  CARDIAC
@@ -29235,7 +29235,7 @@ D:  [**3138-11-10**]  13:16
 T:  [**3138-11-10**]  13:30
 JOB#:  [**Job Number 1722**]
 "
-167,784,187825,2200-07-08,,,"Discharge summary","Report",,"","Admission Date:  [**3498-4-18**]       Discharge Date:[**3498-5-24**]
+167,784,187825,2200-07-08,,,Discharge summary,Report,,,"Admission Date:  [**3498-4-18**]       Discharge Date:[**3498-5-24**]
 
 Date of Birth:   [**3429-6-17**]       Sex:  F
 
@@ -29362,7 +29362,7 @@ D:  [**3498-5-23**]  13:37
 T:  [**3498-5-23**]  13:57
 JOB#:  [**Job Number 1726**]
 "
-168,24711,155303,2174-08-17,,,"Discharge summary","Report",,"","Admission Date:  [**3316-9-28**]       Discharge Date:  [**3316-10-7**]
+168,24711,155303,2174-08-17,,,Discharge summary,Report,,,"Admission Date:  [**3316-9-28**]       Discharge Date:  [**3316-10-7**]
 
 
 Service:  [**Location (un) 256**] MEDICINE
@@ -29572,7 +29572,7 @@ D:  [**3316-10-6**]  19:35
 T:  [**3316-10-6**]  19:33
 JOB#:  [**Job Number 1738**]
 "
-169,24711,143442,2175-05-23,,,"Discharge summary","Report",,"","Admission Date:  [**3317-6-23**]       Discharge Date:  [**3317-7-13**]
+169,24711,143442,2175-05-23,,,Discharge summary,Report,,,"Admission Date:  [**3317-6-23**]       Discharge Date:  [**3317-7-13**]
 
 
 Service:  MEDICAL ICU
@@ -29778,7 +29778,7 @@ D:  [**3317-7-13**]  08:40
 T:  [**3317-7-13**]  08:54
 JOB#:  [**Job Number 1748**]
 "
-170,22532,167853,2151-08-04,,,"Discharge summary","Report",,"","Admission Date:  [**3027-5-25**]       Discharge Date:  [**3027-6-13**]
+170,22532,167853,2151-08-04,,,Discharge summary,Report,,,"Admission Date:  [**3027-5-25**]       Discharge Date:  [**3027-6-13**]
 
 
 
@@ -30109,7 +30109,7 @@ T:  [**3027-6-13**]  16:10
 JOB#:  [**Job Number 1757**]
 
 "
-171,10634,165525,2169-04-09,,,"Discharge summary","Report",,"","Admission Date:  [**3276-1-5**]              Discharge Date:   [**3276-1-19**]
+171,10634,165525,2169-04-09,,,Discharge summary,Report,,,"Admission Date:  [**3276-1-5**]              Discharge Date:   [**3276-1-19**]
 
 Date of Birth:  [**3197-9-16**]             Sex:   F
 
@@ -30394,7 +30394,7 @@ convenience within the next 2 weeks. [**Telephone/Fax (1) 1763**]
 
 
 Completed by:[**3276-4-28**]"
-172,10634,104315,2169-04-24,,,"Discharge summary","Report",,"","Admission Date:  [**3276-1-26**]              Discharge Date:   [**3276-2-4**]
+172,10634,104315,2169-04-24,,,Discharge summary,Report,,,"Admission Date:  [**3276-1-26**]              Discharge Date:   [**3276-2-4**]
 
 Date of Birth:  [**3197-9-16**]             Sex:   F
 
@@ -30763,7 +30763,7 @@ discuss your need for further surgery on your right leg. Phone:
 
 
 "
-173,10634,188945,2169-05-10,,,"Discharge summary","Report",,"","Admission Date:  [**3276-2-11**]              Discharge Date:   [**3276-2-19**]
+173,10634,188945,2169-05-10,,,Discharge summary,Report,,,"Admission Date:  [**3276-2-11**]              Discharge Date:   [**3276-2-19**]
 
 Date of Birth:  [**3197-9-16**]             Sex:   F
 
@@ -31000,7 +31000,7 @@ discharge.
 
 
 Completed by:[**3276-2-19**]"
-174,22532,167853,2151-08-04,,,"Discharge summary","Report",,"","Admission Date:  [**3027-5-25**]       Discharge Date:  [**3027-6-13**]
+174,22532,167853,2151-08-04,,,Discharge summary,Report,,,"Admission Date:  [**3027-5-25**]       Discharge Date:  [**3027-6-13**]
 
 
 Service:
@@ -31030,7 +31030,7 @@ D:  [**3027-6-14**]  12:11
 T:  [**3027-6-14**]  12:21
 JOB#:  [**Job Number 1786**]
 "
-175,13702,107527,2118-06-14,,,"Discharge summary","Report",,"","Admission Date:  [**2978-5-21**]       Discharge Date:  [**2978-6-2**]
+175,13702,107527,2118-06-14,,,Discharge summary,Report,,,"Admission Date:  [**2978-5-21**]       Discharge Date:  [**2978-6-2**]
 
 Date of Birth:                    Sex:  F
 
@@ -31319,7 +31319,7 @@ D:  [**2978-6-2**]  11:30
 T:  [**2978-6-2**]  11:33
 JOB#:  [**Job Number 1790**]
 "
-176,13702,167118,2119-05-25,,,"Discharge summary","Report",,"","Admission Date:  [**2979-4-22**]              Discharge Date:   [**2979-5-13**]
+176,13702,167118,2119-05-25,,,Discharge summary,Report,,,"Admission Date:  [**2979-4-22**]              Discharge Date:   [**2979-5-13**]
 
 
 Service: CARDIOTHORACIC
@@ -31567,7 +31567,7 @@ have any questions or concerns.
 
 
 Completed by:[**2979-5-13**]"
-177,13702,196489,2124-08-18,,,"Discharge summary","Report",,"","Admission Date:  [**2984-7-9**]              Discharge Date:   [**2984-8-6**]
+177,13702,196489,2124-08-18,,,Discharge summary,Report,,,"Admission Date:  [**2984-7-9**]              Discharge Date:   [**2984-8-6**]
 
 
 Service: MEDICINE
@@ -31969,7 +31969,7 @@ Campus: EAST     Best Parking: Main Garage
 
 
 "
-178,26880,135453,2162-03-25,,,"Discharge summary","Report",,"","Admission Date:  [**3036-1-27**]              Discharge Date:   [**3036-2-18**]
+178,26880,135453,2162-03-25,,,Discharge summary,Report,,,"Admission Date:  [**3036-1-27**]              Discharge Date:   [**3036-2-18**]
 
 Date of Birth:  [**2953-11-29**]             Sex:   M
 
@@ -32355,7 +32355,7 @@ Follow up with your primary care physician as needed.
 
 
 "
-179,53181,170490,2172-03-08,,,"Discharge summary","Report",,"","Admission Date:  [**2891-2-22**]              Discharge Date:   [**2891-2-25**]
+179,53181,170490,2172-03-08,,,Discharge summary,Report,,,"Admission Date:  [**2891-2-22**]              Discharge Date:   [**2891-2-25**]
 
 Date of Birth:  [**2828-9-26**]             Sex:   F
 
@@ -32561,7 +32561,7 @@ please make arrangements for the same, with your PCP.
 
 
 "
-180,20646,134727,2112-12-10,,,"Discharge summary","Report",,"","Admission Date:  [**3442-9-29**]              Discharge Date:   [**3442-10-1**]
+180,20646,134727,2112-12-10,,,Discharge summary,Report,,,"Admission Date:  [**3442-9-29**]              Discharge Date:   [**3442-10-1**]
 
 
 Service: MEDICINE
@@ -32730,7 +32730,7 @@ NA
                              [**First Name8 (NamePattern2) 1161**] [**Name8 (MD) 1162**] MD [**MD Number(2) 1828**]
 
 "
-181,42130,114236,2150-03-01,,,"Discharge summary","Report",,"","Admission Date:  [**2884-1-5**]              Discharge Date:   [**2884-1-9**]
+181,42130,114236,2150-03-01,,,Discharge summary,Report,,,"Admission Date:  [**2884-1-5**]              Discharge Date:   [**2884-1-9**]
 
 Date of Birth:  [**2820-10-29**]             Sex:   M
 
@@ -32973,7 +32973,7 @@ pressure.
 
 
 Completed by:[**2884-1-9**]"
-182,56174,163469,2118-08-12,,,"Discharge summary","Report",,"","Admission Date:  [**2646-7-8**]              Discharge Date:   [**2646-7-10**]
+182,56174,163469,2118-08-12,,,Discharge summary,Report,,,"Admission Date:  [**2646-7-8**]              Discharge Date:   [**2646-7-10**]
 
 Date of Birth:  [**2601-11-23**]             Sex:   F
 
@@ -33156,7 +33156,7 @@ THE APPOINTMENT
 
 
 Completed by:[**2646-7-10**]"
-183,56174,189681,2118-12-09,,,"Discharge summary","Report",,"","Admission Date:  [**2646-11-4**]              Discharge Date:   [**2646-11-6**]
+183,56174,189681,2118-12-09,,,Discharge summary,Report,,,"Admission Date:  [**2646-11-4**]              Discharge Date:   [**2646-11-6**]
 
 Date of Birth:  [**2601-11-23**]             Sex:   F
 
@@ -33343,7 +33343,7 @@ Head CT of the brain.
 
 
 Completed by:[**2646-11-6**]"
-184,28063,121936,2125-02-16,,,"Discharge summary","Report",,"","Admission Date:  [**3105-12-29**]              Discharge Date:   [**3106-1-5**]
+184,28063,121936,2125-02-16,,,Discharge summary,Report,,,"Admission Date:  [**3105-12-29**]              Discharge Date:   [**3106-1-5**]
 
 
 Service: MEDICINE
@@ -33659,7 +33659,7 @@ None
                              [**Doctor First Name **] [**First Name8 (NamePattern2) **] [**Name6 (MD) **] [**Name8 (MD) **] MD, MSC 12-339
 
 "
-185,1136,139574,2192-05-23,,,"Discharge summary","Report",,"","Admission Date:  [**2753-5-7**]              Discharge Date:   [**2753-6-10**]
+185,1136,139574,2192-05-23,,,Discharge summary,Report,,,"Admission Date:  [**2753-5-7**]              Discharge Date:   [**2753-6-10**]
 
 
 Service: MEDICINE
@@ -34018,7 +34018,7 @@ Rehab. You may call to make an appointment at [**Telephone/Fax (1) 247**]
 
 
 "
-223,5350,169684,2143-04-30,,,"Discharge summary","Report",,"","Admission Date:  [**2805-4-21**]     Discharge Date:  [**2805-4-26**]
+223,5350,169684,2143-04-30,,,Discharge summary,Report,,,"Admission Date:  [**2805-4-21**]     Discharge Date:  [**2805-4-26**]
 
 Date of Birth:   [**2738-8-16**]     Sex:  M
 
@@ -34100,7 +34100,7 @@ D:  [**2805-4-26**]  15:09
 T:  [**2805-4-26**]  15:31
 JOB#:  [**Job Number 2180**]
 "
-224,5350,169684,2143-04-30,,,"Discharge summary","Report",,"","Admission Date:  [**2805-4-21**]     Discharge Date:  [**2805-4-26**]
+224,5350,169684,2143-04-30,,,Discharge summary,Report,,,"Admission Date:  [**2805-4-21**]     Discharge Date:  [**2805-4-26**]
 
 Date of Birth:   [**2738-8-16**]     Sex:  M
 
@@ -34182,7 +34182,7 @@ D:  [**2805-4-26**]  15:09
 T:  [**2805-4-26**]  15:31
 JOB#:  [**Job Number 2181**]
 "
-225,11369,121504,2199-02-14,,,"Discharge summary","Report",,"","Admission Date:  [**3253-1-24**]     Discharge Date:  [**3253-1-30**]
+225,11369,121504,2199-02-14,,,Discharge summary,Report,,,"Admission Date:  [**3253-1-24**]     Discharge Date:  [**3253-1-30**]
 
 Date of Birth:   [**3215-11-13**]     Sex:  M
 
@@ -34323,7 +34323,7 @@ D:  [**3253-1-29**]  11:15
 T:  [**3253-2-2**]  08:56
 JOB#:  [**Job Number 2186**]
 "
-226,11369,103786,2203-11-12,,,"Discharge summary","Report",,"","Admission Date:  [**3257-10-18**]              Discharge Date:   [**3257-10-27**]
+226,11369,103786,2203-11-12,,,Discharge summary,Report,,,"Admission Date:  [**3257-10-18**]              Discharge Date:   [**3257-10-27**]
 
 Date of Birth:  [**3215-11-13**]             Sex:   M
 
@@ -34809,7 +34809,7 @@ Please follow up with the gastroenterologists for a colonoscopy.
 
 
 "
-188,98046,139402,2198-08-04,,,"Discharge summary","Report",,"","Admission Date:  [**3316-9-1**]              Discharge Date:   [**3316-9-19**]
+188,98046,139402,2198-08-04,,,Discharge summary,Report,,,"Admission Date:  [**3316-9-1**]              Discharge Date:   [**3316-9-19**]
 
 Date of Birth:  [**3250-8-10**]             Sex:   M
 
@@ -35144,7 +35144,7 @@ rehab**
 
 
 Completed by:[**3316-9-19**]"
-189,17483,189331,2147-07-01,,,"Discharge summary","Report",,"","Admission Date:  [**2623-5-10**]     Discharge Date:  [**2623-5-17**]
+189,17483,189331,2147-07-01,,,Discharge summary,Report,,,"Admission Date:  [**2623-5-10**]     Discharge Date:  [**2623-5-17**]
 
 
 Service:  ICU
@@ -35206,7 +35206,7 @@ D:  [**2623-7-14**]  17:02
 T:  [**2623-7-22**]  06:59
 JOB#:  [**Job Number 1874**]
 "
-190,9590,132347,2102-03-10,,,"Discharge summary","Report",,"","Admission Date:  [**2702-3-2**]       Discharge Date:  [**2702-3-20**]
+190,9590,132347,2102-03-10,,,Discharge summary,Report,,,"Admission Date:  [**2702-3-2**]       Discharge Date:  [**2702-3-20**]
 
 
 Service:  Neurosurgery
@@ -35308,7 +35308,7 @@ D:  [**2702-3-20**]  06:05
 T:  [**2702-3-20**]  07:43
 JOB#:  [**Job Number 1885**]
 "
-191,26175,156154,2112-05-05,,,"Discharge summary","Report",,"","Admission Date:  [**3119-4-18**]              Discharge Date:   [**3119-5-1**]
+191,26175,156154,2112-05-05,,,Discharge summary,Report,,,"Admission Date:  [**3119-4-18**]              Discharge Date:   [**3119-5-1**]
 
 Date of Birth:  [**3042-10-16**]             Sex:   F
 
@@ -35542,7 +35542,7 @@ managing your Coumadin.
 
 
 Completed by:[**3119-5-18**]"
-192,82559,197325,2157-02-08,,,"Discharge summary","Report",,"","Admission Date:  [**2900-4-20**]              Discharge Date:   [**2900-4-27**]
+192,82559,197325,2157-02-08,,,Discharge summary,Report,,,"Admission Date:  [**2900-4-20**]              Discharge Date:   [**2900-4-27**]
 
 
 Service: MEDICINE
@@ -35903,7 +35903,7 @@ This will be in about one month.
 
 
 "
-193,53151,150192,2182-11-03,,,"Discharge summary","Report",,"","Admission Date:  [**3362-11-18**]              Discharge Date:   [**3362-12-5**]
+193,53151,150192,2182-11-03,,,Discharge summary,Report,,,"Admission Date:  [**3362-11-18**]              Discharge Date:   [**3362-12-5**]
 
 Date of Birth:  [**3284-5-11**]             Sex:   F
 
@@ -36238,7 +36238,7 @@ Campus: EAST     Best Parking: Main Garage
 
 
 "
-194,22180,116189,2132-09-09,,,"Discharge summary","Report",,"","Admission Date:  [**2976-10-3**]              Discharge Date:   [**2976-10-8**]
+194,22180,116189,2132-09-09,,,Discharge summary,Report,,,"Admission Date:  [**2976-10-3**]              Discharge Date:   [**2976-10-8**]
 
 
 Service: MED
@@ -36464,7 +36464,7 @@ MANAGEMENT CENTER Date/Time:[**2976-10-16**] 3:00
 
 
 "
-195,22180,162436,2134-03-09,,,"Discharge summary","Report",,"","Admission Date:  [**2978-3-17**]              Discharge Date:   [**2978-4-7**]
+195,22180,162436,2134-03-09,,,Discharge summary,Report,,,"Admission Date:  [**2978-3-17**]              Discharge Date:   [**2978-4-7**]
 
 
 Service: MEDICINE
@@ -37073,7 +37073,7 @@ Provider: [**First Name8 (NamePattern2) **] [**Last Name (NamePattern1) 1927**],
 
 
 "
-196,22180,186367,2134-08-20,,,"Discharge summary","Report",,"","Admission Date:  [**2978-9-10**]              Discharge Date:   [**2978-9-18**]
+196,22180,186367,2134-08-20,,,Discharge summary,Report,,,"Admission Date:  [**2978-9-10**]              Discharge Date:   [**2978-9-18**]
 
 
 Service: MEDICINE
@@ -37320,7 +37320,7 @@ Once you leave there, please follow up with Dr. [**Last Name (STitle) **] -- cal
 
 
 "
-197,22180,183067,2136-04-09,,,"Discharge summary","Report",,"","Admission Date:  [**2980-5-3**]              Discharge Date:   [**2980-5-8**]
+197,22180,183067,2136-04-09,,,Discharge summary,Report,,,"Admission Date:  [**2980-5-3**]              Discharge Date:   [**2980-5-8**]
 
 
 Service: MEDICINE
@@ -37601,7 +37601,7 @@ Provider: [**First Name8 (NamePattern2) **] [**Last Name (NamePattern1) **], MD 
 
 
 Completed by:[**2980-5-9**]"
-198,22180,190828,2139-12-04,,,"Discharge summary","Report",,"","Admission Date:  [**2983-12-23**]              Discharge Date:   [**2984-1-2**]
+198,22180,190828,2139-12-04,,,Discharge summary,Report,,,"Admission Date:  [**2983-12-23**]              Discharge Date:   [**2984-1-2**]
 
 
 Service: MEDICINE
@@ -38067,7 +38067,7 @@ Campus: EAST     Best Parking: [**Hospital Ward Name 23**] Garage
 
 
 Completed by:[**2984-1-2**]"
-199,22180,133797,2139-12-31,,,"Discharge summary","Report",,"","Admission Date:  [**2984-1-23**]              Discharge Date:   [**2984-1-29**]
+199,22180,133797,2139-12-31,,,Discharge summary,Report,,,"Admission Date:  [**2984-1-23**]              Discharge Date:   [**2984-1-29**]
 
 
 Service: ORTHOPAEDICS
@@ -38377,7 +38377,7 @@ admission.
 
 
 "
-200,9487,112385,2138-12-12,,,"Discharge summary","Report",,"","Admission Date:  [**3423-12-16**]     Discharge Date:  [**3423-12-26**]
+200,9487,112385,2138-12-12,,,Discharge summary,Report,,,"Admission Date:  [**3423-12-16**]     Discharge Date:  [**3423-12-26**]
 
 Date of Birth:   [**3356-12-25**]     Sex:  M
 
@@ -38519,7 +38519,7 @@ D:  [**3423-12-26**]  13:20
 T:  [**3423-12-28**]  15:05
 JOB#:  [**Job Number 1985**]
 "
-201,4127,167565,2193-05-31,,,"Discharge summary","Report",,"","Admission Date: [**3489-7-11**]        Discharge Date: [**3489-7-12**]
+201,4127,167565,2193-05-31,,,Discharge summary,Report,,,"Admission Date: [**3489-7-11**]        Discharge Date: [**3489-7-12**]
 
 Date of Birth:  [**3447-10-26**]        Sex:  M
 
@@ -38652,7 +38652,7 @@ D:  [**3489-7-12**] 16:25:00
 T:  [**3489-7-12**] 17:08:11
 Job#:  [**Job Number 1994**]
 "
-202,4127,167565,2193-06-10,,,"Discharge summary","Report",,"","Admission Date: [**3489-7-21**]        Discharge Date: [**3489-7-22**]
+202,4127,167565,2193-06-10,,,Discharge summary,Report,,,"Admission Date: [**3489-7-21**]        Discharge Date: [**3489-7-22**]
 
 Date of Birth:  [**3447-10-26**]        Sex:  M
 
@@ -38803,7 +38803,7 @@ D:  [**3489-7-22**] 08:44:54
 T:  [**3489-7-22**] 09:21:26
 Job#:  [**Job Number 1996**]
 "
-203,93671,119010,2180-11-07,,,"Discharge summary","Report",,"","Admission Date:  [**2673-11-2**]              Discharge Date:   [**2673-11-11**]
+203,93671,119010,2180-11-07,,,Discharge summary,Report,,,"Admission Date:  [**2673-11-2**]              Discharge Date:   [**2673-11-11**]
 
 Date of Birth:  [**2621-4-9**]             Sex:   F
 
@@ -39244,7 +39244,7 @@ Campus: EAST     Best Parking: [**Hospital Ward Name 23**] Garage
 
 
 Completed by:[**2673-11-16**]"
-204,13289,119078,2103-08-09,,,"Discharge summary","Report",,"","Admission Date:  [**3403-8-18**]              Discharge Date:   [**3403-9-1**]
+204,13289,119078,2103-08-09,,,Discharge summary,Report,,,"Admission Date:  [**3403-8-18**]              Discharge Date:   [**3403-9-1**]
 
 Date of Birth:  [**3372-5-27**]             Sex:   F
 
@@ -39556,7 +39556,7 @@ monitor your electrolytes.
 
 
 "
-205,13289,165604,2103-11-22,,,"Discharge summary","Report",,"","Admission Date:  [**3403-12-5**]              Discharge Date:   [**3403-12-15**]
+205,13289,165604,2103-11-22,,,Discharge summary,Report,,,"Admission Date:  [**3403-12-5**]              Discharge Date:   [**3403-12-15**]
 
 Date of Birth:  [**3372-5-27**]             Sex:   F
 
@@ -39770,7 +39770,7 @@ blood cultures drawn.  Her phone number is ([**Telephone/Fax (1) 2022**].
 
 
 "
-206,5239,129387,2189-02-25,,,"Discharge summary","Report",,"","Admission Date:  [**3264-4-16**]       Discharge Date:  [**3264-4-23**]
+206,5239,129387,2189-02-25,,,Discharge summary,Report,,,"Admission Date:  [**3264-4-16**]       Discharge Date:  [**3264-4-23**]
 
 
 Service:  CCU
@@ -40003,7 +40003,7 @@ D:  [**3264-4-23**]  01:50
 T:  [**3264-4-23**]  01:55
 JOB#:  [**Job Number 2027**]
 "
-207,5239,129387,2189-02-26,,,"Discharge summary","Report",,"","Admission Date:  [**3264-4-16**]       Discharge Date:  [**3264-4-24**]
+207,5239,129387,2189-02-26,,,Discharge summary,Report,,,"Admission Date:  [**3264-4-16**]       Discharge Date:  [**3264-4-24**]
 
 
 Service:  CCU
@@ -40146,7 +40146,7 @@ D:  [**3264-4-23**]  02:31
 T:  [**3264-4-23**]  02:38
 JOB#:  [**Job Number 2031**]
 "
-208,5239,125055,2189-03-25,,,"Discharge summary","Report",,"","Admission Date:  [**3264-5-13**]       Discharge Date:  [**3264-5-21**]
+208,5239,125055,2189-03-25,,,Discharge summary,Report,,,"Admission Date:  [**3264-5-13**]       Discharge Date:  [**3264-5-21**]
 
 
 Service:  CCU
@@ -40381,7 +40381,7 @@ D:  [**3264-5-20**]  14:52
 T:  [**3264-5-20**]  15:19
 JOB#:  [**Job Number 2034**]
 "
-209,5239,125055,2189-03-27,,,"Discharge summary","Report",,"","Admission Date:  [**3264-5-13**]       Discharge Date:  [**3264-5-23**]
+209,5239,125055,2189-03-27,,,Discharge summary,Report,,,"Admission Date:  [**3264-5-13**]       Discharge Date:  [**3264-5-23**]
 
 
 Service:  CCU
@@ -40427,7 +40427,7 @@ JOB#:  [**Job Number 2042**]
 R
 
 "
-210,21449,139542,2146-07-04,,,"Discharge summary","Report",,"","Admission Date:  [**3404-9-14**]              Discharge Date:   [**3404-9-17**]
+210,21449,139542,2146-07-04,,,Discharge summary,Report,,,"Admission Date:  [**3404-9-14**]              Discharge Date:   [**3404-9-17**]
 
 Date of Birth:  [**3346-12-5**]             Sex:   M
 
@@ -40606,7 +40606,7 @@ primary care physician in the next 1-2 weeks.
                              [**Name6 (MD) **] [**Name8 (MD) **] MD, [**MD Number(3) 2045**]
 
 "
-211,40273,124821,2159-04-10,,,"Discharge summary","Report",,"","Admission Date:  [**2756-4-27**]              Discharge Date:   [**2756-5-1**]
+211,40273,124821,2159-04-10,,,Discharge summary,Report,,,"Admission Date:  [**2756-4-27**]              Discharge Date:   [**2756-5-1**]
 
 Date of Birth:  [**2717-2-19**]             Sex:   M
 
@@ -40967,7 +40967,7 @@ Campus: WEST     Best Parking: [**Street Address(1) 586**] Garage
 
 
 "
-212,76874,113329,2101-10-28,,,"Discharge summary","Report",,"","Admission Date:  [**3280-12-10**]              Discharge Date:   [**3280-12-13**]
+212,76874,113329,2101-10-28,,,Discharge summary,Report,,,"Admission Date:  [**3280-12-10**]              Discharge Date:   [**3280-12-13**]
 
 Date of Birth:  [**3243-11-19**]             Sex:   F
 
@@ -41212,7 +41212,7 @@ of your discharge from the psychiatric facility: [**Last Name (LF) 2085**],[**Fi
 
 
 "
-213,4850,175619,2178-07-16,,,"Discharge summary","Report",,"","Admission Date:  [**3023-7-14**]              Discharge Date:   [**3023-7-17**]
+213,4850,175619,2178-07-16,,,Discharge summary,Report,,,"Admission Date:  [**3023-7-14**]              Discharge Date:   [**3023-7-17**]
 
 Date of Birth:  [**2958-11-13**]             Sex:   M
 
@@ -41354,7 +41354,7 @@ with Dr. [**Last Name (STitle) **] in [**12-27**] weeks
 
 
 Completed by:[**3023-8-1**]"
-214,13723,193691,2182-01-22,,,"Discharge summary","Report",,"","Admission Date:  [**2841-2-9**]     Discharge Date:  [**2814-3-17**]
+214,13723,193691,2182-01-22,,,Discharge summary,Report,,,"Admission Date:  [**2841-2-9**]     Discharge Date:  [**2814-3-17**]
 
 
 Service:
@@ -41517,7 +41517,7 @@ D:  [**2841-2-12**]  14:14
 T:  [**2841-2-12**]  19:23
 JOB#:  [**Job Number 2113**]
 "
-215,11018,104650,2148-12-11,,,"Discharge summary","Report",,"","Admission Date:  [**2578-12-28**]              Discharge Date:   [**2579-1-6**]
+215,11018,104650,2148-12-11,,,Discharge summary,Report,,,"Admission Date:  [**2578-12-28**]              Discharge Date:   [**2579-1-6**]
 
 Date of Birth:  [**2515-1-26**]             Sex:   M
 
@@ -41823,7 +41823,7 @@ Date/Time:[**2579-1-29**] 9:30
                              [**Name6 (MD) **] [**Name8 (MD) **] MD [**MD Number(2) 2130**]
 
 Completed by:[**2579-5-30**]"
-216,11018,186291,2151-09-24,,,"Discharge summary","Report",,"","Admission Date:  [**2581-10-16**]              Discharge Date:   [**2581-10-19**]
+216,11018,186291,2151-09-24,,,Discharge summary,Report,,,"Admission Date:  [**2581-10-16**]              Discharge Date:   [**2581-10-19**]
 
 Date of Birth:  [**2515-1-26**]             Sex:   M
 
@@ -42143,7 +42143,7 @@ Date/Time:[**2582-8-26**] 9:10
 
 
 "
-217,11018,180836,2152-03-02,,,"Discharge summary","Report",,"","Admission Date:  [**2582-3-12**]              Discharge Date:   [**2582-3-28**]
+217,11018,180836,2152-03-02,,,Discharge summary,Report,,,"Admission Date:  [**2582-3-12**]              Discharge Date:   [**2582-3-28**]
 
 Date of Birth:  [**2515-1-26**]             Sex:   M
 
@@ -42584,7 +42584,7 @@ Date/Time:[**2582-4-3**] 10:00
 
 
 "
-218,11018,131769,2154-03-28,,,"Discharge summary","Report",,"","Admission Date:  [**2584-4-18**]              Discharge Date:   [**2584-4-22**]
+218,11018,131769,2154-03-28,,,Discharge summary,Report,,,"Admission Date:  [**2584-4-18**]              Discharge Date:   [**2584-4-22**]
 
 Date of Birth:  [**2515-1-26**]             Sex:   M
 
@@ -42889,7 +42889,7 @@ Campus: EAST     Best Parking: [**Hospital Ward Name 23**] Garage
                              [**Initials (NamePattern4) **] [**Last Name (NamePattern4) **] [**Name8 (MD) **] MD [**MD Number(1) 288**]
 
 "
-219,11018,107995,2154-04-18,,,"Discharge summary","Report",,"","Admission Date:  [**2584-5-4**]              Discharge Date:   [**2584-5-13**]
+219,11018,107995,2154-04-18,,,Discharge summary,Report,,,"Admission Date:  [**2584-5-4**]              Discharge Date:   [**2584-5-13**]
 
 Date of Birth:  [**2515-1-26**]             Sex:   M
 
@@ -43267,7 +43267,7 @@ Campus: EAST     Best Parking: [**Hospital Ward Name 23**] Garage
 
 
 "
-220,66479,134640,2148-02-07,,,"Discharge summary","Report",,"","Admission Date:  [**2936-12-15**]              Discharge Date:   [**2936-12-19**]
+220,66479,134640,2148-02-07,,,Discharge summary,Report,,,"Admission Date:  [**2936-12-15**]              Discharge Date:   [**2936-12-19**]
 
 Date of Birth:  [**2876-4-18**]             Sex:   F
 
@@ -43567,7 +43567,7 @@ Campus: WEST     Best Parking: [**Hospital Ward Name **] Garage
                              [**First Name8 (NamePattern2) **] [**Name8 (MD) **] MD [**MD Number(2) 595**]
 
 "
-221,75347,152030,2174-06-03,,,"Discharge summary","Report",,"","Admission Date:  [**3303-3-13**]              Discharge Date:   [**3303-4-13**]
+221,75347,152030,2174-06-03,,,Discharge summary,Report,,,"Admission Date:  [**3303-3-13**]              Discharge Date:   [**3303-4-13**]
 
 Date of Birth:  [**3239-1-7**]             Sex:   M
 
@@ -43803,7 +43803,7 @@ None
 
 
 "
-222,93556,154802,2121-04-04,,,"Discharge summary","Report",,"","Admission Date:  [**2684-4-7**]              Discharge Date:   [**2684-4-11**]
+222,93556,154802,2121-04-04,,,Discharge summary,Report,,,"Admission Date:  [**2684-4-7**]              Discharge Date:   [**2684-4-11**]
 
 Date of Birth:  [**2617-11-8**]             Sex:   M
 
@@ -43979,7 +43979,7 @@ Date/Time:[**2684-11-21**] 11:00
 
 
 Completed by:[**2684-4-14**]"
-110,24622,125497,2164-05-18,,,"Discharge summary","Report",,"","Admission Date:  [**2735-4-26**]              Discharge Date:   [**2735-5-10**]
+110,24622,125497,2164-05-18,,,Discharge summary,Report,,,"Admission Date:  [**2735-4-26**]              Discharge Date:   [**2735-5-10**]
 
 Date of Birth:  [**2686-11-9**]             Sex:   M
 
@@ -44332,7 +44332,7 @@ Provider: [**Name10 (NameIs) **] [**Name8 (MD) **], MD Phone:[**Telephone/Fax (1
 
 
 Completed by:[**2735-5-10**]"
-111,30977,160489,2194-02-19,,,"Discharge summary","Report",,"","Admission Date:  [**3413-3-14**]              Discharge Date:   [**3413-3-17**]
+111,30977,160489,2194-02-19,,,Discharge summary,Report,,,"Admission Date:  [**3413-3-14**]              Discharge Date:   [**3413-3-17**]
 
 Date of Birth:  [**3349-12-14**]             Sex:   F
 
@@ -44599,7 +44599,7 @@ Phone:[**Telephone/Fax (1) 1223**] Date/Time:[**3413-4-6**] 11:00
 
 
 "
-112,89633,140269,2166-03-24,,,"Discharge summary","Report",,"","Admission Date:  [**2553-4-16**]              Discharge Date:   [**2553-4-23**]
+112,89633,140269,2166-03-24,,,Discharge summary,Report,,,"Admission Date:  [**2553-4-16**]              Discharge Date:   [**2553-4-23**]
 
 Date of Birth:  [**2513-9-17**]             Sex:   M
 
@@ -44804,7 +44804,7 @@ questions regarding this appointment
 
 
 Completed by:[**2553-4-24**]"
-113,89633,111598,2168-05-11,,,"Discharge summary","Report",,"","Admission Date:  [**2555-6-6**]              Discharge Date:   [**2555-6-11**]
+113,89633,111598,2168-05-11,,,Discharge summary,Report,,,"Admission Date:  [**2555-6-6**]              Discharge Date:   [**2555-6-11**]
 
 Date of Birth:  [**2513-9-17**]             Sex:   M
 
@@ -45109,7 +45109,7 @@ you're taking it at home. Please clarify this with your PCP.
 
 
 Completed by:[**2555-6-11**]"
-114,9146,137954,2164-09-12,,,"Discharge summary","Report",,"","Admission Date:  [**2835-9-27**]              Discharge Date:   [**2835-10-3**]
+114,9146,137954,2164-09-12,,,Discharge summary,Report,,,"Admission Date:  [**2835-9-27**]              Discharge Date:   [**2835-10-3**]
 
 Date of Birth:  [**2764-2-4**]             Sex:   F
 
@@ -45333,7 +45333,7 @@ to refer you to a hematologist.
 
 
 "
-115,11644,116578,2128-01-21,,,"Discharge summary","Report",,"","Admission Date:  [**2564-1-8**]              Discharge Date:   [**2564-1-18**]
+115,11644,116578,2128-01-21,,,Discharge summary,Report,,,"Admission Date:  [**2564-1-8**]              Discharge Date:   [**2564-1-18**]
 
 Date of Birth:  [**2493-1-10**]             Sex:   M
 
@@ -45567,7 +45567,7 @@ return to [**Hospital Ward Name 120**] 2 in [**3-10**] weeks for staple removal 
 
 
 Completed by:[**2564-1-18**]"
-116,60834,130198,2113-05-03,,,"Discharge summary","Report",,"","Admission Date:  [**2974-5-6**]              Discharge Date:   [**2974-5-11**]
+116,60834,130198,2113-05-03,,,Discharge summary,Report,,,"Admission Date:  [**2974-5-6**]              Discharge Date:   [**2974-5-11**]
 
 Date of Birth:  [**2902-1-4**]             Sex:   F
 
@@ -45850,7 +45850,7 @@ appointment [**Telephone/Fax (1) 1257**].
                              [**Name6 (MD) 735**] [**Name8 (MD) **] MD [**MD Number(2) 1258**]
 
 Completed by:[**2974-5-11**]"
-117,60834,130198,2113-05-25,,,"Discharge summary","Report",,"","Admission Date:  [**2974-5-11**]              Discharge Date:   [**2974-6-2**]
+117,60834,130198,2113-05-25,,,Discharge summary,Report,,,"Admission Date:  [**2974-5-11**]              Discharge Date:   [**2974-6-2**]
 
 Date of Birth:  [**2902-1-4**]             Sex:   F
 
@@ -46189,7 +46189,7 @@ Paresa to make this appointment [**Telephone/Fax (1) 1257**].
                              [**Name6 (MD) 735**] [**Name8 (MD) **] MD [**MD Number(2) 1258**]
 
 Completed by:[**2974-6-2**]"
-118,17640,178186,2152-03-31,,,"Discharge summary","Report",,"","Admission Date: [**3037-4-27**]        Discharge Date: [**3037-5-5**]
+118,17640,178186,2152-03-31,,,Discharge summary,Report,,,"Admission Date: [**3037-4-27**]        Discharge Date: [**3037-5-5**]
 
 Date of Birth:  [**2958-1-28**]        Sex:  M
 
@@ -46377,7 +46377,7 @@ D:  [**3037-5-5**] 14:13:30
 T:  [**3037-5-5**] 15:57:37
 Job#:  [**Job Number 1263**]
 "
-119,18068,185918,2115-11-16,,,"Discharge summary","Report",,"","Admission Date:  [**3399-10-8**]              Discharge Date:   [**3399-10-26**]
+119,18068,185918,2115-11-16,,,Discharge summary,Report,,,"Admission Date:  [**3399-10-8**]              Discharge Date:   [**3399-10-26**]
 
 
 Service: [**Hospital Unit Name 194**]
@@ -46564,7 +46564,7 @@ appointment (call [**10-28**]) for [**10-29**].
 
 
 Completed by:[**3399-11-13**]"
-120,18068,135796,2116-01-25,,,"Discharge summary","Report",,"","Admission Date:  [**3399-12-2**]              Discharge Date:   [**3400-1-4**]
+120,18068,135796,2116-01-25,,,Discharge summary,Report,,,"Admission Date:  [**3399-12-2**]              Discharge Date:   [**3400-1-4**]
 
 
 Service: CARDIOTHORACIC
@@ -46884,7 +46884,7 @@ evaluation of the ampullary adenoma
 
 
 "
-121,14879,172483,2130-12-18,,,"Discharge summary","Report",,"","Admission Date:  [**2549-12-5**]       Discharge Date:  [**2549-12-8**]
+121,14879,172483,2130-12-18,,,Discharge summary,Report,,,"Admission Date:  [**2549-12-5**]       Discharge Date:  [**2549-12-8**]
 
 Date of Birth:   [**2476-10-20**]       Sex:  M
 
@@ -47037,7 +47037,7 @@ D:  [**2549-12-8**]  14:11
 T:  [**2549-12-8**]  15:53
 JOB#:  [**Job Number 1283**]
 "
-122,14879,172483,2130-12-21,,,"Discharge summary","Report",,"","Admission Date:  [**2549-12-5**]       Discharge Date:  [**2549-12-11**]
+122,14879,172483,2130-12-21,,,Discharge summary,Report,,,"Admission Date:  [**2549-12-5**]       Discharge Date:  [**2549-12-11**]
 
 Date of Birth:   [**2476-10-20**]       Sex:  M
 
@@ -47165,7 +47165,7 @@ D:  [**2549-12-11**]  11:06
 T:  [**2549-12-11**]  11:17
 JOB#:  [**Job Number 1289**]
 "
-123,8631,178348,2166-11-13,,,"Discharge summary","Report",,"","Admission Date:  [**3463-12-1**]       Discharge Date:  [**3463-12-3**]
+123,8631,178348,2166-11-13,,,Discharge summary,Report,,,"Admission Date:  [**3463-12-1**]       Discharge Date:  [**3463-12-3**]
 
 Date of Birth:   [**3407-4-30**]       Sex:  M
 
@@ -47450,7 +47450,7 @@ D:  [**3463-12-3**]  14:06
 T:  [**3463-12-3**]  14:14
 JOB#:  [**Job Number 1303**]
 "
-124,8631,186984,2168-02-03,,,"Discharge summary","Report",,"","Admission Date:  [**3465-2-15**]       Discharge Date:  [**3465-2-22**]
+124,8631,186984,2168-02-03,,,Discharge summary,Report,,,"Admission Date:  [**3465-2-15**]       Discharge Date:  [**3465-2-22**]
 
 Date of Birth:   [**3407-4-30**]       Sex:  M
 
@@ -47554,7 +47554,7 @@ D:  [**3465-2-21**]  08:58
 T:  [**3465-2-21**]  09:29
 JOB#:  [**Job Number 1326**]
 "
-125,24470,174469,2130-12-31,,,"Discharge summary","Report",,"","Admission Date:  [**2724-11-16**]              Discharge Date:   [**2724-11-23**]
+125,24470,174469,2130-12-31,,,Discharge summary,Report,,,"Admission Date:  [**2724-11-16**]              Discharge Date:   [**2724-11-23**]
 
 Date of Birth:  [**2644-12-19**]             Sex:   M
 
@@ -47724,7 +47724,7 @@ NA
 
 
 Completed by:[**2724-11-27**]"
-126,42753,121343,2168-04-19,,,"Discharge summary","Report",,"","Admission Date:  [**3203-5-20**]              Discharge Date:   [**3203-6-4**]
+126,42753,121343,2168-04-19,,,Discharge summary,Report,,,"Admission Date:  [**3203-5-20**]              Discharge Date:   [**3203-6-4**]
 
 Date of Birth:  [**3162-3-2**]             Sex:   M
 
@@ -47911,7 +47911,7 @@ Please follow up with Dr. [**Last Name (STitle) 993**] in 2 weeks.
 
 
 "
-127,25486,153955,2174-09-02,,,"Discharge summary","Report",,"","Admission Date: [**3320-8-21**]        Discharge Date: [**3320-8-23**]
+127,25486,153955,2174-09-02,,,Discharge summary,Report,,,"Admission Date: [**3320-8-21**]        Discharge Date: [**3320-8-23**]
 
 Date of Birth:  [**3261-1-11**]        Sex:  F
 
@@ -48011,7 +48011,7 @@ D:  [**3320-8-23**] 09:49:13
 T:  [**3320-8-23**] 10:30:55
 Job#:  [**Job Number 1346**]
 "
-128,56225,138677,2197-12-01,,,"Discharge summary","Report",,"","Admission Date:  [**2896-10-1**]              Discharge Date:   [**2896-10-5**]
+128,56225,138677,2197-12-01,,,Discharge summary,Report,,,"Admission Date:  [**2896-10-1**]              Discharge Date:   [**2896-10-5**]
 
 Date of Birth:  [**2829-6-30**]             Sex:   M
 
@@ -48305,7 +48305,7 @@ Deceased.
                              [**Name6 (MD) **] [**Name8 (MD) **] MD, [**MD Number(3) 1352**]
 
 Completed by:[**2896-10-6**]"
-129,31294,101974,2119-03-31,,,"Discharge summary","Report",,"","Admission Date:  [**2604-12-11**]              Discharge Date:   [**2605-2-22**]
+129,31294,101974,2119-03-31,,,Discharge summary,Report,,,"Admission Date:  [**2604-12-11**]              Discharge Date:   [**2605-2-22**]
 
 Date of Birth:  [**2559-1-29**]             Sex:   M
 
@@ -48594,7 +48594,7 @@ Provider: [**Name10 (NameIs) **],[**Name11 (NameIs) 155**] TRANSPLANT SOCIAL WOR
                              [**First Name11 (Name Pattern1) **] [**Last Name (NamePattern4) 700**] MD, [**MD Number(3) 702**]
 
 Completed by:[**2605-2-22**]"
-130,96187,108082,2103-03-13,,,"Discharge summary","Report",,"","Admission Date:  [**3065-2-8**]              Discharge Date:   [**3065-2-14**]
+130,96187,108082,2103-03-13,,,Discharge summary,Report,,,"Admission Date:  [**3065-2-8**]              Discharge Date:   [**3065-2-14**]
 
 
 Service: SURGERY
@@ -48895,7 +48895,7 @@ additional monitoring of your heart rhythm.
 
 
 "
-131,96950,117509,2102-10-03,,,"Discharge summary","Report",,"","Admission Date:  [**2637-11-12**]              Discharge Date:   [**2637-11-14**]
+131,96950,117509,2102-10-03,,,Discharge summary,Report,,,"Admission Date:  [**2637-11-12**]              Discharge Date:   [**2637-11-14**]
 
 Date of Birth:  [**2554-9-17**]             Sex:   M
 
@@ -49134,7 +49134,7 @@ at 3:20 pm.
 
 
 "
-132,96950,176286,2103-06-24,,,"Discharge summary","Report",,"","Admission Date:  [**2638-7-31**]              Discharge Date:   [**2638-8-5**]
+132,96950,176286,2103-06-24,,,Discharge summary,Report,,,"Admission Date:  [**2638-7-31**]              Discharge Date:   [**2638-8-5**]
 
 Date of Birth:  [**2554-9-17**]             Sex:   M
 
@@ -49332,7 +49332,7 @@ person during off hours**
 
 
 Completed by:[**2638-8-5**]"
-133,96950,162129,2103-07-31,,,"Discharge summary","Report",,"","Admission Date:  [**2638-8-29**]              Discharge Date:   [**2638-9-11**]
+133,96950,162129,2103-07-31,,,Discharge summary,Report,,,"Admission Date:  [**2638-8-29**]              Discharge Date:   [**2638-9-11**]
 
 Date of Birth:  [**2554-9-17**]             Sex:   M
 
@@ -49643,7 +49643,7 @@ R.Ns. at ([**Telephone/Fax (1) 1337**]
 
 
 Completed by:[**2638-9-11**]"
-134,96950,169823,2103-08-24,,,"Discharge summary","Report",,"","Admission Date:  [**2638-9-18**]              Discharge Date:   [**2638-10-5**]
+134,96950,169823,2103-08-24,,,Discharge summary,Report,,,"Admission Date:  [**2638-9-18**]              Discharge Date:   [**2638-10-5**]
 
 Date of Birth:  [**2554-9-17**]             Sex:   M
 
@@ -50075,7 +50075,7 @@ Campus: EAST     Best Parking: [**Hospital Ward Name 23**] Garage
                              [**Name6 (MD) 248**] [**Name8 (MD) **] MD [**MD Number(1) 898**]
 
 "
-135,96950,190421,2103-09-13,,,"Discharge summary","Report",,"","Admission Date:  [**2638-10-11**]              Discharge Date:   [**2638-10-25**]
+135,96950,190421,2103-09-13,,,Discharge summary,Report,,,"Admission Date:  [**2638-10-11**]              Discharge Date:   [**2638-10-25**]
 
 Date of Birth:  [**2554-9-17**]             Sex:   M
 
@@ -50512,7 +50512,7 @@ Campus: EAST     Best Parking: [**Hospital Ward Name 23**] Garage
 
 
 Completed by:[**2638-10-25**]"
-136,2003,181620,2139-02-05,,,"Discharge summary","Report",,"","Admission Date:  [**2594-1-29**]              Discharge Date:   [**2594-1-30**]
+136,2003,181620,2139-02-05,,,Discharge summary,Report,,,"Admission Date:  [**2594-1-29**]              Discharge Date:   [**2594-1-30**]
 
 Date of Birth:  [**2533-10-11**]             Sex:   M
 
@@ -50729,7 +50729,7 @@ Follow up with Dr. [**Last Name (STitle) 1423**] [**Name (STitle) **] in one mon
 
 
 Completed by:[**2594-2-16**]"
-137,5895,191223,2170-01-04,,,"Discharge summary","Report",,"","Admission Date:  [**2890-11-18**]     Discharge Date:
+137,5895,191223,2170-01-04,,,Discharge summary,Report,,,"Admission Date:  [**2890-11-18**]     Discharge Date:
 
 Date of Birth:   [**2857-9-19**]     Sex:  F
 
@@ -50934,538 +50934,3 @@ D:  [**2890-11-23**]  15:33
 T:  [**2890-11-29**]  06:21
 JOB#:  [**Job Number 1432**]
 "
-138,10995,180500,2141-11-20,,,"Discharge summary","Report",,"","Admission Date:  [**3066-11-22**]       Discharge Date:  [**3066-12-3**]
-
-
-Service:  Vascular
-
-CHIEF COMPLAINT:  Chest pain.  Patient was initially
-evaluated at [**Hospital 1456**] Hospital and transferred here for
-further evaluation and treatment.  Initial enzymes showed a
-total CPK of 4,120, CK MB 20 and troponin of 17.4.
-
-PAST MEDICAL HISTORY:  Coronary artery disease, status post
-cath in [**3057**] showing ejection fraction of 56% with
-anterolateral apical akinesis.  The RCA is 80% obstructed.
-The marginal branch of the RCA was 40% obstructed with
-diffuse disease.  The mid LAD was 95%, diagonal I was 60%.
-The patient underwent angioplasty of the LAD.  Patient was
-noted to have mild mitral regurg.  A stress test done at that
-time showed dilated left ventricle with fixed defects and
-anterolateral septal wall with high grade EAE and equivocal
-changes.  Previous MI was 5 years prior to 92.  History of
-peptic ulcer disease.  No previous surgeries, no known drug
-allergies.
-
-MEDICATIONS:  On transfer to our institution, Lopressor 12.5
-mg q 6 hours, Atenolol 25 mg q d, Nitro paste 1 inch q 4
-hours, Captopril 17.5 mg.
-
-SOCIAL HISTORY:  He is married, lives in [**Location 1457**], is 66
-years old, is a former smoker of 40 pack years, no alcohol,
-semi retired and helps in a welding shop.
-
-PHYSICAL EXAMINATION:  On admission, vital signs 97.5,
-122/91, 70, 18, O2 saturation 98% on room air.  The patient
-is alert, oriented and in no acute distress.  HEENT:  Showed
-constricted pupils secondary to narcotics, EOM's intact.
-Soft palate elevates.  No teeth in the lower mandible, no
-icterus.  Cardiovascular exam was a regular rate and rhythm
-with no murmurs, rubs or gallops.  Neck without bruits.
-Lungs are clear to auscultation bilaterally.  Abdomen is
-unremarkable.  Extremities with intact pulses.
-
-LABORATORY DATA:  On transfer included a CBC with white count
-6.7, hematocrit 39.1, platelet count 196,000.  Electrolytes,
-sodium 135, potassium 4.6, chloride 100, CO2 77, BUN 11,
-creatinine 0.1, glucose 114, PT and INR were normal, PTT were
-normal.  CK totals were 0, 90 and peak to 412, MB were 82 and
-6, MBI index was 20, troponin was 17.4.  Urinalysis was
-negative.  EKG showed a normal sinus rhythm with a normal
-axis deviation with inverted T's in V4 and V5 which were new.
-
-HOSPITAL COURSE:  The patient was admitted to the cardiology
-service and was placed in Intensive Care Unit.  IV Heparin
-and Nitroglycerin were begun.  Serial CKs were obtained along
-with serial EKG's.  Serial total CK's peaked at 533.  MB
-fraction peaked at 9.2.  Initial troponin level was greater
-than 50 and after the next 72 hours its level was 1.5.
-Normal is less than .03.  Within the next 24 hours the
-patient underwent cardiac catheterization.  The patient's
-right sided pressures, PA was 50/17, right atrial mean was
-16, pulmonary wedge pressure was 16, left ventricular end
-diastolic pressure was 17.  Cardiac output was 6.0, index was
-3.3, EF was 30% with akinetic anterolateral and apex walls
-and hypokinetic antero basal wall and normal posterior and
-basal wall.  The native vessels showed left main trunk
-disease of 30%, left anterior was proximal 30% and mid 90%
-left circumflex was mid 50%.  Ramus intermedius was 90% which
-was angioplastied and stented and the right coronary showed
-an osteal lesion of 30%.  There was concern of right external
-iliac artery dissection.  The patient underwent a right
-femoral ultrasound which demonstrated triphasic flow in the
-right common femoral artery with plaque or flap proximal to
-the right SFA with stenosis and did have episodes of SVG and
-was begun on beta blockers. Aspirin and Plavix were continued
-post stenting.  The groin was without bleeding and he had
-distal pulses.  Dr. [**Last Name (STitle) **], the cardiologist, requested that
-vascular be consulted regarding the findings on the right
-iliac SFA ultrasound.  The patient, although study was
-abnormal but with intact distal pulses, the patient did note
-72 hours after catheterization, onset of right calf and ankle
-foot pain with ambulation.  The patient underwent a repeat
-peripheral arterial catheterization which demonstrated
-abdominal aorta with no significant disease, renal arteries
-bilaterally were normal, the right lower extremity iliac is
-without critical lesions, the previous noted dissection is
-not occlusive but the site is still delineated.  The common
-femoral is normal, the SFA and profunda artery are normal,
-the popliteals occlude mid vessel and the anterior and tibial
-were not well visualized but appear thrombolytically
-occluded.  There was three vessel runoff to the foot.  The
-collaterals provide much of the distal flow.  The patient was
-TPA'd, begun on Heparin and placed in the VICU.  The patient
-had consequences of a right groin hematoma after the second
-right groin intervention and angiography which required
-pressure occlusion.  The patient underwent on [**11-27**], a
-thrombectomy of the right tibial peroneal trunk and AT artery
-with patch angioplasty of the right popliteal artery.  He
-tolerated the procedure well and was transferred to the VICU
-for continued monitoring and care.  The patient required a
-unit of packed cells for hematocrit of 25, post transfusion
-hematocrit was 35.  Total CK was 74.  The patient was placed
-on peri-operative Kefzol and remained in the VICU in stable
-condition.  On [**11-28**] the patient had an episode of
-hematemesis.  An NG was placed with 300 cc of blood
-aspirated.  The patient remained hemodynamically stable.
-Serial hematocrits were obtained and Plavix and Aspirin were
-held.  GI was consulted.  The patient underwent upper
-endoscopy which demonstrated a few non bleeding localized
-erosions in the esophagus at the GE junction consistent with
-NG trauma.  There was bilious fluid in the stomach body and
-antrum.  There is no active bleeding or coffee ground or
-bright red blood noted.  There were few superficial non
-bleeding 2 mm ulcers ranging in size from 2 mm to 5 mm in the
-stomach.  The duodenum was normal.  Recommendations were to
-continue the Protonix at 40 mg q d, discontinue the NG tube,
-follow serial hematocrits.  Please consider the risk/benefits
-of Aspirin and Plavix.  If Aspirin and Plavix need to be
-continued, then we will put the patient on a higher dose of
-Protonix.  The patient experienced episode of hypertension
-overnight on postoperative day #1 requiring adjustments in
-hypertensive medications and transfusion of packed red blood
-cells.  On postoperative day #3 there were no overnight
-events.  The patient continued on Protonix IV and Captopril
-and beta blockers.  His hematocrit remained stable at 29.
-CKs were flat and serial hematocrits remained stable.  The
-patient was then begun on Aspirin.  Physical therapy saw the
-patient and felt that he would be able to be discharged to
-home after evaluating ambulation with stairs.  The patient's
-hematocrits remained stable, groin remained stable.  The
-patient was discharged in stable condition on [**3066-12-3**].  She
-is to follow-up with Dr. [**Last Name (STitle) **] as instructed and see Dr.
-[**Last Name (STitle) 1458**] in two weeks time.
-
-DISCHARGE MEDICATIONS:  Include Keflex 500 mg qid times 7
-days, Aspirin 81 mg q d, Lopressor 25 mg [**Hospital1 **], hold for
-systolic blood pressure less than 120, heart rate less than
-60, Protonix 40 mg q d, Colace 100 mg [**Hospital1 **], Percocet tablets
-[**1-9**] q 4 hours prn pain, Plavix 75 mg q d.
-
-DISCHARGE DIAGNOSIS:
-1.  Non Q wave MI status post angioplasty of the ramus
-intermedius with stenting.
-2.  Right groin hematoma, stabilized.
-3.  Right iliac external artery dissection, stabilized.
-4.  Thrombolic ischemia of the right leg, status post
-thrombectomy of the anterior tibial and peroneal trunk.
-5.  Hypertension controlled.
-6.  GI bleeding, stabilized.
-7.  Blood loss anemia, transfused, corrected.
-
-
-
-
-                            [**First Name11 (Name Pattern1) **] [**Last Name (NamePattern4) 1459**], M.D.  [**MD Number(1) 1460**]
-
-Dictated By:[**Last Name (NamePattern1) 1461**]
-MEDQUIST36
-
-D:  [**3066-12-2**]  16:01
-T:  [**3066-12-2**]  16:50
-JOB#:  [**Job Number 1462**]
-"
-139,22486,160869,2200-07-15,,,"Discharge summary","Report",,"","Admission Date:  [**2670-8-4**]              Discharge Date:   [**2670-8-9**]
-
-Date of Birth:  [**2620-11-5**]             Sex:   F
-
-Service: SURGERY
-
-Allergies:
-Patient recorded as having No Known Allergies to Drugs
-
-Attending:[**First Name3 (LF) 1463**]
-Chief Complaint:
-Colitis with bleeding
-
-Major Surgical or Invasive Procedure:
-Right Colectomy
-
-
-History of Present Illness:
-49 yo female who has had blood loss over a period of several
-months and has had abnormal colonoscopies which have shown some
-areas of stricturing. This has been unusual but is thought most
-likely to be due to Crohn's disease. She has
-been on steroids but still with problems. She presents now with
-a hematocrit of 20. She is a Jehovah's witness and will not
-accept any blood transfusions. After consultation with her
-General Medical physician and also with the hematology service,
-it was thought that it would not be possible to increase her
-hematocrit significantly prior to operation without at least a 1
-month delay. It was also thought likely that any improvement in
-iron therapy would be off-set by continued bleeding. The patient
-and her partner understand the gravity of this situation and the
-need for operation under less than optimum circumstances. The
-patient has again expressed her wish that she not be given blood
-products, but she would accept certain other types of fluid. She
-presents
-now for right colectomy.
-
-Past Medical History:
-Neuralgia
-Rheumatoid arthritis
-Depression
-
-Social History:
-Patient is Jehovah's witness (okay with FFP, plts, cryo,
-albumin, and any product that does not have RBC's).  Denies ETOH
-or recreational drug use.  Smokes 1 pack per week.
-
-Physical Exam:
-Gen: NAD
-Chest: CTA bilaterally, no wheezes, rales, or rhonchi
-CV: RRR, no murmurs, rubs, or gallops
-Abd: +BS, soft, mild tender, nondistended, incision
-clean/dry/intact
-
-
-Pertinent Results:
-[**2670-8-5**] 03:08PM BLOOD Type-ART pO2-231* pCO2-37 pH-7.44
-calHCO3-26 Base XS-1
-[**2670-8-5**] 01:32PM BLOOD Type-ART pO2-154* pCO2-43 pH-7.41
-calHCO3-28 Base XS-2 Intubat-NOT INTUBA
-[**2670-8-5**] 03:08PM BLOOD Glucose-137* Lactate-0.7 Na-137 K-3.6
-Cl-106
-[**2670-8-5**] 01:32PM BLOOD Glucose-101 Lactate-1.0 Na-138 K-3.5
-Cl-107
-[**2670-8-5**] 03:08PM BLOOD Hgb-6.0* calcHCT-18
-[**2670-8-5**] 01:32PM BLOOD Hgb-5.5* calcHCT-17
-[**2670-8-5**] 03:08PM BLOOD freeCa-1.08*
-[**2670-8-5**] 01:32PM BLOOD freeCa-1.14
-
-Brief Hospital Course:
-49 yo female with colitis resulting in anemia (HCt 20) s/p right
-colectomy on [**2670-8-5**].  She is Jehovah's witness and refused blood
-products.  Intraoperatively, pt surgery went without
-complication and her estimated blood loss was 100ml.
-Post-operatively, patient was placed on O2 mask to maximize
-oxygenation and blood draws were not allowed.  Pt progressed to
-tolerate PO intake well, ambulate, and bowel function returned.
-She was discharged on [**2670-8-9**] in good condition on steroid taper.
-
-Medications on Admission:
-Prednisone 40mg PO bid
-Bupropion 150mg po bid
-Nortryptiline 50mg po qd
-Risperidone 0.5mg po qhs
-Celexa 20mg po qd
-Mesalamine
-Iron Dextran
-
-Discharge Medications:
-1. Hydromorphone 2 mg Tablet Sig: 1-2 Tablets PO every 4-6 hours
-as needed for pain.
-Disp:*30 Tablet(s)* Refills:*0*
-2. Colace 100 mg Capsule Sig: One (1) Capsule PO BID:PRN as
-needed for constipation.
-Disp:*10 Capsule(s)* Refills:*0*
-3. Prednisone 5 mg Tablet Sig: Two (2) Tablet PO once a day for
-3 days: then take 1.5 tablets daily for 3 days, then take 1
-tablet daily for 3 days, then take half a tablet daily for 3
-days (decrease by 2.5mg every three days).
-Disp:*18 Tablet(s)* Refills:*0*
-4. Bupropion 150 mg Tablet Sustained Release Sig: One (1) Tablet
-Sustained Release PO twice a day.
-5. Celexa 20 mg Tablet Sig: One (1) Tablet PO once a day.
-6. Nortriptyline 50 mg Capsule Sig: One (1) Capsule PO once a
-day.
-7. Risperdal 0.5 mg Tablet Sig: One (1) Tablet PO at bedtime.
-
-
-Discharge Disposition:
-Home
-
-Discharge Diagnosis:
-Colitis with bleeding
-
-
-Discharge Condition:
-Stable
-
-Discharge Instructions:
-Please resume your home medications.  You may shower regularly.
-Call your physician or go to the emergency room if you
-experience fever >101.5, abdominal pain unrelieved by
-medication, or intractable nausea or vomiting.  We have started
-you on prednisone (steroid) taper that decreases by 2.5mg every
-3 days.
-
-Followup Instructions:
-Please call Dr.[**Name (NI) 1464**] office at ([**Telephone/Fax (1) 1465**] to schedule
-a follow-up appointment in [**2-6**] weeks.
-
-
-
-Completed by:[**2670-8-9**]"
-140,65055,153824,2113-07-31,,,"Discharge summary","Report",,"","Admission Date:  [**2566-6-3**]              Discharge Date:   [**2566-6-9**]
-
-Date of Birth:  [**2483-10-5**]             Sex:   F
-
-Service: MEDICINE
-
-Allergies:
-Patient recorded as having No Known Allergies to Drugs
-
-Attending:[**First Name3 (LF) 1238**]
-Chief Complaint:
-Acute mental status change
-
-Major Surgical or Invasive Procedure:
-Embolectomy [**2566-6-5**]
-
-
-History of Present Illness:
-Pt's a 82 yo F with h/o HTN, h/o of prox a-fib, (not on
-coumadin), mood disorder on depakote (has had since CVA 4 yrs
-prior), with prior L inferior division MCA infarct now
-presenting with altered mental status.  Pt basically at baseline
-AA0x2, has been reclusive living alone with mood disorder since
-her stroke - but has family heavily involved in her care -
-including ex-husband who visits daily.  Pt basically has been at
-her baseline (which is described as more aggressive - usually
-asking her family to leave within 10-15minutes of being around
-her), but then 3-4 days ago noted being more lethargic - less
-aggressive but without any other notable complaints per
-ex-husband who saw pt then (no report of CP, F/C, HA, SOB as
-best assessed).  Family getting concerned - were thinking would
-be needing more higher level care placement as pt generally
-weaker (no focal weaknesses) - but Sunday started appearing at
-baseline again.  Pt was seen Monday early and was doing well
-(has called ex-husband roughly around 2pm and noted again at her
-baseline) - however when home aide came by apartment today in
-the morning - pt did not respond to door - found lethargic with
-emesis/stool/urine around her.  No further information able to
-be obtained related to any events preceding to the evident n/v,
-bowel/stool incontinance.
-<br>
-
-Pt denies any cp, ha symptoms - can not elaborate further - was
-sent to ED - noted aggitated, +echolalia described in ED and
-from home aide initially - all consistant per family with her
-prior CVA 4 yrs prior.  CT head without sig changes - however
-noted poor quality due to aggitation - neurology consulted.
-Noted trop elevated 1.12 - cardiology called - stated will not
-cath at present but for full medical treatment.  Pt had been put
-in restraints in ED with foley placed - pt was subsequently
-severely aggitated.  On arrival to floor - pt much calmer - not
-in restraints - family at bedside.
-<br>
-
-In [**Name (NI) **] pt treated with hep gtt, ASA/Plavix (though pt refused to
-take), IV metoprolol (due to declining po meds), and vanc
-1g/ceftriaxone 1g - for emperic treatment with leukocytosis (d/w
-ED resident - they stated just emperic tx with leukocytosis -
-were not aiming towards meningitis at time or any focal
-infection).
-<br>
-
-ROS: pt unable to appropriately respond to full questions.
-
-Past Medical History:
--HTN
--prox atrial fibrillation
--mood disorder - on depakote
--CVA 4yrs prior as above
-frequent UTIs reported in past
-anxiety
-h/o HSV I around mouth, s/p valtrex
-right cataract surgery
-
-Social History:
-lives alone, divorced, though ex-husband visits daily, 2
-children, no tob/etoh/drugs. Russian speaking. Since stroke, pt
-more reclusive with h/o of  mood disorder, but family very
-involved with care - pt lives by herself - but gets assistance
-from family for all IDLS, and for help with food preparation,
-bathing - pt able to go to restroom and does take medications by
-herself (as arranged in pill box by family).
-<br>
-
-Pt does not have officially assigned HCP - however 2 daughters
-collectively have been making decisions on her care since her
-stroke 4 yrs prior.
-NOK: [**First Name5 (NamePattern1) **] [**Last Name (NamePattern1) 1466**] Cell) [**Telephone/Fax (1) 1467**], [**First Name5 (NamePattern1) **] [**Known patient lastname 1468**] [**Telephone/Fax (1) 1469**]
-(cell), [**Telephone/Fax (1) 1470**] (work).  Ex-Husband (but also highly
-involved in daily care of patient - [**First Name5 (NamePattern1) **] [**Last Name (NamePattern1) 1466**] [**Telephone/Fax (1) 1471**].
-
-
-Family History:
-HTN, no seizures or strokes
-
-
-Physical Exam:
-Discharge Vitals:  97.1  150/88 (generally SBP 100-120)  81  18
-97RA
-Gen:  Elderly female, NAD.
-HEENT:  PERRL, EOMI.  No scleral icterus.  No conjunctival
-injection.   Mucous membranes moist.  No oral ulcers.
-Neck:  Supple, no JVP
-Lungs: CTA bilaterally anteriorly, no wheezes, rales, rhonchi.
-Normal respiratory effort.
-CV:  irreg irreg, no murmurs, rubs, gallops.
-Abdomen:  soft, NT, ND, NABS
-Extremities:  L arm with significant post-surgical eccymosis,
-without hematoma or bleeding.  Ecchymosis stable, with gradual
-dilutional spread.
-Neurological:  CN2-12 grossly intact.  No focal defecits.
-
-
-Pertinent Results:
-[**2566-6-3**] 04:46PM   LACTATE-2.8*
-[**2566-6-3**] 01:18PM   GLUCOSE-170* LACTATE-4.8*
-[**2566-6-3**] 01:15PM URINE  COLOR-Yellow APPEAR-Clear SP [**Last Name (un) 154**]-1.017
-[**2566-6-3**] 01:15PM URINE  BLOOD-LG NITRITE-NEG PROTEIN-30
-GLUCOSE-1000 KETONE-50 BILIRUBIN-NEG UROBILNGN-NEG PH-5.0
-LEUK-NEG
-[**2566-6-3**] 01:15PM URINE  RBC-0-2 WBC-0-2 BACTERIA-RARE YEAST-NONE
-EPI-0-2
-[**2566-6-3**] 01:15PM URINE  GRANULAR-<1 HYALINE-<1
-[**2566-6-3**] 01:15PM URINE  MUCOUS-FEW
-[**2566-6-3**] 01:10PM   GLUCOSE-175* UREA N-20 CREAT-0.8 SODIUM-139
-POTASSIUM-4.3 CHLORIDE-97 TOTAL CO2-25 ANION GAP-21*
-[**2566-6-3**] 01:10PM   ALT(SGPT)-34 AST(SGOT)-132* CK(CPK)-6902* ALK
-PHOS-61 TOT BILI-1.2
-[**2566-6-3**] 01:10PM   LIPASE-12
-[**2566-6-3**] 01:10PM   cTropnT-1.12*
-[**2566-6-3**] 01:10PM   CK-MB-237* MB INDX-3.4
-[**2566-6-3**] 01:10PM   ALBUMIN-4.5 CALCIUM-9.8 PHOSPHATE-3.3
-MAGNESIUM-2.0
-[**2566-6-3**] 01:10PM   WBC-15.4* RBC-5.10 HGB-15.7 HCT-45.9 MCV-90#
-MCH-30.8# MCHC-34.2 RDW-13.0
-[**2566-6-3**] 01:10PM   NEUTS-87.8* LYMPHS-7.0* MONOS-4.5 EOS-0.6
-BASOS-0.2
-[**2566-6-3**] 01:10PM   PLT COUNT-196
-[**2566-6-3**] 01:10PM   PT-12.5 PTT-21.9* INR(PT)-1.1
-<br>
-Discharge labs:
-
-[**2566-6-9**] 09:25AM BLOOD WBC-7.9 RBC-4.07* Hgb-12.5 Hct-36.7
-MCV-90 MCH-30.8 MCHC-34.1 RDW-13.5 Plt Ct-272
-[**2566-6-9**] 09:25AM BLOOD Glucose-270* UreaN-11 Creat-0.7 Na-142
-K-4.3 Cl-106 HCO3-32 AnGap-8
-[**2566-6-9**] 09:25AM BLOOD Calcium-9.8 Phos-3.1 Mg-2.1
-[**2566-6-6**] 01:19AM BLOOD VitB12-181*
-[**2566-6-6**] 01:19AM BLOOD TSH-2.1
-[**2566-6-7**] 06:55AM BLOOD Valproa-19*
-[**2566-6-8**] 07:10PM BLOOD PT-18.9* PTT-150* INR(PT)-1.7*
-[**2566-6-9**] 02:00AM BLOOD PT-16.4* PTT-26.0 INR(PT)-1.5*
-[**2566-6-9**] 09:25AM BLOOD PT-19.6* PTT->150  INR(PT)-1.8*
-[**2566-6-9**] 10:35AM BLOOD PT-21.3* PTT->150* INR(PT)-2.0*
-[**2566-6-3**] 01:10PM BLOOD ALT-34 AST-132* CK(CPK)-6902* AlkPhos-61
-TotBili-1.2
-[**2566-6-4**] 06:30AM BLOOD CK(CPK)-4823*
-[**2566-6-7**] 08:10PM BLOOD CK(CPK)-1455*
-[**2566-6-3**] 01:10PM BLOOD cTropnT-1.12*
-[**2566-6-8**] 03:25AM BLOOD CK-MB-12* cTropnT-0.45*
-[**2566-6-8**] 11:58AM URINE Color-Yellow Appear-Clear Sp [**Last Name (un) **]-1.009
-[**2566-6-8**] 11:58AM URINE Blood-NEG Nitrite-NEG Protein-NEG
-Glucose-NEG Ketone-NEG Bilirub-NEG Urobiln-NEG pH-5.5 Leuks-TR
-.
-Blood cultures: neg x 2
-Urine culture: negative x1, pending x 1
-RPR negative
-
-<br>
-
-CXR:  IMPRESSION:
-1. Enlargement of the cardiac silhouette, without evidence of
-pulmonary edema and without change compared to [**2561**], suggesting
-possible cardiomyopathy.
-2. Slight increased, now moderate-sized hiatal hernia.
-<br>
-
-[**6-3**] EKG compared to 05' EKG - nsr, new TWI in avL, +min st dep
-v4-6 - otherwise no other acute st/tw changes.
-<br>
-
-Non-contrast Head CT:
-IMPRESSION: No acute hemorrhage or obvious major acute area of
-infarction.
-If acute infarction is of clinical concern, MR has improved
-sensitivity in comparison to non-contrast head CT.
-Chronic infarct in left MCA distribution.
-<br>
-Cardiac Echo:
-Conclusions
-The left atrium is dilated. There is mild symmetric left
-ventricular hypertrophy with normal cavity size. There is
-moderate regional left ventricular systolic dysfunction with
-akinesis of the mid to distal anterior septum, anterior wall and
-apex. A left ventricular mass/thrombus cannot be excluded. Right
-ventricular chamber size and free wall motion are normal. There
-is no aortic valve stenosis. Mild (1+) aortic regurgitation is
-seen. The mitral valve leaflets are mildly thickened. There is
-no mitral valve prolapse. Trivial mitral regurgitation is seen.
-There is no pericardial effusion.
-
-IMPRESSION: Focal LV systolic dysfunction consistent with LAD
-infarction. Mild aortic regurgitation.
-
-<br>
-[**6-4**] CXR: The patient's radiograph currently demonstrates new
-bilateral perihilar opacities consistent with interval
-development of pulmonary edema. There are bilateral pleural
-effusions also developed in the meantime interval, most likely
-small to moderate. There is no pneumothorax and there is no
-change in the cardiomediastinal silhouette.
-.
-LLE LENI: Preliminary Report !! WET READ !!  No DVT LLE.
-
-
-Brief Hospital Course:
-82 yo F with h/o HTN, h/o of prox a-fib, (not on coumadin), mood
-disorder on depakote (has had since CVA 4 yrs prior), with prior
-L inferior division MCA infarct now presenting with altered
-mental status with troponin elevation.
-<br>
-# AMS/NSTEMI: Patient began to have mental status changes [**2-12**]
-days prior to admission, then was found on the floor with
-emesis/stool/urine around her.  In ED,  had altered MS with new
-inferolateral ST depressions and T-wave inversions in aVL on
-ECG, elevated troponin and no acute changes on CT Head.
-Neurology was consulted for possible metabolic encephalopathy,
-either due to effect of medications (on depakote at home) or
-infection (T to 100.4 and leucocytosis). Her family declined a
-lumbar puncture.  ACS protocol was initiated with IV heparin and
-betablockers, while patient refused PO medications.  The family
-chose not to undergo catheterization, opting for more
-conservative medical management.
-The morning of [**2566-6-4**] the patient was noted to be in atrial
-fibrillation with rapid ventricular response with decreased
-urine output and new pulmonary edema on CXR.  Echocardiogram
-that day showed akinesis of the mid to distal anterior septum,
-anterior wall and apex.  Diuresis was undertaken.  Then at 1700,
-the patient's left hand was noted to become cold, blue and
-painful.  Vascular surgery was consulted, the patient was
-transferred to
