@@ -13,9 +13,14 @@ from TBF import *
 import operator
 import numpy
 import time
+import logging
+import json
 
 # Febrl modules
 import auxiliary
+
+# Log everything, and send it to stderr.
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_list2, idf_list2):
@@ -91,6 +96,8 @@ class TextProc:
         self.rank_dict = {}
         self.mrank_dict = {}
 
+        self.idf_corpus = []
+
     # extract History of Present Illness - step 2
     def extract_text(self, text, regex_filter):
         match = re.search(r'' + regex_filter, text, re.IGNORECASE)
@@ -122,7 +129,7 @@ class TextProc:
 
     # Num of records containing a word - Step 6.2
     def n_containing(self,word, textlist):
-        return sum(1 for blob in textlist if word in textlist)
+        return sum(1 for text in textlist if word in text)
 
     # Calculate IDF - Step 6.3
     def idf(self, word, textlist):
@@ -223,12 +230,18 @@ class TextProc:
                 # create stemmed list
                 row[text_column_no - 1] = self.stem(row[text_column_no - 1])
                 text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
+
+                #crate idf_corpus
+                if isDB:
+                    self.idf_corpus.append(row[text_column_no - 1])
+
             else:
                 continue
 
         # TF-IDF calculation - Step 6
         for rec in text_list_stemmed:
-            scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stemmed]) for token in rec[1]}
+            # scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stemmed]) for token in rec[1]}
+            scores = {token: self.tfidf(token, rec[1], self.idf_corpus) for token in rec[1]}
             sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
             text_list_tfidf.append([rec[0], sorted_words])
             # top t tokens with highest tf_idf score - step 7
@@ -236,7 +249,8 @@ class TextProc:
 
         # TF-IDF calculation before stemming - Step 6b
         for rec in text_list_stpwd_rm:
-            scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stpwd_rm]) for token in rec[1]}
+            # scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stpwd_rm]) for token in rec[1]}
+            scores = {token: self.tfidf(token, rec[1], self.idf_corpus) for token in rec[1]}
             sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
             text_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
 
@@ -287,6 +301,37 @@ class TextProc:
         # write top t tokens of each record with their term count - step 8
         text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
         self.write_file(text_list_t_tokens_tf, text_m_tf_filename)
+
+        # write preprocessed file
+        ppd_file_name = text_m_tf_filename = dbpath + os.sep + 'preprocessed' + os.sep + dbfilename + '.json'
+        self.write_preprocessed(ppd_file_name, isDB)
+
+
+
+    def write_preprocessed(self, file, isDB):
+
+        if not os.path.exists(os.path.dirname(file)):
+            try:
+                os.makedirs(os.path.dirname(file))
+            except OSError as exc:
+                if exc.errno != errno.EEXIST:
+                    raise
+
+        with open(file, 'w') as f:
+            if isDB:
+                f.write(json.dumps(self.db_dict))
+            else:
+                f.write(json.dumps(self.query_dict))
+
+
+    def read_preprocessed(self, file, isDB):
+
+        with open(file, 'r') as f:
+            if isDB:
+                self.db_dict = json.loads(f.read())
+            else:
+                self.query_dict = json.loads(f.read())
+
 
     def select_t_tokens(self,t):
         for (rec_id, clean_rec) in self.db_dict.iteritems():
@@ -370,31 +415,50 @@ class TextProc:
                 q_term_list = [item[0] for item in q_clean_rec]
                 db_term_list = [item[0] for item in db_clean_rec]
 
-                if len(q_term_list) == len(db_term_list):
-                    if comp_type == 'TF':
-                        q_freq_list = [item[1] for item in q_clean_rec]
-                        db_freq_list = [item[1] for item in db_clean_rec]
+                # if len(q_term_list) == len(db_term_list):
+                if comp_type == 'TF':
+                    q_freq_list = [item[1] for item in q_clean_rec]
+                    db_freq_list = [item[1] for item in db_clean_rec]
 
-                        sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
+                    # get the minimum length of tokens
+                    if len(q_term_list) != len(db_term_list):
+                        min_length = min(len(q_term_list), len(db_term_list))
+                        q_term_list = q_term_list[:min_length]
+                        db_term_list = db_term_list[:min_length]
+                        q_freq_list = q_freq_list[:min_length]
+                        db_freq_list = db_freq_list[:min_length]
 
-                    elif comp_type == 'TF-IDF':
-                        q_freq_list = [item[1] for item in q_clean_rec]
-                        q_idf_list = [item[2] for item in q_clean_rec]
+                    sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
 
-                        db_freq_list = [item[1] for item in db_clean_rec]
-                        db_idf_list = [item[2] for item in db_clean_rec]
+                elif comp_type == 'TF-IDF':
+                    q_freq_list = [item[1] for item in q_clean_rec]
+                    q_idf_list = [item[2] for item in q_clean_rec]
 
-                        sim_val = calc_sim_tf_idf(q_term_list, q_freq_list, q_idf_list, db_term_list, db_freq_list, db_idf_list)
+                    db_freq_list = [item[1] for item in db_clean_rec]
+                    db_idf_list = [item[2] for item in db_clean_rec]
 
-                    # Store similarity results in candidate_dict
-                    if q_rec_id in candidate_dict:
-                        this_rec_dict = candidate_dict[q_rec_id]
-                        this_rec_dict[db_rec_id] = sim_val
-                    else:
-                        this_rec_dict = {db_rec_id: sim_val}
-                        candidate_dict[q_rec_id] = this_rec_dict
+                    # get the minimum length of tokens
+                    if len(q_term_list) != len(db_term_list):
+                        min_length = min(len(q_term_list), len(db_term_list))
+                        q_term_list = q_term_list[:min_length]
+                        db_term_list = db_term_list[:min_length]
+                        q_freq_list = q_freq_list[:min_length]
+                        db_freq_list = db_freq_list[:min_length]
+                        q_idf_list = q_idf_list[:min_length]
+                        db_idf_list = db_idf_list[:min_length]
+
+                    sim_val = calc_sim_tf_idf(q_term_list, q_freq_list, q_idf_list, db_term_list, db_freq_list, db_idf_list)
+
+                # Store similarity results in candidate_dict
+                if q_rec_id in candidate_dict:
+                    this_rec_dict = candidate_dict[q_rec_id]
+                    this_rec_dict[db_rec_id] = sim_val
                 else:
-                    print 'Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list))
+                    this_rec_dict = {db_rec_id: sim_val}
+                    candidate_dict[q_rec_id] = this_rec_dict
+                # else:
+                #     logging.debug('Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list)))
+                    # print 'Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list))
 
 
     def find_m_similar(self, m):
@@ -553,7 +617,8 @@ class TextProc:
 
             accuracy_dict[query] = [prec, rec, fsco, rank_cor]
 
-        print 'accuracy_dict:', accuracy_dict
+        logging.debug('accuracy_dict: %s'% (str(accuracy_dict)))
+        # print 'accuracy_dict:', accuracy_dct
         return accuracy_dict
 
 
