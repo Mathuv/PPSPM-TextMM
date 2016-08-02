@@ -8,7 +8,8 @@ from types import *
 # Log everything, and send it to stderr.
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-db_file = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_1000REC.csv'
+# db_file = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_10000REC.csv'
+db_file = '../database/NOTEEVENTS_DATA_TABLE.csv'
 query_file = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
 a_dict = {}
@@ -52,11 +53,27 @@ with open(db_file, 'rb') as f:
         count += 1
         if count > 1:
             if line[6] + '_' + line[7] in a_dict:
+                # a_dict[line[6] + '_' + line[7]].append(line[0])
                 a_dict[line[6] + '_' + line[7]] += 1
             else:
+                # a_dict[line[6] + '_' + line[7]] = [line[0]]
                 a_dict[line[6] + '_' + line[7]] = 1
-                
 
-write_file(a_dict, './results/blocking_analysis.csv')              
+
+# with open(db_file, 'rb') as f:
+#     filereader = csv.reader(f)
+#     count = 0
+#     for line in filereader:
+#         count += 1
+#         if count > 1:
+#             if line[6] in a_dict:
+#                 # a_dict[line[6] + '_' + line[7]].append(line[0])
+#                 a_dict[line[6]] += 1
+#             else:
+#                 # a_dict[line[6] + '_' + line[7]] = [line[0]]
+#                 a_dict[line[6]] = 1
+                
+logging.debug('Number of records: %i' % count)
+write_file(a_dict, './results/blocking_analysis_CATEGORY_DESCRIPTION.csv')
 
 

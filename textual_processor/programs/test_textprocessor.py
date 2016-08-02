@@ -55,16 +55,20 @@ from textprocessor import TextProc;
 
 m_list2 = [1,5,10]
 t_list2 = [5,10,20,30,50]
+blk_attr_list = [6,7]
 regex_filter = r'History of Present Illness:\s+((\S+([\t ]{1,2}|\n?))+)'
 
 start_time_total = time.time()
 
-tproc = TextProc(t_list2,m_list2, weight_list,1000)
+tproc = TextProc(t_list2,m_list2, weight_list,1000, blk_attr_list)
 
+# Preprocess DB records
 start_time = time.time()
 tproc.preprocess(dbfile, 1, 11, regex_filter, max(t_list2), True)
 preprocess_time_db = time.time() - start_time
 
+
+# Preprocess query records
 start_time = time.time()
 tproc.preprocess(queryfile, 1, 11, regex_filter, max(t_list2), False)
 preprocess_time_query = time.time() - start_time

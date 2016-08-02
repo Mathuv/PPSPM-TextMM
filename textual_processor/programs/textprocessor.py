@@ -71,14 +71,17 @@ def argsortdup(a):
 
 class TextProc:
 
-    def __init__(self, t, m, weight, length):
+    def __init__(self, t, m, weight, length, blk_attr_index):
         self.t = t
         self.m = m
         self.weight = weight
         self.length = length
+        self.blk_attr_index = blk_attr_index
 
         self.db_dict = {}
         self.query_dict = {}
+
+        self.block_index = {}
 
         self.db_dict_t = {}
         self.query_dict_t = {}
@@ -240,6 +243,7 @@ class TextProc:
 
                     # create stemmed list
                     row[text_column_no - 1] = self.stem(row[text_column_no - 1])
+                    # text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
                     text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
 
                     #crate idf_corpus
@@ -330,6 +334,40 @@ class TextProc:
             self.db_dict_t[rec_id] = clean_rec[:t]
         for (rec_id, clean_rec) in self.query_dict.iteritems():
             self.query_dict_t[rec_id] = clean_rec[:t]
+
+    def build_BI(self):
+        """Build block_index data structure to store the BKVs and
+           the corresponding list of record identifiers in the database.
+        """
+
+        rec_dict = self.rec_dict
+        block_index = self.block_index
+        blk_attr_index = self.blk_attr_index
+
+        print 'Build Block Index for attributes:', blk_attr_index
+
+        for (rec_id, clean_rec) in rec_dict.iteritems():
+            compound_bkv = ""
+
+            if blk_attr_index == []:  # No blocking keys
+                compound_bkv = 'No_blk'
+            else:
+                for attr in blk_attr_index:  # Process selected blocking attributes
+                    attr_val = clean_rec[attr]
+                    attr_encode = attr_val  # Actual categorical value as BKV
+                    compound_bkv += attr_encode
+
+            if (compound_bkv in block_index):  # Block value in index, only add attribute value
+                rec_id_list = block_index[compound_bkv]
+                rec_id_list.append(rec_id)
+            else:  # A new block, add block value and attribute value
+                rec_id_list = [rec_id]
+                block_index[compound_bkv] = rec_id_list
+
+        print '    Generated %d blocks' % (len(block_index))
+        print
+
+
 
     def compare_masked(self, comp_type='TF'):
         """Compare bloom filter encoded query records with bloom filter encoded database records
