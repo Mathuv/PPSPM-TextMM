@@ -11,11 +11,14 @@ import auxiliary
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 weight_list = ['TF', 'TF-IDF']
-m_list = [1,5,10]
-t_list = [5,10,20,30,50]
+m_list = [1,5,10] # number of top matching recoords
+t_list = [5,10,20,30,50] # number of tokens
+id_col_no = 1
+text_col_no = 11
+blk_attr_list = [6,7] # block attribute column numbers
 
-dbfile = '../database/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_200REC.csv'
-queryfile = '../query/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
+dbfile = '../database/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
+queryfile = '../query/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC_NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
 start_time_total = time.time()
 
@@ -23,7 +26,7 @@ start_time_total = time.time()
 dbfilename_ext = os.path.basename(dbfile)
 dbfilename = os.path.splitext(dbfilename_ext)[0]
 
-tproc = TextProc(t_list,m_list, weight_list,1000)
+tproc = TextProc(t_list,m_list, weight_list,1000, id_col_no, text_col_no, blk_attr_list)
 
 tproc.read_preprocessed(dbfile, isDB=True)
 tproc.read_preprocessed(queryfile, isDB=False)
@@ -35,7 +38,14 @@ for t in t_list:
 
             tproc.select_t_tokens(t)
 
+            # Blocking
+            #
+            start_time = time.time()
+            tproc.build_BI()
+            blocking_phase_time = time.time() - start_time
+
             # compare unmasked
+            #
             start_time = time.time()
             tproc.compare_unmasked(w)
             tproc.find_m_similar(m)
@@ -43,6 +53,7 @@ for t in t_list:
             tproc.write_file(tproc.results_dict, result_file_name + '_unmasked')
 
             # compare masked
+            #
             start_time = time.time()
             tproc.compare_masked(w)
             tproc.find_m_similar_masked(m)
@@ -51,6 +62,7 @@ for t in t_list:
 
             # write effectiveness results (precision, recall, F1, and rank)
             # into the log file (one line per query record)
+            #
             accuracy_dict = tproc.calculate_accuracy()
             log_file_name = '..' + os.sep + 'logs' + os.sep + dbfilename + '_' + str(t) + '_' + str(m) + '_' + w
 
@@ -64,10 +76,12 @@ for t in t_list:
             log_file = open(log_file_name, 'w')
 
             # Calculate total runtime for PP-SPM
+            #
             tot_time = matching_phase_time + masked_matching_phase_time
             str_tot_time = '%.4f' % (tot_time)
 
             # Calculate total memory usage for PP-SPM
+            #
             memo_usage = auxiliary.get_memory_usage()
             memo_usage_val = auxiliary.get_memory_usage_val()
             memo_usage_val = memo_usage_val if memo_usage_val else 0.0
@@ -76,6 +90,7 @@ for t in t_list:
 
 
             # write efficiency results into the log file
+            #
             log_file.write(str_tot_time + ',' + str_mem_usage + os.linesep)
 
             for query in accuracy_dict:

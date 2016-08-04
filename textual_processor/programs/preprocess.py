@@ -9,9 +9,12 @@ import auxiliary
 # Log everything, and send it to stderr.
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-t_list = [5, 10, 20, 30, 50]
+t_list = [5, 10, 20, 30, 50] # number of tokens
+id_col_no = 1
+text_col_no = 11
+blk_attr_list = [6,7] # block attribute column numbers
 
-db_file = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_1000REC.csv'
+db_file = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 query_file = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
 # Regex filter to filter a section of the texttual data
@@ -20,7 +23,7 @@ query_file = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 regex_filter = r'History of Present Illness:\s+((\S+([\t ]{1,2}|\n?))+)'
 
 start_time_db = time.time()
-tproc = TextProc(t_list,None, None, None)
+tproc = TextProc(t_list, None, None, None, id_col_no, text_col_no, blk_attr_list)
 
 db_path = os.path.dirname(db_file)
 db_filename_ext = os.path.basename(db_file)
@@ -28,7 +31,7 @@ db_filename = os.path.splitext(db_filename_ext)[0]
 db_preprocesed = db_path + os.sep + 'preprocessed' + os.sep + db_filename_ext
 
 # preprocess database dataset
-tproc.preprocess(db_file, 1, 11, regex_filter, max(t_list), isDB=True)
+tproc.preprocess(db_file, id_col_no, text_col_no, regex_filter, max(t_list), isDB=True)
 tproc.write_file(tproc.db_dict, db_preprocesed)
 preprocess_time_db = time.time() - start_time_db
 
@@ -41,7 +44,7 @@ query_filename = os.path.splitext(query_filename_ext)[0]
 query_preprocesed = query_path + os.sep + 'preprocessed' + os.sep + query_filename + '_' + db_filename + '.csv'
 
 # preproess query dataset
-tproc.preprocess(query_file, 1, 11, regex_filter, max(t_list), isDB=False)
+tproc.preprocess(query_file, id_col_no, text_col_no, regex_filter, max(t_list), isDB=False)
 tproc.write_file(tproc.query_dict, query_preprocesed)
 preprocess_time_query = time.time() - start_time_query
 end_time = time.time()

@@ -71,11 +71,13 @@ def argsortdup(a):
 
 class TextProc:
 
-    def __init__(self, t, m, weight, length, blk_attr_index):
+    def __init__(self, t, m, weight, length, id_col_no, text_col_no, blk_attr_index):
         self.t = t
         self.m = m
         self.weight = weight
         self.length = length
+        self.id_col_no = id_col_no - 1
+        self.text_col_no = text_col_no - 1
         self.blk_attr_index = blk_attr_index
 
         self.db_dict = {}
@@ -181,6 +183,10 @@ class TextProc:
         # dbdata = list(dbreader)
         count = 0
 
+        # convert the column numbers to list index
+        id_column_no -= 1
+        text_column_no -= 1
+
         # header_rec = dbdata[0]  # Patient table column headers
 
         # assert len(header_rec) >= int(id_column_no) > 0, 'id column number is out of range'
@@ -197,6 +203,11 @@ class TextProc:
         text_list_t_tokens = []
         text_list_t_tokens_tf = []
 
+        columns_to_extract = []
+        columns_to_extract.append(id_column_no)
+        columns_to_extract.append(text_column_no)
+        columns_to_extract.extend(self.blk_attr_index)
+
         # db_dict = {}
         if isDB:
             db_dict = self.db_dict
@@ -210,45 +221,58 @@ class TextProc:
             # csv header fields
             if count == 1:
                 header_rec = row  # Patient table column headers
-                assert len(header_rec) >= int(id_column_no) > 0, 'id column number is out of range'
-                assert len(header_rec) >= int(text_column_no) > 0, 'text column number is out of range'
+                assert len(header_rec) > int(id_column_no) >= 0, 'id column number is out of range'
+                assert len(header_rec) > int(text_column_no) >= 0, 'text column number is out of range'
 
             else:
 
                 # unprocessed data
-                raw_text_list.append(row[id_column_no - 1::text_column_no - 1])
+                raw_text_list.append([row[id_column_no],row[text_column_no]])
 
                 # extract part of the raw text - step 2
-                row[text_column_no - 1] = self.extract_text(row[text_column_no - 1], regex_filter)
-                text_list_extract.append(row[id_column_no - 1::text_column_no - 1])
+                row[text_column_no] = self.extract_text(row[text_column_no], regex_filter)
+                text_list_extract.append([row[id_column_no], row[text_column_no]])
 
-                if row[text_column_no - 1]:
+                if row[text_column_no]:
                     # cleaning data - convert to lower case
-                    row[text_column_no - 1] = row[text_column_no - 1].lower()
+                    row[text_column_no] = row[text_column_no].lower()
 
                     # cleaning data - punctuation removal
-                    row[text_column_no - 1] = str(row[text_column_no - 1]).translate(None, string.punctuation)
+                    row[text_column_no] = str(row[text_column_no]).translate(None, string.punctuation)
 
                     # create tokenized list - step 3
-                    row[text_column_no - 1] = self.tokenize(row[text_column_no - 1])
-                    text_list_tokenized.append(row[id_column_no - 1::text_column_no - 1])
+                    row[text_column_no] = self.tokenize(row[text_column_no])
+                    text_list_tokenized.append([row[id_column_no], row[text_column_no]])
 
                     # create stop word removed list - step 4
-                    row[text_column_no - 1] = self.remove_stopwords(row[text_column_no - 1])
-                    text_list_stpwd_rm.append(row[id_column_no - 1::text_column_no - 1])
+                    row[text_column_no] = self.remove_stopwords(row[text_column_no])
+                    rec = [row[id_column_no], row[text_column_no]]
+                    # add the block attribute values
+                    rec.extend([row[i] for i in self.blk_attr_index])
+                    text_list_stpwd_rm.append(rec)
 
                     # pos tagging
                     # row[10] = pos_tagging(row[10])
                     # text_list_pos_tagged.append(row[0::10])
 
                     # create stemmed list
-                    row[text_column_no - 1] = self.stem(row[text_column_no - 1])
-                    # text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
-                    text_list_stemmed.append(row[id_column_no - 1::text_column_no - 1])
+                    row[text_column_no] = self.stem(row[text_column_no])
 
-                    #crate idf_corpus
+                    # rec = [row[id_column_no], row[text_column_no]]
+                    # # add the block attribute values
+                    # rec.extend([row[i] for i in self.blk_attr_index])
+
+                    # remove unwanted data
+                    rec = row
+                    for i in range(len(rec)):
+                        if i not in columns_to_extract:
+                            rec[i] = ''
+
+                    text_list_stemmed.append(rec)
+
+                    # create idf_corpus
                     if isDB:
-                        self.idf_corpus.append(row[text_column_no - 1])
+                        self.idf_corpus.append(row[text_column_no])
 
                 else:
                     continue
@@ -256,11 +280,15 @@ class TextProc:
         # TF-IDF calculation - Step 6
         for rec in text_list_stemmed:
             # scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stemmed]) for token in rec[1]}
-            scores = {token: self.tfidf(token, rec[1], self.idf_corpus) for token in rec[1]}
+            scores = {token: self.tfidf(token, rec[text_column_no], self.idf_corpus) for token in rec[text_column_no]}
             sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-            text_list_tfidf.append([rec[0], sorted_words])
+            text_list_tfidf.append([rec[id_column_no], sorted_words])
             # top t tokens with highest tf_idf score - step 7
-            text_list_t_tokens.append([rec[0], sorted_words[:int(t)]])
+            # text_list_t_tokens.append([rec[id_column_no], sorted_words[:int(t)]])
+            rec_temp = [val for val in rec]
+            # rec_temp = rec
+            rec_temp[text_column_no] = sorted_words[:int(t)]
+            text_list_t_tokens.append(rec_temp)
 
         # TF-IDF calculation before stemming - Step 6b
         for rec in text_list_stpwd_rm:
@@ -271,11 +299,15 @@ class TextProc:
 
         # top t tokens from each record with their local term count - step 8
         for rec1, rec2 in zip(text_list_t_tokens, text_list_stemmed):
-            tflist = [(word[0], rec2[1].count(word[0])) for word in rec1[1]]
-            text_list_t_tokens_tf.append([rec1[0], tflist])
+            tflist = [(word[0], rec2[text_column_no].count(word[0])) for word in rec1[text_column_no]]
+            text_list_t_tokens_tf.append([rec1[id_column_no], tflist])
             # dictionary of records to compare
-            tf_idf_list = [(word[0], rec2[1].count(word[0]), word[1]) for word in rec1[1]]
-            db_dict[rec1[0]] = tf_idf_list
+            tf_idf_list = [(word[0], rec2[text_column_no].count(word[0]), word[1]) for word in rec1[text_column_no]]
+            # db_rec = [tf_idf_list]
+            # db_rec.extend(rec2[2:])
+            rec_temp = [val for val in rec2]
+            rec_temp[text_column_no] = tf_idf_list
+            db_dict[rec1[id_column_no]] = rec_temp
 
         # write raw text- step 1
         raw_filename = dbpath + os.sep + 'step1' + os.sep + dbfilename + '_RAW.csv'
@@ -331,16 +363,24 @@ class TextProc:
 
     def select_t_tokens(self,t):
         for (rec_id, clean_rec) in self.db_dict.iteritems():
-            self.db_dict_t[rec_id] = clean_rec[:t]
+            t_tokens = clean_rec[self.text_col_no][:t]
+
+            rec = [val for val in clean_rec]
+            self.db_dict_t[rec_id] = rec
+            self.db_dict_t[rec_id][self.text_col_no] = t_tokens
         for (rec_id, clean_rec) in self.query_dict.iteritems():
-            self.query_dict_t[rec_id] = clean_rec[:t]
+            t_tokens = clean_rec[self.text_col_no][:t]
+
+            rec = [val for val in clean_rec]
+            self.query_dict_t[rec_id] = rec
+            self.query_dict_t[rec_id][self.text_col_no] = t_tokens
 
     def build_BI(self):
         """Build block_index data structure to store the BKVs and
            the corresponding list of record identifiers in the database.
         """
 
-        rec_dict = self.rec_dict
+        rec_dict = self.db_dict_t
         block_index = self.block_index
         blk_attr_index = self.blk_attr_index
 
@@ -388,27 +428,27 @@ class TextProc:
         # Create a dictionary of counting bloom filter - represent db
         for (rec_id, clean_rec) in db_dict.iteritems():
             tbf_db_rec = TBF()
-            term_list = [item[0] for item in clean_rec]
+            term_list = [item[0] for item in clean_rec[self.text_col_no]]
 
             if comp_type == 'TF': # use the same function as add_list_tfidf(term_list, freq_list, None)
-                freq_list = [item[1] for item in clean_rec]
+                freq_list = [item[1] for item in clean_rec[self.text_col_no]]
                 self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
             elif comp_type == 'TF-IDF':
-                freq_list = [item[1] for item in clean_rec]
-                idf_list = [item[2] for item in clean_rec]
+                freq_list = [item[1] for item in clean_rec[self.text_col_no]]
+                idf_list = [item[2] for item in clean_rec[self.text_col_no]]
                 self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list, idf_list)
 
         # Create a dictionary of counting bloom filter - represent query
         for (rec_id, clean_rec) in query_dict.iteritems():
             tbf_q_rec = TBF()
-            term_list = [item[0] for item in clean_rec]
+            term_list = [item[0] for item in clean_rec[self.text_col_no]]
 
             if comp_type == 'TF':
-                freq_list = [item[1] for item in clean_rec]
+                freq_list = [item[1] for item in clean_rec[self.text_col_no]]
                 self.mquery_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
             elif comp_type == 'TF-IDF':
-                freq_list = [item[1] for item in clean_rec]
-                idf_list = [item[2] for item in clean_rec]
+                freq_list = [item[1] for item in clean_rec[self.text_col_no]]
+                idf_list = [item[2] for item in clean_rec[self.text_col_no]]
                 self.mquery_dict[rec_id] = tbf_q_rec.add_list_tfidf(term_list, freq_list, idf_list)
 
 
@@ -442,13 +482,13 @@ class TextProc:
 
         for (q_rec_id, q_clean_rec) in query_dict.iteritems():
             for (db_rec_id, db_clean_rec) in db_dict.iteritems():
-                q_term_list = [item[0] for item in q_clean_rec]
-                db_term_list = [item[0] for item in db_clean_rec]
+                q_term_list = [item[0] for item in q_clean_rec[self.text_col_no]]
+                db_term_list = [item[0] for item in db_clean_rec[self.text_col_no]]
 
                 # if len(q_term_list) == len(db_term_list):
                 if comp_type == 'TF':
-                    q_freq_list = [item[1] for item in q_clean_rec]
-                    db_freq_list = [item[1] for item in db_clean_rec]
+                    q_freq_list = [item[1] for item in q_clean_rec[self.text_col_no]]
+                    db_freq_list = [item[1] for item in db_clean_rec[self.text_col_no]]
 
                     # get the minimum length of tokens
                     if len(q_term_list) != len(db_term_list):
@@ -461,11 +501,11 @@ class TextProc:
                     sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
 
                 elif comp_type == 'TF-IDF':
-                    q_freq_list = [item[1] for item in q_clean_rec]
-                    q_idf_list = [item[2] for item in q_clean_rec]
+                    q_freq_list = [item[1] for item in q_clean_rec[self.text_col_no]]
+                    q_idf_list = [item[2] for item in q_clean_rec[self.text_col_no]]
 
-                    db_freq_list = [item[1] for item in db_clean_rec]
-                    db_idf_list = [item[2] for item in db_clean_rec]
+                    db_freq_list = [item[1] for item in db_clean_rec[self.text_col_no]]
+                    db_idf_list = [item[2] for item in db_clean_rec[self.text_col_no]]
 
                     # get the minimum length of tokens
                     if len(q_term_list) != len(db_term_list):
