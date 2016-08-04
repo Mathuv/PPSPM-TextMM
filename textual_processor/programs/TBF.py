@@ -65,7 +65,7 @@ class TBF(object):
                 if idf_list:
                     self.cbf_idf[gi] += idf_list[term_list.index(val)]
 
-        return self.cbf_freq, self.cbf_idf if idf_list else self.cbf_freq
+        return (self.cbf_freq, self.cbf_idf) if idf_list else self.cbf_freq
 
 
 

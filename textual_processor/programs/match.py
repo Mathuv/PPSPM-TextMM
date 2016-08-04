@@ -17,7 +17,7 @@ id_col_no = 1
 text_col_no = 11
 blk_attr_list = [6,7] # block attribute column numbers
 
-dbfile = '../database/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
+dbfile = '../database/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_200REC.csv'
 queryfile = '../query/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC_NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
 start_time_total = time.time()

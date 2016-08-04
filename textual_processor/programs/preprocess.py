@@ -14,7 +14,7 @@ id_col_no = 1
 text_col_no = 11
 blk_attr_list = [6,7] # block attribute column numbers
 
-db_file = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
+db_file = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_200REC.csv'
 query_file = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
 # Regex filter to filter a section of the texttual data
@@ -51,7 +51,7 @@ end_time = time.time()
 
 logging.debug('DB preprocess time %4f' % preprocess_time_db)
 logging.debug('Query preprocess time %4f' % preprocess_time_query)
-logging .debug('Total preprocess time %4f' %(start_time_db - end_time))
+logging .debug('Total preprocess time %4f' %(end_time - start_time_db))
 
 
 

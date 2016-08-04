@@ -417,6 +417,8 @@ class TextProc:
         # db_dict = self.db_dict
         db_dict = self.db_dict_t
         query_dict = self.query_dict_t
+        block_index = self.block_index
+        blk_attr_index = self.blk_attr_index
         self.mcandidate_dict = {}
         mcandidate_dict = self.mcandidate_dict
         m = self.m
@@ -425,48 +427,123 @@ class TextProc:
         self.mdb_dict = {}
         self.mquery_dict = {}
 
-        # Create a dictionary of counting bloom filter - represent db
-        for (rec_id, clean_rec) in db_dict.iteritems():
-            tbf_db_rec = TBF()
-            term_list = [item[0] for item in clean_rec[self.text_col_no]]
+        for (q_rec_id, q_clean_rec) in query_dict.iteritems(): # Iterate over query records
+            bkv = ''
+            if blk_attr_index == []:
+                bkv = 'No_blk'
+            else:
+                for attr in blk_attr_index:
+                    attr_val = q_clean_rec[attr]
+                    bkv += attr_val
 
-            if comp_type == 'TF': # use the same function as add_list_tfidf(term_list, freq_list, None)
-                freq_list = [item[1] for item in clean_rec[self.text_col_no]]
-                self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
-            elif comp_type == 'TF-IDF':
-                freq_list = [item[1] for item in clean_rec[self.text_col_no]]
-                idf_list = [item[2] for item in clean_rec[self.text_col_no]]
-                self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list, idf_list)
+            if bkv in block_index:
+                cand_recs = block_index[bkv]  # candidate records for the query
 
-        # Create a dictionary of counting bloom filter - represent query
-        for (rec_id, clean_rec) in query_dict.iteritems():
-            tbf_q_rec = TBF()
-            term_list = [item[0] for item in clean_rec[self.text_col_no]]
+                for db_rec_id in cand_recs:  # Iterate over candidate records
+                    db_clean_rec = db_dict[db_rec_id]
 
-            if comp_type == 'TF':
-                freq_list = [item[1] for item in clean_rec[self.text_col_no]]
-                self.mquery_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
-            elif comp_type == 'TF-IDF':
-                freq_list = [item[1] for item in clean_rec[self.text_col_no]]
-                idf_list = [item[2] for item in clean_rec[self.text_col_no]]
-                self.mquery_dict[rec_id] = tbf_q_rec.add_list_tfidf(term_list, freq_list, idf_list)
+                    tbf_q_rec = TBF()
+                    tbf_db_rec = TBF()
+
+                    q_term_list = [item[0] for item in q_clean_rec[self.text_col_no]]
+                    db_term_list = [item[0] for item in db_clean_rec[self.text_col_no]]
+
+                    # if len(q_term_list) == len(db_term_list):
+                    if comp_type == 'TF':
+                        q_freq_list = [item[1] for item in q_clean_rec[self.text_col_no]]
+                        db_freq_list = [item[1] for item in db_clean_rec[self.text_col_no]]
+
+                        # get the minimum length of tokens
+                        if len(q_term_list) != len(db_term_list):
+                            min_length = min(len(q_term_list), len(db_term_list))
+                            q_term_list = q_term_list[:min_length]
+                            db_term_list = db_term_list[:min_length]
+                            q_freq_list = q_freq_list[:min_length]
+                            db_freq_list = db_freq_list[:min_length]
+
+                        # Create counting bloom filters with terms and their term frequencies
+                        cbf_freq_q = tbf_q_rec.add_list_tfidf(q_term_list, q_freq_list)
+                        cbf_freq_db = tbf_db_rec.add_list_tfidf(db_term_list, db_freq_list)
+
+                        sim_val = mcalc_sim_freq(cbf_freq_q, cbf_freq_db)
 
 
-        for q_rec in self.mquery_dict.iteritems():
-            for db_rec in self.mdb_dict.iteritems():
+                    elif comp_type == 'TF-IDF':
+                        q_freq_list = [item[1] for item in q_clean_rec[self.text_col_no]]
+                        q_idf_list = [item[2] for item in q_clean_rec[self.text_col_no]]
 
-                if comp_type in ['TF']:
-                    sim_val = mcalc_sim_freq(q_rec[1][0], db_rec[1][0])
-                elif comp_type == 'TF-IDF':
-                    sim_val = mcalc_sim_tf_idf(q_rec[1][0], q_rec[1][1], db_rec[1][0], db_rec[1][1])
+                        db_freq_list = [item[1] for item in db_clean_rec[self.text_col_no]]
+                        db_idf_list = [item[2] for item in db_clean_rec[self.text_col_no]]
 
-                # Store similarity results in mcandidate_dict
-                if q_rec[0] in mcandidate_dict:
-                    this_rec_dict = mcandidate_dict[q_rec[0] ]
-                    this_rec_dict[db_rec[0]] = sim_val
-                else:
-                    this_rec_dict = {db_rec[0]: sim_val}
-                    mcandidate_dict[q_rec[0]] = this_rec_dict
+                        # get the minimum length of tokens
+                        if len(q_term_list) != len(db_term_list):
+                            min_length = min(len(q_term_list), len(db_term_list))
+                            q_term_list = q_term_list[:min_length]
+                            db_term_list = db_term_list[:min_length]
+                            q_freq_list = q_freq_list[:min_length]
+                            db_freq_list = db_freq_list[:min_length]
+                            q_idf_list = q_idf_list[:min_length]
+                            db_idf_list = db_idf_list[:min_length]
+
+                        # Create couting bloom filter with terms, term frequencies and idf values
+                        cbf_freq_q, cbf_idf_q = tbf_q_rec.add_list_tfidf(q_term_list, q_freq_list, q_idf_list)
+                        cbf_freq_db, cbf_idf_db = tbf_db_rec.add_list_tfidf(db_term_list, db_freq_list, db_idf_list)
+
+                        sim_val = mcalc_sim_tf_idf(cbf_freq_q, cbf_idf_q, cbf_freq_db, cbf_idf_db)
+
+                    # Store similarity results in mcandidate_dict
+                    if q_rec_id in mcandidate_dict:
+                        this_rec_dict = mcandidate_dict[q_rec_id]
+                        this_rec_dict[db_rec_id] = sim_val
+                    else:
+                        this_rec_dict = {db_rec_id: sim_val}
+                        mcandidate_dict[q_rec_id] = this_rec_dict
+
+
+        # # Create a dictionary of counting bloom filter - represent db
+        # for (rec_id, clean_rec) in db_dict.iteritems():
+        #     tbf_db_rec = TBF()
+        #     term_list = [item[0] for item in clean_rec[self.text_col_no]]
+        #
+        #     if comp_type == 'TF': # use the same function as add_list_tfidf(term_list, freq_list, None)
+        #         freq_list = [item[1] for item in clean_rec[self.text_col_no]]
+        #         self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
+        #     elif comp_type == 'TF-IDF':
+        #         freq_list = [item[1] for item in clean_rec[self.text_col_no]]
+        #         idf_list = [item[2] for item in clean_rec[self.text_col_no]]
+        #         self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list, idf_list)
+        #
+        # # Create a dictionary of counting bloom filter - represent query
+        # for (rec_id, clean_rec) in query_dict.iteritems():
+        #     tbf_q_rec = TBF()
+        #     term_list = [item[0] for item in clean_rec[self.text_col_no]]
+        #
+        #     if comp_type == 'TF':
+        #         freq_list = [item[1] for item in clean_rec[self.text_col_no]]
+        #         self.mquery_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
+        #     elif comp_type == 'TF-IDF':
+        #         freq_list = [item[1] for item in clean_rec[self.text_col_no]]
+        #         idf_list = [item[2] for item in clean_rec[self.text_col_no]]
+        #         self.mquery_dict[rec_id] = tbf_q_rec.add_list_tfidf(term_list, freq_list, idf_list)
+        #
+        #
+        # for q_rec in self.mquery_dict.iteritems():
+        #     for db_rec in self.mdb_dict.iteritems():
+        #
+        #         if comp_type in ['TF']:
+        #             sim_val = mcalc_sim_freq(q_rec[1][0], db_rec[1][0])
+        #         elif comp_type == 'TF-IDF':
+        #             sim_val = mcalc_sim_tf_idf(q_rec[1][0], q_rec[1][1], db_rec[1][0], db_rec[1][1])
+        #
+        #         # Store similarity results in mcandidate_dict
+        #         if q_rec[0] in mcandidate_dict:
+        #             this_rec_dict = mcandidate_dict[q_rec[0] ]
+        #             this_rec_dict[db_rec[0]] = sim_val
+        #         else:
+        #             this_rec_dict = {db_rec[0]: sim_val}
+        #             mcandidate_dict[q_rec[0]] = this_rec_dict
+
+
 
     def compare_unmasked(self, comp_type='TF'):
         """compare unmasked query records with database records
@@ -475,60 +552,75 @@ class TextProc:
         # db_dict = self.db_dict
         db_dict = self.db_dict_t
         query_dict = self.query_dict_t
+        block_index = self.block_index
+        blk_attr_index = self.blk_attr_index
         self.candidate_dict = {}
         candidate_dict = self.candidate_dict
         m = self.m
         length = self.length
 
         for (q_rec_id, q_clean_rec) in query_dict.iteritems():
-            for (db_rec_id, db_clean_rec) in db_dict.iteritems():
-                q_term_list = [item[0] for item in q_clean_rec[self.text_col_no]]
-                db_term_list = [item[0] for item in db_clean_rec[self.text_col_no]]
+            bkv = ''
+            if blk_attr_index == []:
+                bkv = 'No_blk'
+            else:
+                for attr in blk_attr_index:
+                    attr_val = q_clean_rec[attr]
+                    bkv += attr_val
 
-                # if len(q_term_list) == len(db_term_list):
-                if comp_type == 'TF':
-                    q_freq_list = [item[1] for item in q_clean_rec[self.text_col_no]]
-                    db_freq_list = [item[1] for item in db_clean_rec[self.text_col_no]]
+            if bkv in block_index:
+                cand_recs = block_index[bkv]  # candidate records for the query
+                # for (db_rec_id, db_clean_rec) in db_dict.iteritems():
+                for db_rec_id in cand_recs:  # Iterate over candidate records
+                    db_clean_rec = db_dict[db_rec_id]
 
-                    # get the minimum length of tokens
-                    if len(q_term_list) != len(db_term_list):
-                        min_length = min(len(q_term_list), len(db_term_list))
-                        q_term_list = q_term_list[:min_length]
-                        db_term_list = db_term_list[:min_length]
-                        q_freq_list = q_freq_list[:min_length]
-                        db_freq_list = db_freq_list[:min_length]
+                    q_term_list = [item[0] for item in q_clean_rec[self.text_col_no]]
+                    db_term_list = [item[0] for item in db_clean_rec[self.text_col_no]]
 
-                    sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
+                    # if len(q_term_list) == len(db_term_list):
+                    if comp_type == 'TF':
+                        q_freq_list = [item[1] for item in q_clean_rec[self.text_col_no]]
+                        db_freq_list = [item[1] for item in db_clean_rec[self.text_col_no]]
 
-                elif comp_type == 'TF-IDF':
-                    q_freq_list = [item[1] for item in q_clean_rec[self.text_col_no]]
-                    q_idf_list = [item[2] for item in q_clean_rec[self.text_col_no]]
+                        # get the minimum length of tokens
+                        if len(q_term_list) != len(db_term_list):
+                            min_length = min(len(q_term_list), len(db_term_list))
+                            q_term_list = q_term_list[:min_length]
+                            db_term_list = db_term_list[:min_length]
+                            q_freq_list = q_freq_list[:min_length]
+                            db_freq_list = db_freq_list[:min_length]
 
-                    db_freq_list = [item[1] for item in db_clean_rec[self.text_col_no]]
-                    db_idf_list = [item[2] for item in db_clean_rec[self.text_col_no]]
+                        sim_val = calc_sim_freq(q_term_list, q_freq_list, db_term_list, db_freq_list)
 
-                    # get the minimum length of tokens
-                    if len(q_term_list) != len(db_term_list):
-                        min_length = min(len(q_term_list), len(db_term_list))
-                        q_term_list = q_term_list[:min_length]
-                        db_term_list = db_term_list[:min_length]
-                        q_freq_list = q_freq_list[:min_length]
-                        db_freq_list = db_freq_list[:min_length]
-                        q_idf_list = q_idf_list[:min_length]
-                        db_idf_list = db_idf_list[:min_length]
+                    elif comp_type == 'TF-IDF':
+                        q_freq_list = [item[1] for item in q_clean_rec[self.text_col_no]]
+                        q_idf_list = [item[2] for item in q_clean_rec[self.text_col_no]]
 
-                    sim_val = calc_sim_tf_idf(q_term_list, q_freq_list, q_idf_list, db_term_list, db_freq_list, db_idf_list)
+                        db_freq_list = [item[1] for item in db_clean_rec[self.text_col_no]]
+                        db_idf_list = [item[2] for item in db_clean_rec[self.text_col_no]]
 
-                # Store similarity results in candidate_dict
-                if q_rec_id in candidate_dict:
-                    this_rec_dict = candidate_dict[q_rec_id]
-                    this_rec_dict[db_rec_id] = sim_val
-                else:
-                    this_rec_dict = {db_rec_id: sim_val}
-                    candidate_dict[q_rec_id] = this_rec_dict
-                # else:
-                #     logging.debug('Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list)))
-                    # print 'Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list))
+                        # get the minimum length of tokens
+                        if len(q_term_list) != len(db_term_list):
+                            min_length = min(len(q_term_list), len(db_term_list))
+                            q_term_list = q_term_list[:min_length]
+                            db_term_list = db_term_list[:min_length]
+                            q_freq_list = q_freq_list[:min_length]
+                            db_freq_list = db_freq_list[:min_length]
+                            q_idf_list = q_idf_list[:min_length]
+                            db_idf_list = db_idf_list[:min_length]
+
+                        sim_val = calc_sim_tf_idf(q_term_list, q_freq_list, q_idf_list, db_term_list, db_freq_list, db_idf_list)
+
+                    # Store similarity results in candidate_dict
+                    if q_rec_id in candidate_dict:
+                        this_rec_dict = candidate_dict[q_rec_id]
+                        this_rec_dict[db_rec_id] = sim_val
+                    else:
+                        this_rec_dict = {db_rec_id: sim_val}
+                        candidate_dict[q_rec_id] = this_rec_dict
+                    # else:
+                    #     logging.debug('Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list)))
+                        # print 'Query and Database token lists are not equal in length: query_rec-%s, size-%s, db_rec-%s, size-%s' % (q_rec_id, len(q_term_list), db_rec_id, len(db_term_list))
 
 
     def find_m_similar(self, m):
