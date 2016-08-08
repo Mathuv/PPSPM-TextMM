@@ -9,7 +9,7 @@ import logging
 import auxiliary
 
 # Log everything, and send it to stderr.
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # number of similar eecords
 m_list = ['1','5','10']
@@ -74,6 +74,13 @@ preprocess_time_db = time.time() - start_time
 start_time = time.time()
 tproc.preprocess(queryfile, id_col_no, text_col_no, regex_filter, max(t_list2), False)
 preprocess_time_query = time.time() - start_time
+
+# Blocking
+#
+start_time = time.time()
+tproc.build_BI()
+blocking_phase_time = time.time() - start_time
+
 
 # Log file to write the results
 dbfilename_ext = os.path.basename(dbfile)
