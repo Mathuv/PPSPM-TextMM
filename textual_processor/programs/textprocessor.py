@@ -20,7 +20,8 @@ import json
 import auxiliary
 
 # Log everything, and send it to stderr.
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger()
 
 
 def calc_sim_tf_idf(term_list1, freq_list1, idf_list1, term_list2, freq_list2, idf_list2):
@@ -101,7 +102,7 @@ class TextProc:
         self.rank_dict = {}
         self.mrank_dict = {}
 
-        self.idf_corpus = []
+        self.idf_index = {}
 
     # extract History of Present Illness - step 2
     def extract_text(self, text, regex_filter):
@@ -133,16 +134,23 @@ class TextProc:
         return tokens.count(word) / len(tokens)
 
     # Num of records containing a word - Step 6.2
-    def n_containing(self,word, textlist):
-        return sum(1 for text in textlist if word in text)
+    def n_containing(self,word):
+        return self.idf_index[word]
 
     # Calculate IDF - Step 6.3
     def idf(self, word, textlist):
-        return math.log(len(textlist) / (1 + self.n_containing(word, textlist)))
+        return math.log(len(textlist) / (1 + self.n_containing(word)))
 
     # Calculate TF-IDF - Step 6.4
     def tfidf(self, word, tokens, textlist):
         return self.tf(word, tokens) * self.idf(word, textlist)
+
+    def create_idf_index(self, rec_tokens):
+        for token in rec_tokens:
+            if token not in self.idf_index:
+                self.idf_index[token] = 1
+            else:
+                self.idf_index[token] += 1
 
     def write_file(self, content, file):
         csv_rows = []
@@ -226,12 +234,14 @@ class TextProc:
 
             else:
 
-                # unprocessed data
-                raw_text_list.append([row[id_column_no],row[text_column_no]])
+                if logger.level == logging.DEBUG:
+                    # unprocessed data
+                    raw_text_list.append([row[id_column_no],row[text_column_no]])
 
                 # extract part of the raw text - step 2
                 row[text_column_no] = self.extract_text(row[text_column_no], regex_filter)
-                text_list_extract.append([row[id_column_no], row[text_column_no]])
+                if logger.level == logging.DEBUG:
+                    text_list_extract.append([row[id_column_no], row[text_column_no]])
 
                 if row[text_column_no]:
                     # cleaning data - convert to lower case
@@ -242,14 +252,13 @@ class TextProc:
 
                     # create tokenized list - step 3
                     row[text_column_no] = self.tokenize(row[text_column_no])
-                    text_list_tokenized.append([row[id_column_no], row[text_column_no]])
+                    if logger.level == logging.DEBUG:
+                        text_list_tokenized.append([row[id_column_no], row[text_column_no]])
 
                     # create stop word removed list - step 4
                     row[text_column_no] = self.remove_stopwords(row[text_column_no])
-                    rec = [row[id_column_no], row[text_column_no]]
-                    # add the block attribute values
-                    rec.extend([row[i] for i in self.blk_attr_index])
-                    text_list_stpwd_rm.append(rec)
+                    if logger.level == logging.DEBUG:
+                        text_list_stpwd_rm.append([row[id_column_no], row[text_column_no]])
 
                     # pos tagging
                     # row[10] = pos_tagging(row[10])
@@ -270,9 +279,11 @@ class TextProc:
 
                     text_list_stemmed.append(rec)
 
-                    # create idf_corpus
+                    # create idf_index
                     if isDB:
-                        self.idf_corpus.append(row[text_column_no])
+                        # build the inverted index for efficient idf calculation
+                        self.create_idf_index(row[text_column_no])
+
 
                 else:
                     continue
@@ -280,9 +291,10 @@ class TextProc:
         # TF-IDF calculation - Step 6
         for rec in text_list_stemmed:
             # scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stemmed]) for token in rec[1]}
-            scores = {token: self.tfidf(token, rec[text_column_no], self.idf_corpus) for token in rec[text_column_no]}
+            scores = {token: self.tfidf(token, rec[text_column_no], text_list_stemmed) for token in rec[text_column_no]}
             sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-            text_list_tfidf.append([rec[id_column_no], sorted_words])
+            if logger.level == logging.DEBUG:
+                text_list_tfidf.append([rec[id_column_no], sorted_words])
             # top t tokens with highest tf_idf score - step 7
             # text_list_t_tokens.append([rec[id_column_no], sorted_words[:int(t)]])
             rec_temp = [val for val in rec]
@@ -290,12 +302,13 @@ class TextProc:
             rec_temp[text_column_no] = sorted_words[:int(t)]
             text_list_t_tokens.append(rec_temp)
 
-        # TF-IDF calculation before stemming - Step 6b
-        for rec in text_list_stpwd_rm:
-            # scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stpwd_rm]) for token in rec[1]}
-            scores = {token: self.tfidf(token, rec[1], self.idf_corpus) for token in rec[1]}
-            sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-            text_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
+        if logger.level == logging.DEBUG:
+            # TF-IDF calculation before stemming - Step 6b
+            for rec in text_list_stpwd_rm:
+                # scores = {token: self.tfidf(token, rec[1], [l[1] for l in text_list_stpwd_rm]) for token in rec[1]}
+                scores = {token: self.tfidf(token, rec[1], text_list_stemmed) for token in rec[1]}
+                sorted_words = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+                text_list_stpwd_rm_tfidf.append([rec[0], sorted_words])
 
         # top t tokens from each record with their local term count - step 8
         for rec1, rec2 in zip(text_list_t_tokens, text_list_stemmed):
@@ -309,45 +322,46 @@ class TextProc:
             rec_temp[text_column_no] = tf_idf_list
             db_dict[rec1[id_column_no]] = rec_temp
 
-        # write raw text- step 1
-        raw_filename = dbpath + os.sep + 'step1' + os.sep + dbfilename + '_RAW.csv'
-        self.write_file(raw_text_list, raw_filename)
+        if logger.level == logging.DEBUG:
+            # write raw text- step 1
+            raw_filename = dbpath + os.sep + 'step1' + os.sep + dbfilename + '_RAW.csv'
+            self.write_file(raw_text_list, raw_filename)
 
-        # write extracted part of the raw text csv - step 2
-        text_filename = dbpath + os.sep + 'step2' + os.sep + dbfilename + '_TEXT.csv'
-        self.write_file(text_list_extract, text_filename)
+            # write extracted part of the raw text csv - step 2
+            text_filename = dbpath + os.sep + 'step2' + os.sep + dbfilename + '_TEXT.csv'
+            self.write_file(text_list_extract, text_filename)
 
-        # write tokenized  'History of Present Illness' text file - step 3
-        text_tokenized_filename = dbpath + os.sep + 'step3' + os.sep + dbfilename + '_TEXT_tokenized.csv'
-        self.write_file(text_list_tokenized, text_tokenized_filename)
+            # write tokenized  'History of Present Illness' text file - step 3
+            text_tokenized_filename = dbpath + os.sep + 'step3' + os.sep + dbfilename + '_TEXT_tokenized.csv'
+            self.write_file(text_list_tokenized, text_tokenized_filename)
 
-        # write stop-words removed - step 4
-        text_stpwd_rm_filename = dbpath + os.sep + 'step4' + os.sep + dbfilename + '_TEXT_stpwd_rm.csv'
-        self.write_file(text_list_stpwd_rm, text_stpwd_rm_filename)
+            # write stop-words removed - step 4
+            text_stpwd_rm_filename = dbpath + os.sep + 'step4' + os.sep + dbfilename + '_TEXT_stpwd_rm.csv'
+            self.write_file(text_list_stpwd_rm, text_stpwd_rm_filename)
 
-        # write stemmed list - step 5
-        text_stemmed_filename = dbpath + os.sep + 'step5' + os.sep + dbfilename + '_TEXT_stemmed.csv'
-        self.write_file(text_list_stemmed, text_stemmed_filename)
+            # write stemmed list - step 5
+            text_stemmed_filename = dbpath + os.sep + 'step5' + os.sep + dbfilename + '_TEXT_stemmed.csv'
+            self.write_file(text_list_stemmed, text_stemmed_filename)
 
-        # write pos tagged - step
-        # text_pos_tagged_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tagged.csv'
-        # write_file(text_list_pos_tagged, text_pos_tagged_filename)
+            # write pos tagged - step
+            # text_pos_tagged_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tagged.csv'
+            # write_file(text_list_pos_tagged, text_pos_tagged_filename)
 
-        # write if-idf output - Step 6
-        text_tfidf_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tfidf.csv'
-        self.write_file(text_list_tfidf, text_tfidf_filename)
+            # write if-idf output - Step 6
+            text_tfidf_filename = dbpath + os.sep + 'step6' + os.sep + dbfilename + '_TEXT_tfidf.csv'
+            self.write_file(text_list_tfidf, text_tfidf_filename)
 
-        # write if-idf output - Step 6b
-        text_stpwd_rm_tfidf_filename = dbpath + os.sep + 'step6b' + os.sep + dbfilename + '_TEXT_stpwd_rm_tfidf.csv'
-        self.write_file(text_list_stpwd_rm_tfidf, text_stpwd_rm_tfidf_filename)
+            # write if-idf output - Step 6b
+            text_stpwd_rm_tfidf_filename = dbpath + os.sep + 'step6b' + os.sep + dbfilename + '_TEXT_stpwd_rm_tfidf.csv'
+            self.write_file(text_list_stpwd_rm_tfidf, text_stpwd_rm_tfidf_filename)
 
-        # write top t tokens with high if-idf score - Step 7
-        text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_TEXT_m_tfidf.csv'
-        self.write_file(text_list_t_tokens, text_m_tfidf_filename)
+            # write top t tokens with high if-idf score - Step 7
+            text_m_tfidf_filename = dbpath + os.sep + 'step7' + os.sep + dbfilename + '_TEXT_m_tfidf.csv'
+            self.write_file(text_list_t_tokens, text_m_tfidf_filename)
 
-        # write top t tokens of each record with their term count - step 8
-        text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
-        self.write_file(text_list_t_tokens_tf, text_m_tf_filename)
+            # write top t tokens of each record with their term count - step 8
+            text_m_tf_filename = dbpath + os.sep + 'step8' + os.sep + dbfilename + '_TEXT_m_tf.csv'
+            self.write_file(text_list_t_tokens_tf, text_m_tf_filename)
 
     # reads the preprocessed data
     def read_preprocessed(self, file, isDB):
@@ -380,7 +394,7 @@ class TextProc:
            the corresponding list of record identifiers in the database.
         """
 
-        rec_dict = self.db_dict_t
+        rec_dict = self.db_dict
         block_index = self.block_index
         blk_attr_index = self.blk_attr_index
 
@@ -499,49 +513,6 @@ class TextProc:
                         this_rec_dict = {db_rec_id: sim_val}
                         mcandidate_dict[q_rec_id] = this_rec_dict
 
-
-        # # Create a dictionary of counting bloom filter - represent db
-        # for (rec_id, clean_rec) in db_dict.iteritems():
-        #     tbf_db_rec = TBF()
-        #     term_list = [item[0] for item in clean_rec[self.text_col_no]]
-        #
-        #     if comp_type == 'TF': # use the same function as add_list_tfidf(term_list, freq_list, None)
-        #         freq_list = [item[1] for item in clean_rec[self.text_col_no]]
-        #         self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
-        #     elif comp_type == 'TF-IDF':
-        #         freq_list = [item[1] for item in clean_rec[self.text_col_no]]
-        #         idf_list = [item[2] for item in clean_rec[self.text_col_no]]
-        #         self.mdb_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list, idf_list)
-        #
-        # # Create a dictionary of counting bloom filter - represent query
-        # for (rec_id, clean_rec) in query_dict.iteritems():
-        #     tbf_q_rec = TBF()
-        #     term_list = [item[0] for item in clean_rec[self.text_col_no]]
-        #
-        #     if comp_type == 'TF':
-        #         freq_list = [item[1] for item in clean_rec[self.text_col_no]]
-        #         self.mquery_dict[rec_id] = tbf_db_rec.add_list_tfidf(term_list, freq_list)
-        #     elif comp_type == 'TF-IDF':
-        #         freq_list = [item[1] for item in clean_rec[self.text_col_no]]
-        #         idf_list = [item[2] for item in clean_rec[self.text_col_no]]
-        #         self.mquery_dict[rec_id] = tbf_q_rec.add_list_tfidf(term_list, freq_list, idf_list)
-        #
-        #
-        # for q_rec in self.mquery_dict.iteritems():
-        #     for db_rec in self.mdb_dict.iteritems():
-        #
-        #         if comp_type in ['TF']:
-        #             sim_val = mcalc_sim_freq(q_rec[1][0], db_rec[1][0])
-        #         elif comp_type == 'TF-IDF':
-        #             sim_val = mcalc_sim_tf_idf(q_rec[1][0], q_rec[1][1], db_rec[1][0], db_rec[1][1])
-        #
-        #         # Store similarity results in mcandidate_dict
-        #         if q_rec[0] in mcandidate_dict:
-        #             this_rec_dict = mcandidate_dict[q_rec[0] ]
-        #             this_rec_dict[db_rec[0]] = sim_val
-        #         else:
-        #             this_rec_dict = {db_rec[0]: sim_val}
-        #             mcandidate_dict[q_rec[0]] = this_rec_dict
 
 
 
@@ -779,7 +750,7 @@ class TextProc:
 
             accuracy_dict[query] = [prec, rec, fsco, rank_cor]
 
-        logging.debug('accuracy_dict: %s'% (str(accuracy_dict)))
+        logging.info('accuracy_dict: %s'% (str(accuracy_dict)))
         # print 'accuracy_dict:', accuracy_dct
         return accuracy_dict
 
