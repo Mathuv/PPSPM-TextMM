@@ -17,7 +17,7 @@ id_col_no = 1
 text_col_no = 11
 blk_attr_list = [6,7] # block attribute column numbers
 
-dbfile = '../database/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_200REC.csv'
+dbfile = '../database/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 queryfile = '../query/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC_NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
 start_time_total = time.time()
@@ -31,18 +31,18 @@ tproc = TextProc(t_list,m_list, weight_list,1000, id_col_no, text_col_no, blk_at
 tproc.read_preprocessed(dbfile, isDB=True)
 tproc.read_preprocessed(queryfile, isDB=False)
 
+# Blocking
+#
+start_time = time.time()
+tproc.build_BI()
+blocking_phase_time = time.time() - start_time
+
 for t in t_list:
     for m in m_list:
         for w in weight_list:
             result_file_name = '..' + os.sep + 'results' + os.sep + dbfilename + '_' + str(t) + '_' + str(m) + '_' + w
 
             tproc.select_t_tokens(t)
-
-            # Blocking
-            #
-            start_time = time.time()
-            tproc.build_BI()
-            blocking_phase_time = time.time() - start_time
 
             # compare unmasked
             #
