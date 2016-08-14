@@ -19,12 +19,34 @@ Private Medical Data Comparison  Functions for Similar Patient Matching
 
 ### The folder structure: ###
 
-* database
-* logs
-* programs
-* query
-* results
-* util
+1. database
+1. logs
+1. programs
+1. query
+1. results
+1. util
+
+#### 1. database ####
+
+#### 2. logs ####
+
+#### 3. programs ####
+
+* auxiliary.pyc
+* match.py
+* TBF.py
+* test_textprocessor.py
+* textprocessor.py
+
+#### 4. query ####
+
+#### 5. results ####
+
+#### 6. util ####
+Some utility programs to create chunks of dataset and asses the raw data
+
+* analyze_data.py
+* create_db.py
 
 ### Contribution guidelines ###
 
