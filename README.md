@@ -2,6 +2,20 @@
 
 Private Medical Data Comparison  Functions for Similar Patient Matching
 
+### Python requirements: ###
+
+* Python runtime environment
+
+        python 2.7.3
+        (This is not tested in python3 runtime)
+
+* Python libraries
+
+        bitarray (0.8.1)
+        nltk (3.2.1)
+
+
+
 ### Python command to run experiments: ###
 
 * python test_textprocessor.py
