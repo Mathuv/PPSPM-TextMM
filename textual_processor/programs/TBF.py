@@ -49,8 +49,8 @@ class TBF(object):
     def add_list_tfidf(self, term_list, freq_list, idf_list=None):
         """add list of tokens (textual data) and corresponding token frequencies
         and their idf (inverse document frequencies)"""
-        index = 0
-        for val in term_list:
+
+        for idx, val in enumerate(term_list):
             hex_str1 = self.h1(val).hexdigest()
             int1 = int(hex_str1, 16)
             hex_str2 = self.h2(val).hexdigest()
@@ -60,12 +60,10 @@ class TBF(object):
                 gi = int1 + i * int2
                 gi = int(gi % self.l)
                 # create counting bloom filter with tf values
-                self.cbf_freq[gi] += freq_list[index]
+                self.cbf_freq[gi] += freq_list[idx]
                 # create counting bloom filter with idf values
                 if idf_list:
-                    self.cbf_idf[gi] += idf_list[index]
-
-            index += 1
+                    self.cbf_idf[gi] += idf_list[idx]
 
         return (self.cbf_freq, self.cbf_idf) if idf_list else self.cbf_freq
 
