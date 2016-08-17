@@ -1,6 +1,8 @@
 # README #
 
-Private Medical Data Comparison  Functions for Similar Patient Matching
+### Private Medical Data Comparison  Functions for Similar Patient Matching ###
+
+This particular implementation of privacy preserving similarity comparison between attributes of textual data of patient records extends existing functionalities of PPSPM framework ([http://dmm.anu.edu.au/PPSPM/](Link URL)) 
 
 ### Python requirements: ###
 
@@ -48,25 +50,35 @@ Private Medical Data Comparison  Functions for Similar Patient Matching
 
 #### 1. database ####
 
+        Contains the database datasets, results from each preprocessing step (step1 - step8) and 
+        final output of preprocessing under the directory /preprocessed
+
 #### 2. logs ####
+
+        Log files
 
 #### 3. programs ####
 
-* auxiliary.pyc
-* match.py
-* TBF.py
-* test_textprocessor.py
-* textprocessor.py
+        * auxiliary.pyc
+        * match.py
+        * TBF.py
+        * test_textprocessor.py
+        * textprocessor.py
 
 #### 4. query ####
 
+        Contains the query datasets, results from each preprocessing step (step1 - step8) and 
+        final output of preprocessing under the directory /preprocessed
+
 #### 5. results ####
 
-#### 6. util ####
-Some utility programs to create chunks of dataset and asses the raw data
+        Final results showing matching records from database dataset for each record of query dataset
 
-* analyze_data.py
-* create_db.py
+#### 6. util ####
+
+        Some utility programs to create chunks of dataset and asses the raw data
+        * analyze_data.py
+        * create_db.py
 
 ### Contribution guidelines ###
 
