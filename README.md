@@ -14,6 +14,12 @@ Private Medical Data Comparison  Functions for Similar Patient Matching
         bitarray (0.8.1)
         nltk (3.2.1)
 
+* NLTk corpuses
+
+        Stopwords
+        PorterStemmer
+        LancasterStemmer
+
 
 
 ### Python command to run experiments: ###
