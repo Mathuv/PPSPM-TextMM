@@ -1,5 +1,7 @@
 # README #
 
+## PPSPM-MM ##
+
 ### Private Medical Data Comparison  Functions for Similar Patient Matching ###
 
 This particular implementation of privacy preserving similarity comparison between attributes of textual data of patient records extends existing functionalities of PPSPM framework ([http://dmm.anu.edu.au/PPSPM/](Link URL)) 
@@ -106,4 +108,3 @@ This particular implementation of privacy preserving similarity comparison betwe
         Research School of Computer Science
         Australian National University (ANU)
         peter.christen@anu.edu.au
-        
