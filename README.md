@@ -88,5 +88,22 @@ This particular implementation of privacy preserving similarity comparison betwe
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Repo owner or admin (GSoC2016 Student)
+
+        Mathu Mounasamy
+        mmounasamy@gmail.com
+
+* Advisers
+
+        Dr Dinusha Vatsalan
+        RESEARCH FELLOW
+        Research School of Computer Science
+        Australian National University (ANU)
+        dinusha.vatsalan@anu.edu.au
+
+        Professor Peter Christen
+        PROFESSOR        
+        Research School of Computer Science
+        Australian National University (ANU)
+        peter.christen@anu.edu.au
+        
