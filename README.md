@@ -1,10 +1,12 @@
 # README #
 
-## PPSPM-MM ##
+## PPSPM-TextMM ##
 
 ### Private Medical Data Comparison  Functions for Similar Patient Matching ###
 
-This particular implementation of privacy preserving similarity comparison between attributes of textual data of patient records extends existing functionalities of PPSPM framework ([http://dmm.anu.edu.au/PPSPM/](Link URL)) 
+This particular implementation of privacy preserving similarity comparison between attributes of textual data of patient records extends existing functionalities of PPSPM framework ([http://dmm.anu.edu.au/PPSPM/](Link URL)) done under Google Summer Of Code 2016
+
+Project Documentation can be found under [https://docs.google.com/document/d/1HhX-R-VDQh3sSZ68pkLvRzGBVc0ib0NxJWMhTKhFslA/edit?usp=sharing](Link URL)
 
 ### Python requirements: ###
 
@@ -13,10 +15,16 @@ This particular implementation of privacy preserving similarity comparison betwe
         python 2.7.3
         (This is not tested in python3 runtime)
 
-* Python libraries
+* Python standard libraries
 
         bitarray (0.8.1)
         nltk (3.2.1)
+        numpy (1.11.0)
+
+* Additional Pythonlibraries
+
+        Febrl ([https://sourceforge.net/projects/febrl/](Link URL))
+        PPSPM ([http://dmm.anu.edu.au/PPSPM/](Link URL))
 
 * NLTk corpuses
 
@@ -57,15 +65,15 @@ This particular implementation of privacy preserving similarity comparison betwe
 
 #### 2. logs ####
 
-        Log files
+        Log files to record memory usage, execution time and precision, recall and f-measure (efficiency and effectiveness)
 
 #### 3. programs ####
-
-        * auxiliary.pyc
+       
         * match.py
         * TBF.py
         * test_textprocessor.py
         * textprocessor.py
+        * auxiliary.pyc
 
 #### 4. query ####
 
@@ -86,7 +94,7 @@ This particular implementation of privacy preserving similarity comparison betwe
 
 ### Who do I talk to? ###
 
-* Repo owner or admin (GSoC2016 Student)
+* Repo owner or admin
 
         Mathu Mounasamy
         mmounasamy@gmail.com
