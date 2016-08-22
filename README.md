@@ -112,3 +112,10 @@ Project Documentation can be found under [https://docs.google.com/document/d/1Hh
         Research School of Computer Science
         Australian National University (ANU)
         peter.christen@anu.edu.au
+
+
+### License ###
+
+The PPSPM-TextMM software is licensed under the GNU General Public License,
+version 3 (GPL-3.0). 
+[https://www.gnu.org/licenses/gpl-3.0.en.html](https://www.gnu.org/licenses/gpl-3.0.en.html)
