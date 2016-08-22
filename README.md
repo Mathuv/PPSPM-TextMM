@@ -82,11 +82,7 @@ This particular implementation of privacy preserving similarity comparison betwe
         * analyze_data.py
         * create_db.py
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
 
 ### Who do I talk to? ###
 
