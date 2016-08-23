@@ -21,12 +21,12 @@ Project Documentation can be found under [https://docs.google.com/document/d/1Hh
         nltk (3.2.1)
         numpy (1.11.0)
 
-* Additional Pythonlibraries
+* Additional Python libraries
 
         Febrl (https://sourceforge.net/projeLink URLjects/febrl/)
         PPSPM (http://dmm.anu.edu.au/PPSPM/)
 
-* NLTk corpuses
+* NLTK corpuses
 
         Stopwords
         PorterStemmer
@@ -42,11 +42,11 @@ Project Documentation can be found under [https://docs.google.com/document/d/1Hh
 
 * python preprocess.py
 
-        Runs preprocessing on raw data
+        Runs preprocessing separately on raw data
     
 * python match.py
 
-        Runs masking and matching on preprocessed data
+        Runs masking and matching separately on preprocessed data
 
 
 ### The folder structure: ###
@@ -60,33 +60,35 @@ Project Documentation can be found under [https://docs.google.com/document/d/1Hh
 
 #### 1. database ####
 
-        Contains the database datasets, results from each preprocessing step (step1 - step8) and 
-        final output of preprocessing under the directory /preprocessed
+  Contains the database datasets, results from each preprocessing step (step1 - step8) and final output of preprocessing under the directory /preprocessed
 
 #### 2. logs ####
 
-        Log files to record memory usage, execution time and precision, recall and f-measure (efficiency and effectiveness)
+  Log files to record memory usage, execution time and precision, recall and f-measure (efficiency and effectiveness)
 
 #### 3. programs ####
+
+  This is the main folder containing the python implementation of PPSPM-TextMM.
        
         * match.py
         * TBF.py
         * test_textprocessor.py
         * textprocessor.py
-        * auxiliary.pyc
+        * auxiliary.py
 
 #### 4. query ####
 
-        Contains the query datasets, results from each preprocessing step (step1 - step8) and 
+  Contains the query datasets, results from each preprocessing step (step1 - step8) and 
         final output of preprocessing under the directory /preprocessed
 
 #### 5. results ####
 
-        Final results showing matching records from database dataset for each record of query dataset
+  Final results showing matching records from database dataset for each record of query dataset
 
 #### 6. util ####
 
-        Some utility programs to create chunks of dataset and asses the raw data
+  Some utility programs to create chunks of dataset and asses the raw data
+
         * analyze_data.py
         * create_db.py
 
