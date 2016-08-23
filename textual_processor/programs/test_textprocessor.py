@@ -1,5 +1,3 @@
-import subprocess
-import sys
 import time
 import os
 import errno
@@ -8,69 +6,42 @@ import logging
 # Febrl modules
 import auxiliary
 
+from textprocessor import TextProc
+
+
 # Log everything, and send it to stderr.
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# number of similar eecords
-m_list = ['1','5','10']
-# number of tokens to represent a record
-t_list = ['5', '10', '20', '30', '50'] # DV: experiment more to plot the results - 5, 10, 20, 30, 50
-weight_list = ['TF', 'TF-IDF']
 
 dbfile = '../database/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 queryfile = '../query/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 
-# Regex filter to filter a section of the texttual data
-# regex_filter = r'(.*\s*)*' # filters everything
-# regex_filter = r'History of Present Illness:\s+((\S+\s)+)'
-regex_filter = r'History of Present Illness:\s+((\S+([\t ]{1,2}|\n?))+)'
-
-# cmd_line_list = ['python', 'textprocessor.py', dbfile, queryfile, '1', '11', regex_filter, '10' ,'10']
-
 start_time_temp = time.time()
-
-# for t in t_list:
-#      for m in m_list:
-#          for w in weight_list:
-#              cmd_line_list = ['python', 'textprocessor.py', dbfile, queryfile, '1', '11', regex_filter, t, m, w]
-#
-#              party_proc = subprocess.Popen(cmd_line_list)
-#
-#
-#              print '  Waiting for processes to complete...'
-#              print
-#
-#              ret_code = party_proc.wait()
-#              print 'finished.'
-#
-#              if (ret_code != 0):
-#                print 'returned code:', ret_code
-#                sys.exit()  # Stop experiment
-
 
 time_taken1 = time.time() - start_time_temp
 
-
-from textprocessor import TextProc;
-
-m_list2 = [1,5,10]
-t_list2 = [5,10,20,30,50]
-blk_attr_list = [6,7]
-id_col_no = 1
-text_col_no = 11
+m_list2 = [1, 5, 10]  # Number of similar records
+t_list2 = [5, 10, 20, 30, 50]   # Number of tokens to represent a record
+blk_attr_list = [6, 7]   # Blocking attributes
+# Type of token frequencies to consider in similarity calculation between counting Bloom filters
+weight_list = ['TF', 'TF-IDF']
+id_col_no = 1   # Identity column no
+text_col_no = 11    # Column no which contains the textual data
+# Regex filter to filter a section of the textual data
 regex_filter = r'History of Present Illness:\s+((\S+([\t ]{1,2}|\n?))+)'
 
 start_time_total = time.time()
 
-tproc = TextProc(t_list2,m_list2, weight_list,1000, id_col_no, text_col_no, blk_attr_list)
+tproc = TextProc(t_list2, m_list2, weight_list, 1000, id_col_no, text_col_no, blk_attr_list)
 
-# Preprocess DB records
+# Pre-process DB records
+#
 start_time = time.time()
 tproc.preprocess(dbfile, 1, 11, regex_filter, max(t_list2), True)
 preprocess_time_db = time.time() - start_time
 
 
-# Preprocess query records
+# Pre-process query records
+#
 start_time = time.time()
 tproc.preprocess(queryfile, id_col_no, text_col_no, regex_filter, max(t_list2), False)
 preprocess_time_query = time.time() - start_time
@@ -83,6 +54,7 @@ blocking_phase_time = time.time() - start_time
 
 
 # Log file to write the results
+#
 dbfilename_ext = os.path.basename(dbfile)
 dbfilename = os.path.splitext(dbfilename_ext)[0]
 
@@ -123,15 +95,13 @@ for t in t_list2:
 
             # Calculate total runtime for PP-SPM
             tot_time = preprocess_time_db + preprocess_time_query + matching_phase_time + masked_matching_phase_time
-            str_tot_time = '%.4f' % (tot_time)
+            str_tot_time = '%.4f' % tot_time
 
             # Calculate total memory usage for PP-SPM
             memo_usage = auxiliary.get_memory_usage()
             memo_usage_val = auxiliary.get_memory_usage_val()
             memo_usage_val = memo_usage_val if memo_usage_val else 0.0
-            str_mem_usage = '%.4f' % (memo_usage_val)
-
-
+            str_mem_usage = '%.4f' % memo_usage_val
 
             # write efficiency results into the log file
             log_file.write(str_tot_time + ',' + str_mem_usage + os.linesep)
@@ -147,22 +117,5 @@ for t in t_list2:
 
 
 time_taken2 = time.time() - start_time_total
-print '\ntime_taken1: %4f' % (time_taken1)
-print '\ntime_taken2: %4f' % (time_taken2)
-
-pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print '\ntime_taken1: %4f' % time_taken1
+print '\ntime_taken2: %4f' % time_taken2

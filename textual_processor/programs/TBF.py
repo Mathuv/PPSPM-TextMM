@@ -21,24 +21,19 @@ def mcalc_sim_tf_idf(cbf_tf1, cbf_idf1, cbf_tf2, cbf_idf2):
 
 def mcalc_sim_freq(cbf1, cbf2):
     """Calculate DC similarity only with tf (term frequency)"""
-    sum_min = 0
-
-    # for q, d in zip(cbf1, cbf2):
-    #     sum_min += min(q, d)
 
     sum_min = sum([min(i, j) for i, j in zip(cbf1, cbf2)])
 
     return 2 * sum_min / (sum(cbf1) + sum(cbf2))
 
 
-
 class TBF(object):
 
     """Textual Bloom Filter"""
 
-    def __init__(self,l=1000, k=20):
-        self.l = l # length of bloom filter
-        self.k = k # number of hash functions
+    def __init__(self, l=1000, k=20):
+        self.l = l  # length of bloom filter
+        self.k = k  # number of hash functions
 
         self.cbf_freq = [0] * l
         self.cbf_idf = [0] * l
@@ -66,14 +61,3 @@ class TBF(object):
                     self.cbf_idf[gi] += idf_list[idx]
 
         return (self.cbf_freq, self.cbf_idf) if idf_list else self.cbf_freq
-
-
-
-
-
-
-
-
-
-
-

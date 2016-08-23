@@ -10,14 +10,6 @@ count = 0
 # to include header record
 no_of_records += 1
 
-# with open(source_file_path,'r') as src_file:
-#     for line in src_file:
-#         count += 1
-#         with open(destination_file_path,'a') as des_file:
-#             des_file.writelines(line)
-#         if count == no_of_lines:
-#             break
-
 with open(source_file_path, 'rb') as src_file:
     filereader = csv.reader(src_file)
     with open(destination_file_path, 'wb') as des_file:

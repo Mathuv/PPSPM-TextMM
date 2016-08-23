@@ -2,7 +2,7 @@ import time
 import os
 import errno
 import logging
-from textprocessor import TextProc;
+from textprocessor import TextProc
 
 # Febrl modules
 import auxiliary
@@ -11,11 +11,11 @@ import auxiliary
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 weight_list = ['TF', 'TF-IDF']
-m_list = [1,5,10] # number of top matching recoords
-t_list = [5,10,20,30,50] # number of tokens
+m_list = [1, 5, 10]  # number of top matching records
+t_list = [5, 10, 20, 30, 50]  # number of tokens
 id_col_no = 1
 text_col_no = 11
-blk_attr_list = [6,7] # block attribute column numbers
+blk_attr_list = [6, 7]  # block attribute column numbers
 
 dbfile = '../database/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
 queryfile = '../query/preprocessed/NOTEEVENTS_DATA_TABLE_PARTIAL_20REC_NOTEEVENTS_DATA_TABLE_PARTIAL_20REC.csv'
@@ -26,10 +26,10 @@ start_time_total = time.time()
 dbfilename_ext = os.path.basename(dbfile)
 dbfilename = os.path.splitext(dbfilename_ext)[0]
 
-tproc = TextProc(t_list,m_list, weight_list,1000, id_col_no, text_col_no, blk_attr_list)
+tproc = TextProc(t_list, m_list, weight_list, 1000, id_col_no, text_col_no, blk_attr_list)
 
-tproc.read_preprocessed(dbfile, isDB=True)
-tproc.read_preprocessed(queryfile, isDB=False)
+tproc.read_preprocessed(dbfile, is_db=True)
+tproc.read_preprocessed(queryfile, is_db=False)
 
 # Blocking
 #
@@ -78,16 +78,14 @@ for t in t_list:
             # Calculate total runtime for PP-SPM
             #
             tot_time = matching_phase_time + masked_matching_phase_time
-            str_tot_time = '%.4f' % (tot_time)
+            str_tot_time = '%.4f' % tot_time
 
             # Calculate total memory usage for PP-SPM
             #
             memo_usage = auxiliary.get_memory_usage()
             memo_usage_val = auxiliary.get_memory_usage_val()
             memo_usage_val = memo_usage_val if memo_usage_val else 0.0
-            str_mem_usage = '%.4f' % (memo_usage_val)
-
-
+            str_mem_usage = '%.4f' % memo_usage_val
 
             # write efficiency results into the log file
             #
@@ -104,5 +102,5 @@ for t in t_list:
 
 
 time_taken = time.time() - start_time_total
-print '\ntime_taken2: %4f' % (time_taken)
+print '\ntime_taken2: %4f' % time_taken
 logging.debug('Query preprocess time %4f' % time_taken)
