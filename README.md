@@ -6,7 +6,7 @@
 
 This particular implementation of privacy preserving similarity comparison between attributes of textual data of patient records extends existing functionalities of PPSPM framework ([http://dmm.anu.edu.au/PPSPM/](http://dmm.anu.edu.au/PPSPM/)) done under Google Summer Of Code 2016
 
-Project Documentation can be found under [https://docs.google.com/document/d/1HhX-R-VDQh3sSZ68pkLvRzGBVc0ib0NxJWMhTKhFslA/edit?usp=sharing](https://docs.google.com/document/d/1HhX-R-VDQh3sSZ68pkLvRzGBVc0ib0NxJWMhTKhFslA/edit?usp=sharing)
+Detailed Project Documentation can be found under [https://docs.google.com/document/d/1HhX-R-VDQh3sSZ68pkLvRzGBVc0ib0NxJWMhTKhFslA/edit?usp=sharing](https://docs.google.com/document/d/1HhX-R-VDQh3sSZ68pkLvRzGBVc0ib0NxJWMhTKhFslA/edit?usp=sharing)
 
 ### Python requirements: ###
 
@@ -34,7 +34,7 @@ Project Documentation can be found under [https://docs.google.com/document/d/1Hh
 
 
 
-### Python command to run experiments: ###
+### Python commands to run experiments ###
 
 * python test_textprocessor.py
     
@@ -118,6 +118,5 @@ Project Documentation can be found under [https://docs.google.com/document/d/1Hh
 
 ### License ###
 
-The PPSPM-TextMM software is licensed under the GNU General Public License,
-version 3 (GPL-3.0). 
-[https://www.gnu.org/licenses/gpl-3.0.en.html](https://www.gnu.org/licenses/gpl-3.0.en.html)
+The PPSPM-TextMM software is licensed under the [GNU General Public License,
+version 3 (GPL-3.0)](https://www.gnu.org/licenses/gpl-3.0.en.html).
