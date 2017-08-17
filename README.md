@@ -4,7 +4,7 @@
 
 ### Private Medical Data Comparison  Functions for Similar Patient Matching ###
 
-This particular implementation of privacy preserving similarity comparison between attributes of textual data of patient records extends existing functionalities of PPSPM framework ([http://dmm.anu.edu.au/PPSPM/](http://dmm.anu.edu.au/PPSPM/)) done under Google Summer Of Code 2016
+This particular implementation of privacy preserving similarity comparison between attributes of textual data of patient records extends existing functionalities of PPSPM framework ([https://github.com/Mathuv/PPSPM](https://github.com/Mathuv/PPSPM)) done under Google Summer Of Code 2016
 
 Detailed Project Documentation can be found under [https://docs.google.com/document/d/1HhX-R-VDQh3sSZ68pkLvRzGBVc0ib0NxJWMhTKhFslA/edit?usp=sharing](https://docs.google.com/document/d/1HhX-R-VDQh3sSZ68pkLvRzGBVc0ib0NxJWMhTKhFslA/edit?usp=sharing)
 
